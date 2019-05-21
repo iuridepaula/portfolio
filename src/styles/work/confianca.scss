@@ -1,0 +1,339 @@
+#confianca {
+
+    .title { margin-bottom: 1rem }
+
+    .mobile-screens {
+        position: relative;
+        display: flex;
+        align-items: center;
+        margin: 4rem -25vw 4rem 0;
+
+        .screen{
+            flex: 0 0 auto;
+            height: 580px;
+            width: 230px;
+            overflow: hidden;
+            background: url(../../assets/work/confianca/mobile-screens.png) no-repeat 0 center;
+            background-size: 1261px 580px;
+
+            &.s2{
+                width: 260px;
+                background-position: -230px 0;
+            }
+            &.s3{
+                width: 286px;
+                background-position: -488px 0;
+            }
+            &.s4{
+                width: 260px;
+                background-position: -774px 0;
+            }
+            &.s5{
+                background-position: -1031px 0;
+            }
+        }
+    }
+
+    .scroll-pages{
+        position: relative;
+        z-index: -1;
+        user-select: none;
+        margin: 4rem -25vw 4rem 0;
+        padding-right: 2rem;
+
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .desktop {
+            width: 100%;
+            max-width: 70rem;
+            overflow: hidden;
+            border-radius: 1rem;
+            background: #fff;
+            position: relative;
+
+            &:before {
+                content: '';
+                display: block;
+                padding-top: 56.25%;
+            }
+        }
+
+        .mobile {
+            bottom: -5rem;
+            right: -4rem;
+            width: 427px;
+            height: 655px;
+            position: absolute;
+            background: url(../../assets/work/confianca/scroll-mobile-mockup.png) no-repeat 0 0;
+            background-size: 100% 100%;
+            transform: rotate(-25deg);
+
+            .case{
+                width: 182px;
+                height: 398px;
+                position: absolute;
+                top: 13px;
+                left: 68px;
+                overflow: hidden;
+                border-radius: 1rem;
+            }
+        }
+    }
+
+    .end-screens{
+        position: relative;
+        display: flex;
+        align-items: center;
+        margin: 4rem -25vw -20vh 0;
+        padding-right: 2rem;
+
+        .screen{
+            flex: 0 0 25%;
+            position: relative;
+            overflow: hidden;
+
+            background: url(../../assets/work/confianca/end-screens.png) no-repeat 0 center;
+            background-size: 400% 100%;
+
+            &:before {
+                content: '';
+                display: block;
+                padding-top: 139.28%;
+            }
+
+            &.s2{
+                background-position: 34% center;
+            }
+            &.s3{
+                background-position: 68% center;
+            }
+            &.s4{
+                background-position: 102% center;
+            }
+        }
+    }
+
+}
+
+//One Button to Rule Them All
+.oneButton-placeholder{
+    position: relative;
+
+    button{
+        font-size: 2rem;
+        letter-spacing: normal;
+        outline: none;
+
+        &:hover {
+            background: #4527a3;
+        }
+    }
+}
+.oneButton-container{
+    position: absolute;
+    bottom: 2rem;
+    left: calc(100% + 5rem);
+
+    .counter{
+        position: absolute;
+        bottom: calc(100% + .25rem);
+        left: 100%;
+        min-width: 1.5rem;
+        height: 1.5rem;
+        line-height: 1.5rem;
+        font-size: .8rem;
+        text-align: center;
+        padding: 0 .2rem;
+        border-radius: 1rem;
+        background: var(--purple);
+        color: var(--light);
+
+        &.v-enter-active,
+        &.v-leave-active { transition: all 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275) }
+        &.v-enter,
+        &.v-leave-to {
+            transform: translate3d(-100%,100%,0);
+            opacity: 0;
+        }
+    }
+}
+.oneButton{
+    background: var(--purple);
+    border-radius: .5rem;
+    max-width: 20vw;
+    width: 16rem;
+    height: 4rem;
+    color: #fff;
+    font-weight: 700;
+    transition: background 200ms ease-out;
+}
+.oneButton-aside{
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: .5rem;
+    transition: all 200ms ease-out;
+
+    button{
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 4rem;
+        height: 4rem;
+        transition: all 400ms cubic-bezier(0.19, 1, 0.22, 1);
+        background: #4d2bb5;
+        border-radius: .5rem 0 0 .5rem;
+
+        &.plus{
+            border-radius: 0 .5rem .5rem 0;
+        }
+    }
+
+    .label{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 4rem;
+        height: 4rem;
+        color: rgba(0,0,0,.5);
+        font-size: 1.5rem;
+        transition: all 200ms ease-out;
+    }
+
+    &.hide {
+        border-radius: .5rem;
+
+        button {
+            opacity: 0;
+            transform: translate3d(0,0,0);
+        }
+
+    }
+
+    &:hover{
+        background: #5630c9;
+        border-radius: 0;
+
+        .label { color: var(--light) }
+        .minus {
+            opacity: 1;
+            transform: translate3d(-100%,0,0);
+        }
+        .plus {
+            opacity: 1;
+            transform: translate3d(100%,0,0);
+        }
+
+        &.hide {
+            border-radius: .5rem;
+
+            button {
+                opacity: 0;
+                transform: translate3d(0,0,0);
+            }
+
+        }
+    }
+}
+
+@media screen and (max-width: 1024px) {
+
+    #confianca {
+        .end-screens,
+        .mobile-screens,
+        .scroll-pages{
+            margin-right: -4rem;
+        }
+
+        .mobile-screens {
+            transform-origin: 0 center;
+            transform: scale(.8);
+        }
+
+        .end-screens{
+            margin-bottom: -10vh;
+        }
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+
+    #confianca {
+        .mobile-screens {
+            margin-top: -4rem;
+            margin-bottom: -4rem;
+            transform-origin: 0 center;
+            transform: scale(.6);
+        }
+
+        .scroll-pages{
+            .mobile {
+                right: -12rem;
+                transform-origin: right bottom;
+                transform: rotate(-25deg) scale(.7);
+            }
+        }
+
+        .end-screens{
+            .screen{
+                transform: none !important;
+            }
+        }
+    }
+
+    .oneButton{ max-width: none }
+    .oneButton-container {
+        display: inline-block;
+        position: relative;
+        bottom: auto;
+        left: auto;
+        margin: 0 0 2rem;
+    }
+
+}
+
+@media screen and (max-width: 568px) {
+
+    #confianca {
+        .end-screens,
+        .mobile-screens,
+        .scroll-pages{
+            margin-right: -2rem;
+        }
+
+        .mobile-screens {
+            margin-top: -10rem;
+            margin-bottom: -10rem;
+            transform-origin: 0 center;
+            transform: scale(.3);
+        }
+
+        .scroll-pages{
+            .desktop { width: 135vw }
+            .mobile {
+                bottom: 0;
+                transform: rotate(-25deg) scale(.5);
+            }
+        }
+    }
+
+    .oneButton-container{
+        display: block;
+        margin-right: 3rem;
+    }
+    .oneButton { width: 100% }
+
+}

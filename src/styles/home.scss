@@ -1,0 +1,1357 @@
+//fonts
+@font-face {
+    font-family: 'SMW';
+    src: url('../assets/fonts/smw.woff2') format('woff2'), url('../assets/fonts/smw.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+// Home sytles
+#home {
+
+    .scene .static-container {
+        padding: 0;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+    }
+
+    /* @scene Intro */
+    #intro {}
+
+    /* @scene CurriculumVitae() */
+    #curriculum{}
+
+    /* @scene biz() */
+    #bizTitle {}
+
+    /* @scene Biz 1, 2, 3 */
+    #biz1 {
+        .static-container {
+            position: relative;
+            z-index: 2;
+        }
+        .container { z-index: unset }
+        svg{ overflow: visible }
+    }
+    #abiz{
+        position: absolute;
+        left: -5vw;
+        top: calc(50% - 15vw);
+        width: 30vw;
+        height: 30vw;
+        z-index: 10;
+        transform: rotateY(180deg);
+    }
+    #zen{
+        position: absolute;
+        left: calc(100% - 30vw);
+        top: 40vh;
+        z-index: 20;
+        width: 60vw;
+        height: 80vh;
+        transform: scale(2);
+    }
+    #et{
+        position: absolute;
+        right: 15vw;
+        top: 30vh;
+        z-index: 18;
+        width: 20vw;
+        height: 40vw;
+    }
+    #dino{
+        position: fixed;
+        right: 0;
+        bottom: -4vh;
+        z-index: 919;
+        width: 50vh;
+        height: 50vh;
+        cursor: pointer;
+
+        .dino-sounds {
+            opacity: 0;
+            stroke-dasharray: 74;
+            stroke-dashoffset: 0;
+            //animation: smoke 1s linear infinite;
+        }
+
+        @keyframes smoke {
+            from{
+                stroke-dasharray: 36;
+                stroke-dashoffset: 72;
+            }
+            to{
+                stroke-dasharray: 36;
+                stroke-dashoffset: 0;
+            }
+        }
+
+        &:hover{
+            transition: filter 200ms ease-out;
+            filter: brightness(1.2);
+
+            .dino-sounds {
+                opacity: 1;
+                animation: smoke 1s linear infinite;
+            }
+        }
+    }
+    #astro{
+        position: absolute;
+        right: 0;
+        bottom: 35vh;
+        width: 20vw;
+        height: 20vw;
+    }
+    #coffee{
+        position: absolute;
+        right: 15vw;
+        top: 35vh;
+        width: 5vw;
+        height: 5vw;
+    }
+    #filomena{
+        position: absolute;
+        right: 40vw;
+        bottom: 5vh;
+        width: 10vw;
+        height: 10vw;
+    }
+    #octo{
+        position: absolute;
+        right: 30vw;
+        top: 60vh;
+        width: 7vw;
+        height: 7vw;
+    }
+    #open{
+        position: absolute;
+        left: -20vw;
+        top: calc(50% - 20vw);
+        z-index: -1;
+        width: 40vw;
+        height: 40vw;
+    }
+    #custom{
+        position: absolute;
+        right: -25vw;
+        bottom: -25vw;
+        z-index: -1;
+        width: 50vw;
+        height: 50vw;
+    }
+    #smart{
+        position: absolute;
+        left: 5vw;
+        bottom: -5vw;
+        z-index: -2;
+        width: 20vw;
+        height: 20vw;
+        filter: brightness(.7);
+    }
+
+    /* @scene EarlyDays() */
+    #earlyTitle {
+        .clouds {
+            position: absolute;
+            width: 150vw;
+            height: 150vh;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            transform-origin: 50% 50%;
+            background: url('../assets/pepe/clouds-1.png') no-repeat center;
+            background-size: contain;
+            opacity: .5;
+
+            &.cloud-2 {
+                background-image: url('../assets/pepe/clouds-2.png');
+            }
+            &.cloud-3 {
+                background-image: url('../assets/pepe/clouds-3.png');
+                width: 100vw;
+                height: 100vh;
+                z-index: -1;
+                opacity: .25;
+            }
+        }
+        .pepe {
+            position: absolute;
+            z-index: 2;
+            top: 50%;
+            left: 100%;
+            transform: scale(.4) translate3d(0,-50%,0);
+            transform-origin: 0 0;
+
+            /*head*/
+            &.bg-head {
+                width: 1262px;
+                height: 1651px;
+                background: url('../assets/pepe/head.png') -1262px 0 no-repeat;
+                background-size: 200% 100%;
+            }
+            div { position: absolute }
+            .blink {
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: url('../assets/pepe/pepe-blink.png') 0 0 no-repeat;
+                background-size: 100% 100%;
+            }
+            .bg-head-ear {
+                top: 0;
+                left: 0;
+                z-index: 20;
+                width: 100%;
+                height: 100%;
+                background: url('../assets/pepe/head.png') 0 0 no-repeat;
+                background-size: 200% 100%;
+            }
+            /*am/pa*/
+            .bg-ampa_foliage_3 {
+                top: 178px;
+                left: 421px;
+                width: 278px; height: 267px;
+                background: url('../assets/pepe/am-pa.png') -10px -720px no-repeat;
+                background-size: 1007px 997px;
+            }
+            .bg-ampa_tree_2 {
+                top: 19px;
+                left: 291px;
+                width: 385px; height: 213px;
+                background: url('../assets/pepe/am-pa.png') -10px -487px no-repeat;
+                background-size: 1007px 997px;
+            }
+            .bg-ampa_foliage_2 {
+                top: 3px;
+                left: 548px;
+                width: 581px; height: 457px;
+                background: url('../assets/pepe/am-pa.png') -10px -10px no-repeat;
+                background-size: 1007px 997px;
+            }
+            .bg-ampa_parrot_wing {
+                top: 103px;
+                left: 792px;
+                width: 162px; height: 241px;
+                background: url('../assets/pepe/am-pa.png') -604px -720px no-repeat;
+                background-size: 1007px 997px;
+            }
+            .bg-ampa_foliage_1 {
+                top: 125px;
+                left: 593px;
+                width: 276px; height: 254px;
+                background: url('../assets/pepe/am-pa.png') -308px -720px no-repeat;
+                background-size: 1007px 997px;
+            }
+            .bg-ampa_ver_o_peso {
+                top: 221px;
+                left: 650px;
+                width: 311px; height: 206px;
+                background: url('../assets/pepe/am-pa.png') -415px -487px no-repeat;
+                background-size: 1007px 997px;
+            }
+            .bg-ampa_tree_1 {
+                top: 29px;
+                left: 465px;
+                width: 386px; height: 236px;
+                background: url('../assets/pepe/am-pa.png') -611px -10px no-repeat;
+                background-size: 1007px 997px;
+            }
+            .bg-ampa_oxes {
+                top: 145px;
+                left: 485px;
+                width: 176px; height: 164px;
+                background: url('../assets/pepe/am-pa.png') -611px -266px no-repeat;
+                background-size: 1007px 997px;
+            }
+            /*metals*/
+            .metals { z-index: 19 }
+            .bg-metals_sax {
+                top: 662px;
+                left: 647px;
+                width: 219px; height: 386px;
+                background: url('../assets/pepe/metals.png') 0 0 no-repeat;
+                background-size: 516px 385px;
+            }
+            .bg-metals_trumpet {
+                top: 584px;
+                left: 527px;
+                width: 297px; height: 124px;
+                background: url('../assets/pepe/metals.png') -219px 0 no-repeat;
+                background-size: 516px 385px;
+            }
+            .bg-metals_trombone_thing {
+                top: 95px;
+                left: 131px;
+                width: 243px; height: 25px;
+                background: url('../assets/pepe/metals.png') -219px -248px no-repeat;
+                background-size: 516px 385px;
+            }
+            .bg-metals_trombone {
+                top: 583px;
+                left: 670px;
+                width: 270px; height: 124px;
+                background: url('../assets/pepe/metals.png') -219px -124px no-repeat;
+                background-size: 516px 385px;
+            }
+            /*rio*/
+            .rio{}
+            .vase{
+                top: 893px;
+                left: 731px;
+                width: 260px; height: 249px;
+            }
+            .bg-rio_vase_foliage_1 {
+                top: 172px;
+                left: 125px;
+                width: 193px;
+                height: 157px;
+                background: url('../assets/pepe/rio.png') 0 -464px no-repeat;
+                background-size: 753px 621px;
+            }
+            .bg-rio_vase_foliage_2 {
+                top: 120px;
+                left: 42px;
+                width: 207px;
+                height: 195px;
+                background: url('../assets/pepe/rio.png') -489px -163px no-repeat;
+                background-size: 753px 621px;
+            }
+            .bg-rio_vase_foliage_3 {
+                top: 155px;
+                left: 26px;
+                width: 179px;
+                height: 75px;
+                background: url('../assets/pepe/rio.png') -489px -358px no-repeat;
+                background-size: 753px 621px;
+            }
+            .bg-rio_vase {
+                top: 0;
+                left: 0;
+                width: 260px; height: 249px;
+                background: url('../assets/pepe/rio.png') 0 -215px no-repeat;
+                background-size: 753px 621px;
+            }
+            .bg-rio_pao_cristo {
+                top: 856px;
+                left: 740px;
+                width: 311px; height: 215px;
+                background: url('../assets/pepe/rio.png') 0 0 no-repeat;
+                background-size: 753px 621px;
+            }
+            .bg-rio_palmtree_2 {
+                top: 874px;
+                left: 700px;
+                width: 264px; height: 163px;
+                background: url('../assets/pepe/rio.png') -489px 0 no-repeat;
+                background-size: 753px 621px;
+            }
+            .bg-rio_palmtree_1 {
+                top: 882px;
+                left: 637px;
+                width: 178px; height: 245px;
+                background: url('../assets/pepe/rio.png') -311px 0 no-repeat;
+                background-size: 753px 621px;
+            }
+            /*rio waterfall*/
+            .waterfall {
+                top: 992px;
+                left: 686px;
+                width: 264px;
+                height: 436px;
+                background: url('../assets/pepe/rio-waterfall.png') 0 0 no-repeat;
+                background-size: 1056px 436px;
+                animation: waterfall .25s steps(4) infinite;
+
+                @keyframes waterfall { to { background-position: -1056px 0 } }
+            }
+            /*minas*/
+            .minas{
+                top: 698px;
+                left: 824px;
+                width: 134px; height: 159px;
+                background: url('../assets/pepe/minas-church.png') 0 0;
+                background-size: 134px 159px;
+            }
+            /*keyboard*/
+            .keyboard{
+                top: 508px;
+                left: 917px;
+                width: 176px;
+                height: 332px;
+                background: url('../assets/pepe/keyboard.png') 0 0 no-repeat;
+                background-size: 176px 332px;
+            }
+            /*bonfim*/
+            .bonfim {
+                top: 438px;
+                left: 999px;
+                width: 242px;
+                height: 209px;
+                background: url('../assets/pepe/bonfim.png') no-repeat 0 0;
+                background-size: 1210px 209px;
+                opacity: .8;
+                animation: bonfim .37s steps(5) infinite;
+
+                @keyframes bonfim { to { background-position: -1210px 0 } }
+
+                &.b2{
+                    animation-duration: .54s;
+                    transform-origin: 0 center;
+                    transform: rotate(10deg);
+                }
+            }
+            .bonfim-church{
+                top: 386px;
+                left: 1046px;
+                width: 169px;
+                height: 224px;
+                background: url('../assets/pepe/salvador-church.png') no-repeat 0 0;
+                background-size: 100% 100%;
+            }
+            /*particles*/
+            .particles{
+                top: 1100px;
+                left: 831px;
+                .particle{
+                    width: 1rem;
+                    height: 1rem;
+                    border-radius: 100%;
+                    background: #b90068;
+
+                    &:nth-child(4n+1) { background: #b90068 }
+                    &:nth-child(4n+2) { background: #0dbdca }
+                    &:nth-child(4n+3) { background: #3a8419 }
+                    &:nth-child(4n+4) { background: #ffac1e }
+                }
+            }
+        }
+        .pepe-scenery {
+            z-index: -1;
+
+            .sky{
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: -1;
+                width: 100vw;
+                height: calc(100vh - 102px);
+                background: url(../assets/pepe/sky.jpg) no-repeat 0 0;
+                background-size: 100% 100%;
+            }
+            .ocean{
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                z-index: -1;
+                width: 100vw;
+                height: 102px;
+                background: url(../assets/pepe/ocean-base.jpg) no-repeat 0 0;
+                background-size: 100% 100%;
+                overflow: hidden;
+            }
+            .sky-mask{
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 10;
+                width: 100%;
+                height: 100%;
+                background: url(../assets/pepe/sky-mask.png) no-repeat 0 0;
+                background-size: 100% 100%;
+            }
+            .ocean-waves {
+                opacity: .9;
+                position: absolute;
+                top: 100%;
+                left: -10%;
+                width: 120%;
+                height: 200%;
+                background: url(../assets/pepe/ocean-waves.png) no-repeat center;
+                background-size: 100% 100%;
+
+                &.w2{
+                    background-size: 120% 120%;
+                    transform: rotateY(180deg);
+                }
+            }
+
+            &:after {
+                content: '';
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(to bottom, rgba(var(--bg-rgb),1) 40%, rgba(65,96,33,.2) 90%);
+            }
+        }
+    }
+
+    /* @scene ArtPhiGames() */
+    #ArtPhiGamesTitle {
+        .line { display: block }
+    }
+
+    /* @scene Mario */
+    #Mario{
+        z-index: 999;
+
+        .container {
+            // resize here for easy animation
+            transform: scale(.8);
+            transform-origin: center;
+
+            div { position: absolute }
+        }
+
+        audio { display: none }
+
+        .mario{
+            position: fixed !important;
+            top: calc(50% + 64px);
+            left: calc(25% - 96px);
+            width: 128px;
+            height: 248px;
+            background: url(../assets/mario/bg-mario.png) no-repeat 0 -384px;
+        }
+
+        .mario-box{
+            cursor: pointer;
+            top: calc(50% - 64px);
+            left: calc(25% - 64px);
+            width: 128px;
+            height: 128px;
+
+            &:before {
+                content: '1';
+                position: absolute;
+                top: calc(100% + 1rem);
+                left: calc(50% - 1rem);
+                font-size: 1rem;
+                text-align: center;
+                line-height: 2rem;
+                color: #ccc;
+                opacity: .5;
+                width: 2rem;
+                height: 2rem;
+                border: 1px solid #666;
+                border-top-color: #aaa;
+                border-bottom-color: #444;
+                border-radius: .25rem;
+                box-shadow: 0 .25rem .25rem rgba(0,0,0,1);
+            }
+
+            .in {
+                z-index: 2;
+                top: 0;
+                left: 0;
+                width: 128px;
+                height: 128px;
+                background: url(../assets/mario/bg-mario.png) no-repeat 0 0;
+                animation: marioBox .6s steps(4) infinite;
+            }
+
+            @keyframes marioBox {
+                from { background-position: 0 0 }
+                to { background-position: -512px 0 }
+            }
+            @keyframes marioBoxEmpty {
+                from { background-position: 0 -128px }
+                to { background-position: -512px -128px }
+            }
+
+            &.-jumped{
+                &:before { display: none }
+                .in { animation: marioBoxEmpty .6s steps(4) infinite }
+            }
+            &.-full.-jumped .in {
+                animation: none;
+                background-position: -512px 0;
+            }
+
+            &.b2 {
+                left: calc(50% - 64px);
+
+                &:before { content: '2' }
+            }
+            &.b3 {
+                left: calc(75% - 64px);
+
+                &:before { content: '3' }
+            }
+
+            &:hover { filter: brightness(1.2) }
+
+            &.-off{
+                cursor: default;
+                &:hover { filter: none }
+            }
+        }
+
+        .mario-coin{
+            left: 0;
+            bottom: 0;
+            width: 128px;
+            height: 128px;
+            background: url(../assets/mario/bg-mario.png) no-repeat 0 -256px;
+            animation: marioCoin .6s steps(4) infinite;
+            visibility: hidden;
+
+            @keyframes marioCoin { to { background-position: -512px -256px } }
+        }
+
+        .mario-coin-counter{
+            position: absolute;
+            top: 3rem;
+            left: calc(50% - 3rem);
+            width: 7rem;
+            text-align: center;
+            line-height: 3rem;
+            font-family: 'SMW', monospace;
+            font-size: 2rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+
+            &:before{
+                flex: 0 0 auto;
+                content: '';
+                margin-right: .5rem;
+                width: 2rem;
+                height: 2rem;
+                background: url(../assets/mario/bg-mario.png) no-repeat 0 -64px;
+                background-size: 160px 158px;
+            }
+        }
+    }
+    .mario-msg-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+    }
+    .mario-msg{
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        z-index: 9999;
+        transform: translate3d(-50%,-50%,0) scale(0);
+        transform-origin: 50% 50%;
+        width: 40rem;
+        height: 30rem;
+        padding: 2rem;
+        max-width: 70vw;
+        max-height: 70vh;
+        background: #000;
+        color: #fff;
+        font-family: 'SMW', monospace;
+        font-size: 2rem;
+        text-align: center;
+        letter-spacing: 2px;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+        justify-content: center;
+        user-select: none;
+
+        .-purple { color: var(--purple) }
+
+        .later{
+            color: var(--purple);
+            opacity: 0;
+            padding-top: 2rem;
+            position: static;
+            text-align: center;
+        }
+    }
+    .mario-msg-close {
+        position: absolute;
+        bottom: 100%;
+        right: 0;
+        width: 3rem;
+        height: 3rem;
+        color: #000;
+        font-size: 2rem;
+        background: none;
+    }
+
+    /* @scene Ghibli */
+    #Ghibli{
+
+        .container {
+            div { position: absolute }
+        }
+
+        .sky{
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+
+            .c1{
+                transform-origin: left bottom;
+                bottom: 0;
+                left: 0;
+                width: 45vw;
+                height: 50vh;
+                background: url(../assets/ghibli/cloud1.png) no-repeat 0 bottom;
+                background-size: contain;
+            }
+
+            .c2{
+                transform-origin: right bottom;
+                bottom: 0;
+                right: 0;
+                width: 60vw;
+                height: 60vh;
+                background: url(../assets/ghibli/cloud2.png) no-repeat right bottom;
+                background-size: contain;
+            }
+        }
+
+        .grass1{
+            transform-origin: left bottom;
+            bottom: 0;
+            left: 0;
+            width: 50vw;
+            height: 25vh;
+            transform: scale(1.2);
+            background: url(../assets/ghibli/grass1.png) no-repeat 0 bottom;
+            background-size: contain;
+            filter: blur(2px);
+        }
+        .grass2{
+            transform-origin: right bottom;
+            bottom: 0;
+            right: 0;
+            width: 40vw;
+            height: 20vh;
+            transform: scale(1.2);
+            background: url(../assets/ghibli/grass2.png) no-repeat right bottom;
+            background-size: contain;
+            filter: blur(2px);
+        }
+
+        .castle-container{
+            top: 70%;
+            left: 100%;
+            z-index: 0;
+            width: 733px;
+            height: 824px;
+            transform: scale(.75);
+            transform-origin: 0 0;
+        }
+        .castle {
+            width: 100%;
+            height: 100%;
+
+            .top {
+                top: 58px;
+                left: 44px;
+                width: 596px;
+                height: 420px;
+            }
+            .top-top{
+                top: 0;
+                left: 0;
+                width: 596px;
+                height: 420px;
+                background: url('../assets/ghibli/pieces.png') 0 0 no-repeat;
+                background-size: 865px 713px;
+            }
+            .top-tower {
+                top: -58px;
+                left: 102px;
+                width: 131px; height: 172px;
+                background: url('../assets/ghibli/pieces.png') -596px 0 no-repeat;
+                background-size: 865px 713px;
+            }
+            .top-clothes {
+                top: 36px;
+                left: 500px;
+                width: 130px;
+                height: 323px;
+                background: url('../assets/ghibli/clothes.png') no-repeat 0 0;
+                background-size: 390px 323px;
+                animation: clothes .25s steps(3) infinite;
+
+                @keyframes clothes {
+                    to {
+                        background-position: -390px 0;
+                    }
+                }
+            }
+
+            .bucket {
+                top: 499px;
+                left: 580px;
+                width: 15px; height: 54px;
+                background: url('../assets/ghibli/bucket.png') 0 0;
+            }
+            .mouth {
+                .back-lip {
+                    top: 550px;
+                    left: 71px;
+                    width: 150px; height: 150px;
+                    background: url('../assets/ghibli/pieces.png') 0 -563px no-repeat;
+                    background-size: 865px 713px;
+                }
+                .front-lip {
+                    top: 551px;
+                    left: 72px;
+                    width: 150px; height: 150px;
+                    background: url('../assets/ghibli/pieces.png') -150px -563px no-repeat;
+                    background-size: 865px 713px;
+                }
+            }
+
+            .l-leg {
+                top: 714px;
+                left: 409px;
+                width: 132px; height: 110px;
+                background: url('../assets/ghibli/pieces.png') -727px -140px no-repeat;
+                background-size: 865px 713px;
+            }
+            .r-leg {
+                top: 668px;
+                left: 462px;
+                width: 152px; height: 136px;
+                background: url('../assets/ghibli/pieces.png') -300px -563px no-repeat;
+                background-size: 865px 713px;
+            }
+            .l-arm {
+                top: 697px;
+                left: 191px;
+                width: 146px; height: 104px;
+                background: url('../assets/ghibli/pieces.png') -388px -420px no-repeat;
+                background-size: 865px 713px;
+            }
+            .body {
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: url('../assets/ghibli/body.png') no-repeat 0 0;
+                background-size: 100% 100%;
+            }
+            .fans {
+                top: 0;
+                left: 0;
+                z-index: -1;
+                width: 100%;
+                height: 100%;
+                .fan2 {
+                    width: 100%; height: 100%;
+                    background: url('../assets/ghibli/fan-2.png') 0 0 no-repeat;
+                    background-size: 2199px 824px;
+                    animation: fan1 .3s steps(3) infinite;
+                }
+                .fan1 {
+                    width: 100%; height: 100%;
+                    background: url('../assets/ghibli/fan-1.png') no-repeat 0 0;
+                    background-size: 2199px 824px;
+                    animation: fan1 .4s steps(3) infinite;
+
+                    @keyframes fan1 {
+                        to{ background-position: -2199px 0 }
+                    }
+                }
+                .fix-tail {
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: url('../assets/ghibli/fixed-tails.png') 0 0 no-repeat;
+                    background-size: 100% 100%;
+                }
+            }
+
+            .r-arm-holder {
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                .r-arm {
+                    top: 643px;
+                    left: 254px;
+                    width: 177px; height: 143px;
+                    background: url('../assets/ghibli/pieces.png') 0 -420px no-repeat;
+                    background-size: 865px 713px;
+                }
+                .fix-shoulder {
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: url('../assets/ghibli/fixed-shoulder.png') 0 0 no-repeat;
+                    background-size: 100% 100%;
+                }
+            }
+
+            .ear {
+                top: 523px;
+                left: 205px;
+                width: 70px;
+                height: 53px;
+                background: url('../assets/ghibli/ear.png') 0 0;
+            }
+            .lower-foliage {
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                .foliage2 {
+                    top: 360px;
+                    left: 244px;
+                    width: 121px; height: 99px;
+                    background: url('../assets/ghibli/pieces.png') -727px -250px no-repeat;
+                    background-size: 865px 713px;
+                }
+                .foliage1 {
+                    top: 417px;
+                    left: 307px;
+                    width: 110px; height: 62px;
+                    background: url('../assets/ghibli/pieces.png') -727px -349px no-repeat;
+                    background-size: 865px 713px;
+                }
+                .fix-balcony {
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: url('../assets/ghibli/fixed-balcony.png') 0 0 no-repeat;
+                    background-size: 100% 100%;
+                }
+            }
+
+            .wing {
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: url('../assets/ghibli/wing.png') no-repeat 0 0;
+                background-size: 4398px 824px;
+                animation: wing .4s steps(6) infinite alternate;
+
+                @keyframes wing {
+                    to {
+                        background-position: -4398px 0;
+                    }
+                }
+            }
+            .higher-foliage {
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                .foliage3 {
+                    top: 183px;
+                    left: 290px;
+                    width: 138px; height: 140px;
+                    background: url('../assets/ghibli/pieces.png') -727px 0 no-repeat;
+                    background-size: 865px 713px;
+                }
+                .foliage2 {
+                    top: 239px;
+                    left: 357px;
+                    width: 211px; height: 119px;
+                    background: url('../assets/ghibli/pieces.png') -177px -420px no-repeat;
+                    background-size: 865px 713px;
+                }
+                .foliage1 {
+                    top: 320px;
+                    left: 438px;
+                    width: 89px; height: 62px;
+                    background: url('../assets/ghibli/pieces.png') -727px -411px no-repeat;
+                    background-size: 865px 713px;
+                }
+                .fix-roof {
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: url('../assets/ghibli/fixed-roof.png') 0 0 no-repeat;
+                    background-size: 100% 100%;
+                }
+            }
+
+            .flag {
+                top: 323px;
+                left: 429px;
+                width: 53px; height: 30px;
+                background: url('../assets/ghibli/flag.png') 0 0;
+
+                animation: flag .2s steps(2) infinite;
+
+                @keyframes flag {
+                    to {
+                        background-position: -106px 0;
+                    }
+                }
+            }
+        }
+    }
+
+    /*@scene Wrapper*/
+    #wrapperTitle{
+
+        .title{ color: var(--purple) }
+        .std { font-size: 1rem }
+        .-answer{ opacity: .6 }
+
+    }
+
+    /*@scene Thanks*/
+    #thanks{
+        position: relative;
+
+        &:before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+            opacity: .3;
+            mask-image: linear-gradient(to bottom, transparent 0, black 10vh);
+            background: url(../assets/goya.png) no-repeat 0 bottom;
+            background-size: auto 100%;
+        }
+
+        #potion{
+            width: 6rem;
+            height: 6rem;
+        }
+
+        .madeof{
+            margin-bottom: 20vh;
+        }
+
+        .-big{
+            a:hover{ filter: brightness(1.4) }
+        }
+
+        .cols{
+            display: grid;
+            grid-template: 1fr / repeat(auto-fit, minmax(150px,auto));
+            grid-gap: 2rem;
+            color: var(--purple);
+            font-size: 1rem;
+
+            li.ico{
+                min-height: 0;
+                margin-bottom: 2rem;
+            }
+
+            svg{
+                width: 1rem;
+                height: 1rem;
+                fill: var(--purple)
+            }
+        }
+
+        a{
+            text-decoration: none;
+            display: block;
+            min-height: 2rem;
+        }
+        ul,
+        li {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            line-height: 1.5em;
+        }
+
+        .songs{
+            li{
+                float: left;
+                clear: left;
+                transition: all 300ms ease-out;
+                cursor: pointer;
+
+                &.ico{ display: block }
+
+                a{ color: var(--purple) }
+                a:hover{
+                    color: var(--light);
+                }
+            }
+        }
+
+    }
+
+    // standard text
+    .std {
+        font-size: 1.2rem;
+
+        .-big{
+            display: block;
+            font-size: 4rem;
+            font-weight: 700;
+            word-spacing: -.1em;
+            letter-spacing: -.05em;
+            width: 70vw;
+        }
+    }
+
+}
+
+//stop scrolling
+body.-mario-lock {
+    overflow: hidden;
+
+    #header,
+    .wrapper:after,
+    .spine,
+    .spine-target {
+        transition: opacity 200ms ease-out;
+        opacity: 0 !important;
+        //visibility: hidden;
+    }
+
+    &:before{
+        content: '?';
+        font-family: 'SMW', monospace;
+        font-size: 4rem;
+        color: #fff;
+        position: fixed;
+        top: 8rem;
+        left: calc(50% - 2.5rem);
+        width: 5rem;
+        text-align: center;
+    }
+}
+
+// Mario easter-egg
+body.-mario-easter-egg {
+    overflow: hidden;
+
+    #home { z-index: 999 }
+}
+body.-bit16 {
+    //font-family: 'SMW', monospace;
+}
+
+/* Responsive */
+@media screen and (max-width: 1024px) {
+
+    #home {
+
+        /* @element .spine */
+        .spine { left: 1rem }
+        .spine-target{ left: calc(1rem - 4px) }
+
+        /* @scene Biz 1, 2, 3 */
+        #abiz{
+            top: auto;
+            bottom: 0;
+        }
+        #dino{
+            right: -5vw;
+            bottom: -20vh;
+            width: 70vh;
+            height: 70vh;
+        }
+        #open{
+            top: auto;
+            bottom: -10vw;
+        }
+        #smart{ left: 10vw }
+
+        /* @scene Mario */
+        #Mario{
+            .container {
+                transform: scale(1);
+            }
+
+            .mario{
+                transform-origin: 50% 0;
+                transform: scale(.8);
+            }
+
+            .mario-box{
+                transform-origin: 50% 100%;
+                transform: scale(.8);
+                .in {
+                    position: relative;
+                }
+            }
+
+            .mario-coin-counter{
+                top: 6rem;
+                font-size: 1.5rem;
+
+                &:before{
+                    transform: scale(.8);
+                }
+            }
+        }
+
+        // standard text
+        .std {
+            .-big{
+                font-size: 3.5rem;
+                width: 90vw;
+            }
+        }
+
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+
+    #home {
+
+        /* @scene Biz 1, 2, 3 */
+        #abiz{
+            width: 50vw;
+            height: 50vh;
+        }
+        #zen{
+            top: 65vh;
+            width: 50vw;
+            height: 60vh;
+        }
+        #dino{
+            width: 60vh;
+            height: 60vh;
+        }
+        #open{
+            width: 60vw;
+            height: 60vh;
+        }
+        #smart{
+            width: 30vw;
+            height: 30vw;
+            left: 20vw
+        }
+
+        /* @scene Mario */
+        #Mario{
+            .mario-box{
+                &:before { display: none }
+            }
+        }
+
+        /* @scene Ghibli */
+        #Ghibli{
+
+            .sky{
+                .c1,
+                .c2{
+                    width: 100vw;
+                    height: 90vh;
+                    background-size: 100% auto;
+                }
+            }
+
+        }
+
+        /*@scene Thanks*/
+        #thanks{
+            li {
+                margin-bottom: .5rem;
+            }
+        }
+
+        // standard text
+        .std {
+            .-big{
+                width: 100%;
+            }
+        }
+
+    }
+
+}
+
+@media screen and (max-width: 568px) {
+
+    #home {
+
+        /* @scene Biz 1, 2, 3 */
+        #astro{
+            right: 0;
+            bottom: 55vh;
+            width: 20vh;
+            height: 20vh;
+        }
+        #coffee{
+            right: 15vh;
+            top: 20vh;
+            width: 5vh;
+            height: 5vh;
+        }
+
+        /* @scene EarlyDays() */
+        #earlyTitle {
+            .pepe {
+                transform: scale(.2) translate3d(0,-50%,0);
+            }
+            .pepe-scenery {
+                z-index: -1;
+
+                .sky{
+                    height: calc(100vh - 52px);
+                }
+                .ocean{
+                    height: 52px;
+                }
+            }
+        }
+
+        /* @scene ArtPhiGames() */
+        #ArtPhiGamesTitle {
+            .title {
+                white-space: nowrap;
+            }
+        }
+
+        /* @scene Mario */
+        #Mario{
+
+            .mario{ transform: scale(.5) }
+            .mario-box{ transform: scale(.5) }
+
+        }
+        .mario-msg{
+            padding: 1rem;
+            max-width: 80vw;
+            font-size: 1.2rem;
+
+            .later{
+                padding-top: 1rem;
+            }
+        }
+
+        /* @scene Ghibli */
+        #Ghibli{
+
+            .castle-container{
+                transform: scale(.3);
+            }
+        }
+
+        // title
+        .title { white-space: nowrap }
+
+        // standard text
+        .std {
+            font-size: 1rem;
+            .-big{ font-size: 2rem }
+        }
+
+    }
+
+}

@@ -1,0 +1,23 @@
+{
+  "name": "Iuri de Paula - Portfolio",
+  "lang": "en-US",
+  "short_name": "iuri.is",
+  "theme_color": "#0e1212",
+  "background_color": "#0e1212",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
