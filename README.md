@@ -37,9 +37,13 @@ The main idea will be to allow you guys to re-use all animated components easily
 2. Install dependencies
 3. Run 
 
-```sh
-// ...after cloning the repo in your machine
+After cloning the repo in your machine
 
+```
 npm install
+```
+```
 npm start
 ```
+
+That's it 🎉
