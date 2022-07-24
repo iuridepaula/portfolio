@@ -28,3 +28,18 @@ I'm currently working on a new portfolio to replace this old one, but since many
 
 I'll publish a new version built with React, and another one with Vue. 
 The main idea will be to allow you guys to re-use all animated components easily on your own projects.
+
+---
+
+### Hot to run
+
+1. Clone this repo ([how to clone a repo](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository))
+2. Install dependencies
+3. Run 
+
+```sh
+// ...after cloning the repo in your machine
+
+npm install
+npm start
+```
