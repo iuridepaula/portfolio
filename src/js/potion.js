@@ -12,8 +12,6 @@ export default {
     },
     build() {
         let bottle = document.getElementById('potion'),
-            liquid = document.querySelector('.potion-liquids'),
-            drops = document.querySelector('.potion-drops'),
             drop = document.querySelector('.potion-drop'),
             drop2 = document.querySelector('.potion-drop2');
 
@@ -29,13 +27,6 @@ export default {
                 yoyo: true,
                 ease: Power2.easeInOut
             })
-            .to([liquid, drops], 3, {
-                transformOrigin: '50% 50%',
-                rotation: -15,
-                repeat: -1,
-                yoyo: true,
-                ease: Power2.easeInOut
-            }, 'start')
             .fromTo(drop, .5, {
                     yPercent: 100,
                     rotation: 0,
