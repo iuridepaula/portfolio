@@ -58,8 +58,6 @@
                         </ul>
                         <ul class="col">
                             <li class="ico">~</li>
-                            <li>72 files</li>
-                            <li>5MB</li>
                             <li>+220h of thinking</li>
                             <li>+76 hours of code</li>
                             <li>+62 cups of coffee</li>
@@ -105,14 +103,6 @@
                 <p>
                     Thanks for checking my website!<br>
                     <span class="-comment">// It's a work in progress so check back often!</span>
-                </p>
-                <p class="-big">
-                    Check out my
-                    <router-link to="/work" title="Work" class="-purple">selected works</router-link>
-                    for more details.
-                </p>
-                <p>
-                    I am available for new projects and a coffee <span class="-purple">;)</span>
                 </p>
             </div>
 
