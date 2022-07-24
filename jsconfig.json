@@ -1,3 +1,6 @@
 {
-  "include": ["./src/**/*"]
+  "include": ["./src/**/*"],
+  "compilerOptions": {
+    "jsx": "preserve"
+  }
 }
