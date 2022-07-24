@@ -86,6 +86,16 @@
     import Mario from "@/js/mario";
     import Castle from "@/js/ghibli";
 
+    function removeBodyClass(...classes){
+        document.body.classList.remove(...classes)
+    }
+
+    function addBodyClass(...classes){
+        if (document.querySelector('#app.page-home')) {
+            document.body.classList.add(...classes)
+        }
+    }
+
     export default {
         name: 'HomeView',
         props: {
@@ -156,11 +166,21 @@
             Pepe.stop();
             Potion.stop();
             Mario.stop();
-            // kill time lines
-            this.timeLines.map(tl => tl.kill());
-            // destroy ScrollMagic controller
-            this.scroller.destroy();
 
+            // kill time lines
+            this.timeLines.forEach(timeLine => timeLine.kill());
+            this.timeLines = []
+            this.tweeners.forEach(tweener => tweener.kill());
+            this.tweeners = []
+            
+            // destroy ScrollMagic
+            this.scroller.destroy(true);
+            this.scroller = null;
+            this.scenes.forEach(scene => {
+                scene.on('enter', () => undefined)
+                scene.destroy(true)
+            })
+            this.scenes = []
         },
         methods: {
             setupScenes() {
@@ -330,7 +350,7 @@
                         if (e.scrollDirection === 'REVERSE') {
                             Pepe.play();
                             // release mario body lock and remove bg
-                            document.body.classList.remove('-mario-lock', '-mario-bg');
+                            removeBodyClass('-mario-lock', '-mario-bg');
                         }
                     });
                 this.scenes[10] /** @Mario **/
@@ -341,7 +361,7 @@
                         }
                         if (e.scrollDirection === 'REVERSE') {
                             // add bg just in case
-                            document.body.classList.add('-mario-bg');
+                            addBodyClass('-mario-bg');
                         }
                     })
                     .on('leave', (e) => {
@@ -356,34 +376,35 @@
                         if (e.scrollDirection === 'FORWARD') {
                             Castle.play();
                             // release mario body lock
-                            document.body.classList.remove('-mario-lock');
+                            removeBodyClass('-mario-lock');
                         }
                         if (e.scrollDirection === 'REVERSE') {
                         }
 
                         // add bg just in case in both directions
-                        document.body.classList.add('-mario-bg');
+                        console.log('here')
+                        addBodyClass('-mario-bg');
                     });
                 this.scenes[12]
                     .on('enter', (e) => {
                         // add bg just in case in both directions
-                        document.body.classList.add('-mario-bg');
+                        addBodyClass('-mario-bg');
                     });
                 this.scenes[13]
                     .on('enter', (e) => {
                         // add bg just in case in both directions
-                        document.body.classList.add('-mario-bg');
+                        addBodyClass('-mario-bg');
                     });
                 this.scenes[14]
                     .on('enter', (e) => {
                         // add bg just in case in both directions
-                        document.body.classList.add('-mario-bg');
+                        addBodyClass('-mario-bg');
                     });
                 this.scenes[15]
                     .on('enter', (e) => {
                         if (e.scrollDirection === 'FORWARD') {
                             // remove bg
-                            document.body.classList.remove('-mario-bg');
+                            removeBodyClass('-mario-bg');
                         }
                         if (e.scrollDirection === 'REVERSE') {
                             Castle.play();
@@ -396,7 +417,7 @@
                         }
                         if (e.scrollDirection === 'REVERSE') {
                             // add bg
-                            document.body.classList.add('-mario-bg');
+                            addBodyClass('-mario-bg');
                         }
                     });
                 ;

@@ -241,6 +241,7 @@ export default {
 
         // garbage
         window.removeEventListener('keydown', this.accessibilityClick);
+        document.body.classList.remove('-mario-lock', '-mario-bg');
 
     },
 

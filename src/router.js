@@ -58,8 +58,7 @@ const router = new Router({
     {
       path: '/about',
       name: '.about()',
-      component: () =>
-        import(/* webpackChunkName: "about" */ './views/About.vue'),
+      component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
       meta: {
         title: 'iuri.about',
         bodyClass: 'page-about',
@@ -204,7 +203,19 @@ router.afterEach(() => {
   setTimeout(() => {
     window.scroll(0, 0)
     NProgress.done()
-    document.body.classList.remove('locked')
+
+    document.body.classList.remove(
+      'locked',
+      '-mario-lock',
+      '-mario-easter-egg',
+      '-bit16',
+      '-mario-played',
+      '-open-nav',
+      '-mario-bg',
+      '-admin-bg',
+      '-confianca-bg',
+      '-desbravando-bg'
+    )
   }, 1000)
 })
 
