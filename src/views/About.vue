@@ -59,7 +59,7 @@
             <li>
               Download my
               <a
-                href="./Iuri-de-Paula-Resume.pdf"
+                href="./iuri.depaula.cv.pdf"
                 target="_blank"
                 title="Download CV"
                 class="bt"
