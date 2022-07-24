@@ -26,9 +26,8 @@
 
                 <ul>
                     <li><router-link to="/" title="Home">.is()</router-link></li>
-                    <li><router-link to="/work" title="Selected works">.work()</router-link></li>
                     <li><router-link to="/about" title="About me">.about()</router-link></li>
-                    <li><a href="mailto:depaula.iuri@gmail.com" title="Send me an email">.contact()</a></li>
+                    <li><a href="mailto:depaula.iuri@gmail.com" title="Send me an email">.email()</a></li>
                     <li class="social-link">
                         <a href="https://www.linkedin.com/in/iuridepaula/" target="_blank" title="LinkedIn">
                             <svg xmlns="http://www.w3.org/2000/svg" class="ico" viewBox="0 0 16 16" role="img" aria-labelledby="LinkedinIcoTitle">
