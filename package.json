@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "start": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
@@ -25,10 +25,10 @@
     "babel-eslint": "^10.0.1",
     "compression-webpack-plugin": "^2.0.0",
     "eslint": "^5.16.0",
-    "eslint-plugin-vue": "^5.0.0",
+    "eslint-plugin-vue": "^9.2.0",
     "fibers": "^4.0.1",
     "node-sass": "^4.12.0",
-    "sass": "^1.19.0",
+    "sass": "^1.54.0",
     "sass-loader": "^7.1.0",
     "vue-router": "^3.0.6",
     "vue-template-compiler": "^2.5.21",

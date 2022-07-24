@@ -87,7 +87,7 @@
     import Castle from "@/js/ghibli";
 
     export default {
-        name: 'home',
+        name: 'HomeView',
         props: {
             viewport: Object,
         },
@@ -140,7 +140,7 @@
             this.sceneWrapper();
 
         },
-        beforeDestroy() {
+        beforeUnmount() {
 
             // stop loop animations
             BizBiz.stop();
