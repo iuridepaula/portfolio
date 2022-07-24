@@ -10,6 +10,7 @@
   "dependencies": {
     "vue": "^2.6.6",
     "vue-analytics": "^5.16.4",
+    "vue-router": "^3.0.6",
     "gsap": "^2.1.2",
     "scrollmagic": "^2.0.6",
     "scrollmagic-plugin-gsap": "^1.0.3",
@@ -30,7 +31,6 @@
     "node-sass": "^4.12.0",
     "sass": "^1.54.0",
     "sass-loader": "^7.1.0",
-    "vue-router": "^3.0.6",
     "vue-template-compiler": "^2.5.21",
     "workbox-webpack-plugin": "^4.3.1"
   }
