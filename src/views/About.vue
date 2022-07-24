@@ -2,7 +2,7 @@
   <div id="about" class="wrapper">
     <div class="static-container">
       <h1 class="title">
-        about(iuri)
+        about(<span class="params">iuri</span>)
       </h1>
 
       <div class="std">
