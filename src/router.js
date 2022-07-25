@@ -58,7 +58,7 @@ const router = new Router({
     {
       path: '/about',
       name: '.about()',
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
+      component: () => import('./views/About.vue'),
       meta: {
         title: 'iuri.about',
         bodyClass: 'page-about',
@@ -97,9 +97,14 @@ const router = new Router({
       },
     },
     {
+      path: '/foo',
+      name: 'Foo',
+      component: () => import('./views/Foo.vue')
+    },
+    {
       path: '*',
       name: `.err(404)`,
-      component: () => import(/* webpackChunkName: "404" */ './views/404.vue'),
+      component: () => import('./views/404.vue'),
       meta: {
         title: `iuri.err(404)`,
         bodyClass: 'page-err404',
