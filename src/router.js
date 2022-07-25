@@ -97,9 +97,9 @@ const router = new Router({
       },
     },
     {
-      path: '/foo',
-      name: 'Foo',
-      component: () => import('./views/Foo.vue')
+      path: '/preview/:character',
+      name: 'Preview',
+      component: () => import('./views/Preview.vue')
     },
     {
       path: '*',
