@@ -12,12 +12,6 @@ Vue.use(VueAnalytics, {
   router,
 })
 
-// service worker
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/iuri.is-sw.js')
-  })
-}
 
 // instance
 new Vue({
