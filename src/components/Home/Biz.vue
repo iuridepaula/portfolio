@@ -8,9 +8,9 @@
       <div class="static-container">
         <div class="std">
           <p class="-big">
-            For the past 8 years, I was the
-            <strong class="-purple">Head of Product Design and Frontend</strong>
-            at
+            For the past 8 years, I was
+            <strong class="-purple">Head Frontend & UX</strong>
+            @
             <a
               href="https://www.bizcommerce.com.br/"
               target="_blank"
@@ -49,7 +49,7 @@
           <p>
             Throughout these years we delivered over
             <span class="-big -purple"
-              >200 tools, modules, APIs, themes, and customized projects</span
+              >200 tools, modules, integrations, and custom projects</span
             >
             for hundreds of online stores and services.
           </p>
@@ -60,10 +60,10 @@
       <div class="static-container">
         <div class="std">
           <p>
-            biz currently runs on
+            biz currently runs 
             <span class="-big">
-              <span class="-purple">600+ stores</span>, payment/shipping
-              services and
+              <span class="-purple">+1200 stores</span>, payment & shipping
+              integrations and
               <span class="-purple">thousands of transactions</span> daily.
             </span>
           </p>
