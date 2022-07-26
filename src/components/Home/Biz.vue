@@ -9,25 +9,19 @@
         <div class="std">
           <p class="-big">
             For the past 8 years, I was
-            <strong class="-purple">Head Frontend & UX</strong>
+            <strong class="-purple">Head of Frontend</strong>
             @
             <a
               href="https://www.bizcommerce.com.br/"
               target="_blank"
               title="Visit Biz Commerce's website"
-              >biz</a
+            >
+              biz</a
             >.
           </p>
           <p>
             A SaaS e-commerce platform with a focus on simplifying and
-            customizing the use of
-            <a
-              href="https://magento.com/"
-              target="_blank"
-              title="Visit Magento's website"
-              class="disguised-link"
-              >Magento</a
-            >.
+            customizing the use of Magento.
           </p>
         </div>
       </div>
@@ -47,11 +41,11 @@
       <div class="static-container">
         <div class="std">
           <p>
-            Throughout these years we delivered over
-            <span class="-big -purple"
-              >200 tools, modules, integrations, and custom projects</span
-            >
-            for hundreds of online stores and services.
+            Throughout these years we delivered hundreds of
+            <span class="-big -purple">
+              tools, modules, integrations, and custom projects
+            </span>
+            for online stores and service providers.
           </p>
         </div>
       </div>
@@ -60,10 +54,10 @@
       <div class="static-container">
         <div class="std">
           <p>
-            biz currently runs 
+            biz currently runs
             <span class="-big">
               <span class="-purple">+1200 stores</span>, payment & shipping
-              integrations and
+              integrations with
               <span class="-purple">thousands of transactions</span> daily.
             </span>
           </p>
