@@ -1,5 +1,5 @@
 <template>
-  <div id="foo" class="wrapper">
+  <div>
     <Component :is="$route.params.character" :isPlaying="isPlaying" class="character" />
     <button
       @click="toggle"
@@ -16,7 +16,9 @@ const Astronaut = () => import('../components/Characters/Astronaut')
 const CoffeeMug = () => import('../components/Characters/CoffeeMug')
 const Dino = () => import('../components/Characters/Dino')
 const ET = () => import('../components/Characters/ET')
+const Ocean = () => import('../components/Characters/Ocean')
 const Octopus = () => import('../components/Characters/Octopus')
+const Pepe = () => import('../components/Characters/Pepe')
 const Shapes = () => import('../components/Characters/Shapes')
 const Shrimp = () => import('../components/Characters/Shrimp')
 const Zen = () => import('../components/Characters/Zen')
@@ -29,7 +31,9 @@ export default {
     CoffeeMug,
     Dino,
     ET,
+    Ocean,
     Octopus,
+    Pepe,
     Shapes,
     Shrimp,
     Zen,
@@ -49,8 +53,7 @@ export default {
 
 <style>
 .character {
-  border: 1px solid cyan;
-  width: 50%;
+  max-width: 70%;
   margin: 6rem auto 2rem;
 }
 </style>

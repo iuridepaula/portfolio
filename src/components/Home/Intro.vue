@@ -6,16 +6,18 @@
         <span class="func">.is()</span>
       </h1>
 
-      <div class="std">
+      <TextBlock>
         <p class="-purple">Iuri de Paula</p>
         <p class="-gray">Creative frontend developer</p>
-      </div>
+      </TextBlock>
     </div>
   </section>
 </template>
 
 <script>
+import TextBlock from '../TextBlock.vue'
 export default {
-  name: 'IntroSection',
+  name: 'IntroScene',
+  components: { TextBlock },
 }
 </script>

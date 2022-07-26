@@ -1,130 +1,120 @@
 <template>
-    <div>
-        <Titles :viewport="viewport" scene="earlyTitle">
-            <h1 class="title" v-if="viewport.is568">
-                EarlyDays<br>
-                (<span class="params">2011,2008</span>)
-            </h1>
-            <h1 class="title" v-else>
-                EarlyDays(<span class="params">2008,2011</span>)
-            </h1>
+  <div class="earlyDays">
+    <TitleSection scene="earlyTitle">
+      <TitleFunction params="2008,2011" subtitle="&lt;table&gt;"
+        >earlyDays</TitleFunction
+      >
 
-            <div class="std">
-                <p class="-gray">&lt;table-yes&gt;</p>
-            </div>
+      <div class="clouds cloud-1"></div>
 
-            <div class="clouds cloud-1"></div>
+      <Pepe v-bind="{ isPlaying }" />
 
-            <div class="pepe bg-head">
-                <div class="blink"></div>
-                <div class="keyboard"></div>
-                <div class="minas"></div>
-                <div class="rio">
-                    <div class="particles"></div>
-                    <div class="vase">
-                        <div class="bg-rio_vase_foliage_3"></div>
-                        <div class="bg-rio_vase_foliage_2"></div>
-                        <div class="bg-rio_vase_foliage_1"></div>
-                        <div class="bg-rio_vase"></div>
-                    </div>
-                    <div class="bg-rio_pao_cristo"></div>
+      <div class="clouds cloud-2"></div>
+      <div class="clouds cloud-3"></div>
 
-                    <div class="waterfall"></div>
+      <Ocean v-bind="{ isPlaying }" />
+    </TitleSection>
 
-                    <div class="bg-rio_palmtree_1"></div>
-                    <div class="bg-rio_palmtree_2"></div>
-                </div>
-                <div class="am-pa">
-                    <div class="bg-ampa_foliage_3"></div>
-                    <div class="bg-ampa_tree_2"></div>
-                    <div class="bg-ampa_foliage_2"></div>
-                    <div class="bg-ampa_parrot_wing"></div>
-                    <div class="bg-ampa_foliage_1"></div>
-                    <div class="bg-ampa_ver_o_peso"></div>
-                    <div class="bg-ampa_tree_1"></div>
-                    <div class="bg-ampa_oxes"></div>
-                </div>
-                <div class="metals">
-                    <div class="bg-metals_sax"></div>
-                    <div class="bg-metals_trumpet"></div>
-                    <div class="bg-metals_trombone">
-                        <div class="bg-metals_trombone_thing"></div>
-                    </div>
-                </div>
-
-                <div class="bonfim-church"></div>
-                <div class="bonfim b1"></div>
-
-                <div class="ear bg-head-ear"></div>
-            </div>
-
-            <div class="clouds cloud-2"></div>
-            <div class="clouds cloud-3"></div>
-
-            <div class="pepe-scenery" role="img" aria-labelledby="pepeDesc">
-                <p class="ariaLabel" id="pepeDesc">A floating head carrying musical instruments in the ear, foliage
-                    and monuments in the hair, flies over a greenish ocean during the sunset</p>
-                <div class="sky"></div>
-                <div class="ocean">
-                    <div class="sky-mask"></div>
-                    <div class="ocean-waves w1"></div>
-                    <div class="ocean-waves w2"></div>
-                </div>
-            </div>
-        </Titles>
-
-        <section class="scene" id="early-days">
-            <div class="static-container">
-                <div class="std">
-                    <p>
-                        Design & illustration.
-                    </p>
-                    <p class="-big">
-                        A frontend developer<br>
-                        <span class="-purple">with one foothold in arts.</span>
-                    </p>
-                </div>
-            </div>
-        </section>
-        <section class="scene" id="early-days2">
-            <div class="static-container">
-                <div class="std">
-                    <p class="-big">
-                        <span class="-purple">Freelancing</span> & <span class="-purple">startuping,</span><br>
-                        <span class="-purple">Inches</span> & <span class="-purple">pixels.</span>
-                    </p>
-                    <p>
-                        Illustrating album arts, book covers, and billboards as a freelancer.
-                        And designing websites, online magazines, and news portals at my first web studio.<br>
-                    </p>
-                </div>
-            </div>
-        </section>
-        <section class="scene" id="early-days3">
-            <div class="static-container">
-                <div class="std">
-                    <p>
-                        We've proudly fueled the starring<br>
-                        of some big Brazilian names such as
-                        <span class="-big -purple"><i>Porta dos Fundos</i>, <i>Kibe Loco</i>, Fhits.tv, <i>Galo Frito</i></span>
-                        among many others...
-                    </p>
-                </div>
-            </div>
-        </section>
-    </div>
+    <Scene id="early-days">
+      <TextBlock>
+        <p>Design & illustration.</p>
+        <p class="-big">
+          A frontend developer<br />
+          <span class="-purple">with one foothold in arts.</span>
+        </p>
+      </TextBlock>
+    </Scene>
+    <Scene id="early-days2">
+      <TextBlock>
+        <p class="-big">
+          <span class="-purple">Freelancing</span> &
+          <span class="-purple">startuping,</span><br />
+          <span class="-purple">Inches</span> &
+          <span class="-purple">pixels.</span>
+        </p>
+        <p>
+          Illustrating album arts, book covers, and billboards as a freelancer.
+          And designing websites, online magazines, and news portals at my first
+          web studio.<br />
+        </p>
+      </TextBlock>
+    </Scene>
+    <Scene id="early-days3">
+      <TextBlock>
+        <p>
+          We've proudly fueled the starring<br />
+          of some big Brazilian names such as
+          <span class="-big -purple"
+            ><em>Porta dos Fundos</em>, <em>Kibe Loco</em>, Fhits.tv,
+            <em>Galo Frito</em></span
+          >
+          among many others...
+        </p>
+      </TextBlock>
+    </Scene>
+  </div>
 </template>
 
 <script>
-    import Titles from "./Titles.vue";
+import { Pepe, Ocean } from '../Characters'
+import TitleSection from './TitleSection.vue'
+import TitleFunction from './TitleFunction.vue'
+import TextBlock from '../TextBlock.vue'
+import Scene from '../Scene.vue'
 
-    export default {
-        props: {
-            viewport: Object
-        },
-        name: 'EarlyDays',
-        components: {
-            Titles,
-        }
-    }
+export default {
+  name: 'EarlyDaysScene',
+  components: {
+    TitleSection,
+    Pepe,
+    Ocean,
+    TitleFunction,
+    TextBlock,
+    Scene,
+  },
+  props: {
+    isPlaying: Boolean,
+  },
+}
 </script>
+
+<style lang="scss">
+.earlyDays {
+  .pepe {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 100%;
+    transform: scale(0.4) translate3d(0, -50%, 0);
+    transform-origin: 0 0;
+
+    @media screen and (max-width: 568px) {
+      transform: scale(0.2) translate3d(0, -50%, 0);
+    }
+  }
+
+  .clouds {
+    position: absolute;
+    width: 150vw;
+    height: 150vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transform-origin: 50% 50%;
+    background: url('../../assets/pepe/clouds-1.png') no-repeat center;
+    background-size: contain;
+    opacity: 0.5;
+
+    &.cloud-2 {
+      background-image: url('../../assets/pepe/clouds-2.png');
+    }
+    &.cloud-3 {
+      background-image: url('../../assets/pepe/clouds-3.png');
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      opacity: 0.25;
+    }
+  }
+}
+</style>

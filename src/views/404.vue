@@ -1,34 +1,34 @@
 <template>
   <div id="err404" class="wrapper">
     <div class="static-container">
-      <h1 class="title">err(<span class="params">404</span>)</h1>
+      <h1 class="title"><span class="params">new</span> Error(<span class="params">404</span>)</h1>
 
-      <div class="std">
-        <p class="-big">Lost?</p>
-
+      <TextBlock>
         <p>The page you requested could not be found.</p>
         <router-link to="/" title="Back home" class="bt">
           <svg class="nav-ico -prev" viewBox="0 0 16 16">
             <path d="M5,1h10v10 M5.5,10.5l0.8-0.8" />
           </svg>
-          Back home
+          Back to home
         </router-link>
-      </div>
+      </TextBlock>
     </div>
 
-    <Astronaut isPLaying />
-    <CoffeeMug isPLaying />
+    <Astronaut isPlaying />
+    <CoffeeMug isPlaying />
   </div>
 </template>
 
 <script>
 import { Astronaut, CoffeeMug } from '@/components/Characters'
+import TextBlock from '@/components/TextBlock.vue'
 
 export default {
-  name: '404View',
+  name: 'NotFound',
   components: {
     Astronaut,
     CoffeeMug,
+    TextBlock,
   },
 }
 </script>

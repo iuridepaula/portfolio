@@ -1,35 +1,21 @@
 <template>
   <div id="home" class="wrapper">
-    <!--intro-->
     <Intro />
+    <Gap />
 
-    <div class="gap"></div>
+    <TitleSection scene="curriculum">
+      <TitleFunction params="/^.*$/gi" subtitle="&lt;WorkShowcase&gt;"
+        >myCV</TitleFunction
+      >
+    </TitleSection>
+    <Biz :isPlaying="{ ...isPlaying.Biz }" />
+    <Gap />
 
-    <!--Title: CurriculumVitae()-->
-    <Titles :viewport="viewport" scene="curriculum">
-      <h1 class="title" v-if="viewport.is768">
-        Curriculum<br />
-        .vitae(<span class="params">'/.*$/g'</span>)
-      </h1>
-      <h1 class="title" v-else>
-        CurriculumVitae(<span class="params">'/.*$/g'</span>)
-      </h1>
-      <div class="std">
-        <p class="-gray">&lt;A life+work showcase&gt;</p>
-      </div>
-    </Titles>
+    <EarlyDays :isPlaying="isPlaying.EarlyDays" />
+    <Gap />
 
-    <!--biz commerce scenes-->
-    <Biz :viewport="viewport" :isPlaying="{ ...isPlaying.Biz }" />
-    <div class="gap"></div>
-
-    <!--early days scenes-->
-    <EarlyDays :viewport="viewport" />
-    <div class="gap"></div>
-
-    <!--Title: Art Phi Games-->
-    <Titles :viewport="viewport" scene="ArtPhiGamesTitle">
-      <h1 class="title">
+    <TitleSection scene="ArtPhiGamesTitle">
+      <TitleFunction subtitle="background.bmp">
         <span class="line"
           ><span class="params">`${</span>Art<span class="params">}</span></span
         >
@@ -43,36 +29,24 @@
             >}`</span
           ></span
         >
-      </h1>
-      <div class="std">
-        <p class="-gray">background.bmp</p>
-      </div>
-    </Titles>
-
-    <!--mario-->
+      </TitleFunction>
+    </TitleSection>
     <SuperMario />
-    <div class="gap"></div>
+    <Gap />
 
-    <!--ghibli-->
     <Ghibli />
-
-    <!--wrapper-->
     <Wrapper />
-
-    <!--thanks-->
     <Thanks />
   </div>
 </template>
 
 <script>
-// style
-import { TimelineMax, TweenLite, Power0, Power1, Power2, Power3 } from 'gsap'
 import '@/styles/home.scss'
-// ScrollMagic
+import { TimelineMax, TweenLite, Power0, Power1, Power2, Power3 } from 'gsap'
 import * as ScrollMagic from 'scrollmagic'
-// components
 import Intro from '@/components/Home/Intro.vue'
-import Titles from '@/components/Home/Titles.vue'
+import TitleSection from '@/components/Home/TitleSection.vue'
+import TitleFunction from '@/components/Home/TitleFunction.vue'
 import Biz from '@/components/Home/Biz.vue'
 import EarlyDays from '@/components/Home/EarlyDays.vue'
 import SuperMario from '@/components/Home/SuperMario.vue'
@@ -80,9 +54,9 @@ import Ghibli from '@/components/Home/Ghibli.vue'
 import Wrapper from '@/components/Home/Wrapper.vue'
 import Thanks from '@/components/Home/Thanks.vue'
 import Potion from '@/js/potion'
-import Pepe from '@/js/pepe'
 import Mario from '@/js/mario'
 import Castle from '@/js/ghibli'
+import Gap from '@/components/Gap.vue'
 
 function removeBodyClass(...classes) {
   document.body.classList.remove(...classes)
@@ -98,16 +72,15 @@ export default {
   name: 'HomeView',
   components: {
     Intro,
-    Titles,
+    TitleSection,
+    TitleFunction,
     Biz,
     EarlyDays,
     SuperMario,
     Ghibli,
     Wrapper,
     Thanks,
-  },
-  props: {
-    viewport: Object,
+    Gap,
   },
   data() {
     return {
@@ -117,6 +90,7 @@ export default {
       timeLines: [],
       tweeners: [],
       isPlaying: {
+        EarlyDays: true,
         Biz: {
           ABiz: true,
           Dino: true,
@@ -132,16 +106,9 @@ export default {
     }
   },
   created() {
-    // before leaving the page, in case of refresh
     window.addEventListener('beforeunload', () => window.scroll(0, 0))
   },
   mounted() {
-    /**
-     * @TODO code split animations
-     *       optimize code
-     *       better Mario commands
-     */
-
     // 01. play Intro
     this.playIntro()
     // 02. setup time lines and scenes
@@ -176,7 +143,7 @@ export default {
     })
 
     Castle.stop()
-    Pepe.stop()
+    this.isPlaying.EarlyDays = false
     Potion.stop()
     Mario.stop()
 
@@ -219,7 +186,7 @@ export default {
           // trigger on the scene element
           triggerElement: scenesElement,
           // start half screen before
-          offset: -this.viewport.h / 2,
+          offset: -this.$viewport.height / 2,
           // lasts for the scene element height
           duration: scenesElement.offsetHeight,
         })
@@ -339,12 +306,12 @@ export default {
           this.isPlaying.Biz.Dino = false
           this.isPlaying.Biz.ET = false
           this.isPlaying.Biz.Octopus = false
+          this.isPlaying.EarlyDays = true
         }
         if (e.scrollDirection === 'REVERSE') {
           this.isPlaying.Biz.Astronaut = true
           this.isPlaying.Biz.CoffeeMug = true
-
-          Pepe.stop()
+          this.isPlaying.EarlyDays = false
         }
       })
       this.scenes[6].on('enter', (e) => {
@@ -352,12 +319,12 @@ export default {
           this.isPlaying.Biz.Astronaut = false
           this.isPlaying.Biz.CoffeeMug = false
 
-          Pepe.play()
+          this.isPlaying.EarlyDays = true
         }
       })
       this.scenes[9].on('enter', (e) => {
         if (e.scrollDirection === 'REVERSE') {
-          Pepe.play()
+          this.isPlaying.EarlyDays = true
           // release mario body lock and remove bg
           removeBodyClass('-mario-lock', '-mario-bg')
         }
@@ -365,7 +332,7 @@ export default {
       this.scenes[10] /** @Mario **/
         .on('enter', (e) => {
           if (e.scrollDirection === 'FORWARD') {
-            Pepe.stop()
+            this.isPlaying.EarlyDays = false
             // mario bg is added inside mario.js
           }
           if (e.scrollDirection === 'REVERSE') {
@@ -431,17 +398,10 @@ export default {
 
       Castle.build()
       Potion.build()
-      if (this.viewport.is568) {
+      if (this.$viewport.isMobile) {
         Castle.build568()
       } else {
         Castle.build()
-      }
-      if (this.viewport.is568) {
-        Pepe.build568()
-      } else if (this.viewport.is1024) {
-        Pepe.build1024()
-      } else {
-        Pepe.build()
       }
     },
     sceneCurriculumVitae() {
@@ -731,8 +691,8 @@ export default {
 
       new ScrollMagic.Scene({
         triggerElement: '#earlyTitle',
-        offset: -this.viewport.h / 2,
-        duration: this.viewport.h * 3.5,
+        offset: -this.$viewport.height / 2,
+        duration: this.$viewport.height * 3.5,
       })
         .setTween(cloudsTweener)
         .addTo(this.scroller)
@@ -820,8 +780,8 @@ export default {
 
       new ScrollMagic.Scene({
         triggerElement: '#early-days2',
-        offset: -this.viewport.h / 2,
-        duration: this.viewport.h * 4,
+        offset: -this.$viewport.height / 2,
+        duration: this.$viewport.height * 4,
       })
         .setTween(pepeTweener)
         .addTo(this.scroller)
@@ -925,8 +885,8 @@ export default {
 
       new ScrollMagic.Scene({
         triggerElement: '#Ghibli',
-        offset: -this.viewport.h / 2,
-        duration: this.viewport.h * 4,
+        offset: -this.$viewport.height / 2,
+        duration: this.$viewport.height * 4,
       })
         .setTween(grassTweener)
         .addTo(this.scroller)
@@ -972,8 +932,8 @@ export default {
 
       new ScrollMagic.Scene({
         triggerElement: '#Ghibli',
-        offset: -this.viewport.h / 2,
-        duration: this.viewport.h * 4,
+        offset: -this.$viewport.height / 2,
+        duration: this.$viewport.height * 4,
       })
         .setTween(gCloudsTweener)
         .addTo(this.scroller)
@@ -983,7 +943,7 @@ export default {
         castleTweener = new TimelineMax(),
         castleLength = '-120vw'
 
-      if (this.viewport.is568)
+      if (this.$viewport.isMobile)
         castleLength =
           '-' +
           (window.innerWidth +
@@ -1008,7 +968,7 @@ export default {
 
       new ScrollMagic.Scene({
         triggerElement: '#Ghibli',
-        duration: this.viewport.h * 5,
+        duration: this.$viewport.height * 5,
       })
         .setTween(castleTweener)
         .addTo(this.scroller)

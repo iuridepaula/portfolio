@@ -1,54 +1,35 @@
 <template>
-  <div id="app" :class="this.$route.meta.bodyClass">
-    <BgBody />
-
-    <HeaderSection :routeName="this.$route.name" :viewport="viewport" />
-
+  <div id="app" :class="$route.meta.bodyClass">
+    <HeaderSection />
     <transition appear mode="out-in" :css="false" @leave="leave" @enter="enter">
-      <router-view :viewport="viewport" />
+      <router-view />
     </transition>
-
-    <Spine />
+    <Spine :isPlaying="isSpinePlaying" />
   </div>
 </template>
 
 <script>
 // GSAP + ScrollMagic
 import * as ScrollMagic from 'scrollmagic'
-import { TweenMax, TimelineMax, Power3, Elastic } from 'gsap'
+import { TweenMax, TimelineMax, Power3 } from 'gsap'
 import { ScrollMagicPluginGsap } from 'scrollmagic-plugin-gsap'
-ScrollMagicPluginGsap(ScrollMagic, TweenMax, TimelineMax)
-// Components
 import HeaderSection from '@/components/Header.vue'
 import Spine from '@/components/Spine.vue'
-import BgBody from '@/components/BgBody.vue'
+
+ScrollMagicPluginGsap(ScrollMagic, TweenMax, TimelineMax)
 
 export default {
   name: 'App',
   components: {
     HeaderSection,
     Spine,
-    BgBody,
   },
   data() {
     return {
-      viewport: {
-        w: window.innerWidth,
-        h: window.innerHeight,
-        is568: window.innerWidth <= 568,
-        is768: window.innerWidth <= 768,
-        is1024: window.innerWidth <= 1024,
-      },
+      isSpinePlaying: false,
       introTimeline: new TimelineMax(),
       leaveTimeline: new TimelineMax(),
     }
-  },
-  created() {
-    this.updateViewport()
-    window.addEventListener('resize', this.updateViewport)
-  },
-  beforeUnmount() {
-    window.removeEventListener('resize', this.updateViewport)
   },
   methods: {
     enter(el, done) {
@@ -78,89 +59,18 @@ export default {
           },
           {
             autoAlpha: 1,
-          },
-          'enter'
-        )
-        .fromTo(
-          '.spine',
-          1,
-          {
-            autoAlpha: 0,
-            yPercent: 20,
-          },
-          {
-            autoAlpha: 1,
-            yPercent: 0,
-            ease: Power3.easeOut,
             onComplete: done,
           },
           'enter'
         )
-        .fromTo(
-          '.spine-target .circle',
-          1,
-          {
-            scale: 0,
-            autoAlpha: 0,
-          },
-          {
-            scale: 1,
-            autoAlpha: 1,
-            ease: Elastic.easeOut.config(1, 0.5),
-          },
-          'enter+=.7'
-        )
-        .fromTo(
-          '.spine-target .circle',
-          2,
-          {
-            backgroundColor: 'transparent',
-          },
-          {
-            backgroundColor: '#5918df',
-          },
-          'enter+=1.2'
-        )
-        .fromTo(
-          '.spine-target .pulse',
-          4,
-          {
-            autoAlpha: 1,
-            scale: 0,
-          },
-          {
-            autoAlpha: 0,
-            scale: 8,
-            ease: Power3.easeOut,
-          },
-          'enter+=1.2'
-        )
+
+      this.isSpinePlaying = true
     },
     leave(el, done) {
       // leave animations
       this.leaveTimeline
         .clear()
         .addLabel('leave', 0)
-        .to(
-          '.spine-target .circle, .spine-target .pulse',
-          0.5,
-          {
-            scale: 0,
-            autoAlpha: 0,
-            ease: Power3.easeIn,
-          },
-          'leave'
-        )
-        .to(
-          '.spine',
-          0.5,
-          {
-            autoAlpha: 0,
-            yPercent: 50,
-            ease: Power3.easeIn,
-          },
-          'leave+=.25'
-        )
         .set('.header-breadcrumb', { autoAlpha: 0 }, 'leave')
         .to(
           el,
@@ -171,33 +81,15 @@ export default {
           },
           'leave'
         )
-    },
-    updateViewport() {
-      // update
-      this.viewport = {
-        w: window.innerWidth,
-        h: window.innerHeight,
-        is568: window.innerWidth <= 568,
-        is768: window.innerWidth <= 768,
-        is1024: window.innerWidth <= 1024,
-      }
+
+      this.isSpinePlaying = false
     },
   },
 }
 </script>
 
 <style lang="scss">
-/* @resets */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  min-height: 0;
-  min-width: 0;
-  font-family: inherit;
-}
-
-/* @vars */
+// vars
 :root {
   --purple: #682ae9;
   --light: #dbdbdb;
@@ -213,7 +105,17 @@ export default {
   --comment: #555;
 }
 
-/* @layout */
+// reset
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  min-height: 0;
+  min-width: 0;
+  font-family: inherit;
+}
+
+// layout
 html {
   background: var(--bg);
   font-family: 'Roboto Mono', monospace;
@@ -252,11 +154,7 @@ body {
   }
 }
 
-/* @group Basics */
-section {
-  min-height: 100vh;
-  //position: relative;
-}
+// general
 a {
   text-decoration: none;
 }
@@ -270,42 +168,7 @@ svg {
   }
 }
 
-/* @element body-bg & header-bg */
-.body-bg {
-  position: fixed;
-  top: -25vh;
-  left: -25vw;
-  width: 150vw;
-  height: 150vh;
-  z-index: -1;
-
-  div {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: opacity 0.4s ease-out;
-  }
-
-  .-default {
-    background: var(--bg);
-    opacity: 1;
-  }
-  .-mario {
-    background: #0497d1;
-  }
-  .-admin {
-    background: #f2f2f2;
-  }
-  .-confianca {
-    background: #f1efef;
-  }
-  .-desbravando {
-    background: #e3e5d0;
-  }
-}
+// backgrounds
 .header-bg {
   position: absolute;
   top: 0;
@@ -339,35 +202,18 @@ svg {
       rgba(4, 151, 209, 0) 100%
     );
   }
-  .-admin {
-    background: linear-gradient(
-      to bottom,
-      #f2f2f2 3rem,
-      rgba(242, 242, 242, 0) 100%
-    );
-  }
-  .-confianca {
-    background: linear-gradient(
-      to bottom,
-      #f1efef 3rem,
-      rgba(241, 239, 239, 0) 100%
-    );
-  }
-  .-desbravando {
-    background: linear-gradient(
-      to bottom,
-      #e3e5d0 3rem,
-      rgba(227, 229, 208, 0) 100%
-    );
-  }
+}
+body {
+  background: var(--bg);
+  transition: background-color .4s ease-out;
 }
 body.-mario-bg {
-  .body-bg div,
+  background: #0497d1;
+
   .header-bg div {
     opacity: 0;
   }
-  .header-bg .-mario,
-  .body-bg .-mario {
+  .header-bg .-mario {
     opacity: 1;
   }
   .header-nav-button .dots {
@@ -382,100 +228,6 @@ body.-mario-bg {
     color: #411a91;
     fill: #411a91;
   }
-}
-body.-admin-bg {
-  .body-bg div,
-  .header-bg div {
-    opacity: 0;
-  }
-  .header-bg .-admin,
-  .body-bg .-admin {
-    opacity: 1;
-  }
-  .header-nav-button .dots {
-    background: #555;
-  }
-  .std,
-  .header-nav a {
-    color: #555;
-  }
-}
-body.-confianca-bg {
-  .body-bg div,
-  .header-bg div {
-    opacity: 0;
-  }
-  .header-bg .-confianca,
-  .body-bg .-confianca {
-    opacity: 1;
-  }
-  .header-nav-button .dots {
-    background: #555;
-  }
-  .std,
-  .header-nav a {
-    color: #555;
-  }
-}
-body.-desbravando-bg {
-  .body-bg div,
-  .header-bg div {
-    opacity: 0;
-  }
-  .header-bg .-desbravando,
-  .body-bg .-desbravando {
-    opacity: 1;
-  }
-  .header-nav-button .dots {
-    background: #555;
-  }
-  .std,
-  .header-nav a {
-    color: #555;
-  }
-}
-
-/* @group Scene && Containers */
-.scene {
-  min-height: 100vh;
-}
-.initial-fold {
-  min-height: 50vh;
-}
-.container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  width: 100vw;
-  height: 100vh;
-  visibility: hidden;
-  perspective: 900px;
-  perspective-origin: 50% 50vh;
-}
-.title-container {
-  @extend .container;
-
-  padding: 0 1rem 0 25vw;
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: flex-start;
-  justify-content: center;
-
-  .title {
-    margin-right: 0;
-    padding-right: 0;
-  }
-}
-.static-container {
-  padding: calc(50vh - 3.5rem) 0 0;
-  margin: 0 25vw;
-  min-height: 100vh;
-  perspective: 900px;
-  perspective-origin: 50% 50vh;
-}
-.gap {
-  height: 25vh;
 }
 
 /* @element .nav-ico */
@@ -498,150 +250,6 @@ body.-desbravando-bg {
   }
   &.-next {
     transform: rotate(90deg);
-  }
-}
-
-/* @element .spine */
-.spine {
-  position: fixed;
-  top: 50vh;
-  bottom: 0;
-  left: calc(25vw - 2rem);
-  z-index: 2;
-  width: 1px;
-  background: var(--purple)
-    linear-gradient(to top, var(--bg) 1rem, rgba(var(--bg-rgb), 0) 20vh);
-}
-.spine-target {
-  position: fixed;
-  top: calc(50vh - 8px);
-  left: calc(25vw - 2rem - 4px);
-  width: 9px;
-  height: 9px;
-  z-index: 2;
-
-  .circle,
-  .pulse {
-    position: absolute;
-    width: 9px;
-    height: 9px;
-    transform-origin: center;
-    border-radius: 3rem;
-    background: transparent;
-    border: 1px solid var(--purple);
-  }
-}
-
-/*
- * @element .std
- * Text format
- */
-.std {
-  max-width: 42rem;
-  font-size: 1rem;
-  line-height: 1.5;
-  color: var(--std-color);
-  word-break: break-word;
-  hyphens: none;
-
-  h3 {
-    margin-bottom: 1rem;
-  }
-
-  .bt {
-    background: var(--purple);
-    color: var(--bg);
-    padding: 0 1rem;
-    height: 2rem;
-    border-radius: 3rem;
-    line-height: 2rem;
-    text-decoration: none;
-    display: inline-block;
-
-    &:hover {
-      background: var(--light);
-
-      .nav-ico {
-        stroke: var(--gray);
-      }
-    }
-  }
-
-  p {
-    margin-bottom: 1rem;
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-  .-big {
-    font-size: 1.8rem;
-    line-height: 1.2;
-    vertical-align: baseline;
-  }
-  .-purple {
-    color: var(--purple);
-  }
-  .-gray {
-    color: var(--gray);
-  }
-  .-comment {
-    color: var(--comment);
-  }
-  .-red {
-    color: #f0514e;
-  }
-  .-green {
-    color: #3cb878;
-  }
-  .-full {
-    display: block;
-    margin-right: -25vw;
-    padding-right: 1rem;
-  }
-  i {
-    font-style: italic;
-  }
-  b,
-  strong {
-    font-weight: 700;
-  }
-  a {
-    color: var(--light);
-    text-decoration: underline;
-    transition: all 400ms ease-out;
-    &:hover {
-      color: var(--purple);
-    }
-  }
-
-  .subtitle {
-    color: var(--purple);
-    font-size: 4rem;
-    line-height: 1;
-    margin: 4rem -25vw 2rem 0;
-    padding-right: 1rem;
-    word-spacing: -1rem;
-    word-break: break-word;
-    hyphens: auto;
-
-    s {
-      opacity: 0.4;
-      font-weight: 400;
-    }
-  }
-
-  ul {
-    margin-bottom: 1rem;
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-  li {
-    list-style-position: outside;
-    margin: 0 0 0.5rem 1rem;
-    &:last-child {
-      margin-bottom: 0;
-    }
   }
 }
 
@@ -700,22 +308,6 @@ body.-desbravando-bg {
     }
   }
 
-  /* @group Scene && Containers */
-  .static-container {
-    margin: 0 4rem 0 calc(4rem + 1px);
-  }
-  .title-container {
-    padding-left: 4rem;
-  }
-
-  /* @element .spine */
-  .spine {
-    left: 1rem;
-  }
-  .spine-target {
-    left: calc(1rem - 4px);
-  }
-
   /* @element .title */
   .title {
     margin-right: -4rem;
@@ -745,18 +337,6 @@ body.-desbravando-bg {
 }
 
 @media screen and (max-width: 568px) {
-  /* @group Scene && Containers */
-  .static-container {
-    margin: 0 2rem 0 calc(2rem + 1px);
-  }
-  .title-container {
-    padding: 0 1rem 0 2rem;
-
-    .title {
-      margin-bottom: 1rem;
-    }
-  }
-
   /* @element .title */
   .title {
     margin-right: -2rem;
@@ -781,34 +361,35 @@ body.-desbravando-bg {
 
 // NProgress custom CSS
 #nprogress {
-    pointer-events: none;
-    .bar {
-        background: var(--purple);
-        position: fixed;
-        z-index: 1031;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 2px;
-    }
-    .peg {
-        display: block;
-        position: absolute;
-        right: 0px;
-        width: 100px;
-        height: 100%;
-        opacity: 1.0;
-        transform: rotate(3deg) translate(0px, -4px);
-    }
+  pointer-events: none;
+  .bar {
+    background: var(--purple);
+    position: fixed;
+    z-index: 1031;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+  }
+  .peg {
+    display: block;
+    position: absolute;
+    right: 0px;
+    width: 100px;
+    height: 100%;
+    opacity: 1;
+    transform: rotate(3deg) translate(0px, -4px);
+  }
 }
 
 .nprogress-custom-parent {
-    overflow: hidden;
-    position: relative;
-    #nprogress {
-        .spinner, .bar {
-            position: absolute;
-        }
+  overflow: hidden;
+  position: relative;
+  #nprogress {
+    .spinner,
+    .bar {
+      position: absolute;
     }
+  }
 }
 </style>
