@@ -6,12 +6,9 @@
       >
 
       <div class="clouds cloud-1"></div>
-
       <Pepe v-bind="{ isPlaying }" />
-
       <div class="clouds cloud-2"></div>
       <div class="clouds cloud-3"></div>
-
       <Ocean v-bind="{ isPlaying }" />
     </TitleSection>
 

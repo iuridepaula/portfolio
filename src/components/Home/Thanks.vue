@@ -76,8 +76,8 @@
         <div class="cols">
           <ul class="col">
             <li class="ico">&lt;/&gt;</li>
-            <li>Vue.js</li>
-            <li>GSAP</li>
+            <li>Vue.js v2</li>
+            <li>GSAP v2</li>
             <li>ScrollMagic</li>
             <li>Photoshop</li>
             <li>Illustrator</li>
@@ -160,9 +160,9 @@
       </div>
 
       <p>
-        Thanks for checking my website!<br />
+        Thanks for visiting!<br />
         <span class="-comment"
-          >// It's a work in progress so check back often!</span
+          >// It's still a work in progress so come back often!</span
         >
       </p>
     </TextBlock>

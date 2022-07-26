@@ -705,12 +705,12 @@ body.-mario-lock {
   &:before {
     content: '?';
     font-family: 'SMW', monospace;
-    font-size: 4rem;
+    font-size: 3rem;
     color: #fff;
     position: fixed;
     top: 8rem;
-    left: calc(50% - 2.5rem);
-    width: 5rem;
+    left: 50%;
+    transform: translateX(-50%);
     text-align: center;
   }
 }
