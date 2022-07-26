@@ -98,15 +98,15 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
     transform-origin: 50% 50%;
-    background: url('../../assets/pepe/clouds-1.png') no-repeat center;
+    background: url('../Characters/Pepe/assets/clouds-1.png') no-repeat center;
     background-size: contain;
     opacity: 0.5;
 
     &.cloud-2 {
-      background-image: url('../../assets/pepe/clouds-2.png');
+      background-image: url('../Characters/Pepe/assets/clouds-2.png');
     }
     &.cloud-3 {
-      background-image: url('../../assets/pepe/clouds-3.png');
+      background-image: url('../Characters/Pepe/assets/clouds-3.png');
       width: 100vw;
       height: 100vh;
       z-index: -1;
