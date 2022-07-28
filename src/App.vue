@@ -5,6 +5,7 @@
       <router-view />
     </transition>
     <Spine :isPlaying="isSpinePlaying" />
+    <div class="tweenerElement"></div>
   </div>
 </template>
 
@@ -168,65 +169,26 @@ svg {
   }
 }
 
-// backgrounds
-.header-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-
-  div {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: opacity 0.4s ease-out;
-  }
-
-  .-default {
-    background: linear-gradient(
-      to bottom,
-      var(--bg) 3rem,
-      rgba(var(--bg-rgb), 0) 100%
-    );
-    opacity: 1;
-  }
-  .-mario {
-    background: linear-gradient(
-      to bottom,
-      #0497d1 3rem,
-      rgba(4, 151, 209, 0) 100%
-    );
-  }
-}
+// background
 body {
   background: var(--bg);
-  transition: background-color .4s ease-out;
-}
-body.-mario-bg {
-  background: #0497d1;
+  transition: background-color 0.4s ease-out;
 
-  .header-bg div {
-    opacity: 0;
-  }
-  .header-bg .-mario {
-    opacity: 1;
-  }
-  .header-nav-button .dots {
-    background: #000;
-  }
-  .header-nav a {
-    color: #000;
-  }
-  .header-nav a svg,
-  .header-breadcrumb,
-  .header-nav-close-button {
-    color: #411a91;
-    fill: #411a91;
+  &.blue-background {
+    background: #0497d1;
+
+    .header-nav-button .dots {
+      background: #000;
+    }
+    .header-nav a {
+      color: #000;
+    }
+    .header-nav a svg,
+    .header-breadcrumb,
+    .header-nav-close-button {
+      color: #411a91;
+      fill: #411a91;
+    }
   }
 }
 

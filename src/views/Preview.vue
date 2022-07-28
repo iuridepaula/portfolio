@@ -1,10 +1,11 @@
 <template>
-  <div>
-    <Component :is="$route.params.character" :isPlaying="isPlaying" class="character" />
-    <button
-      @click="toggle"
-      style="padding: 2rem; margin: 0 auto; display: block"
-    >
+  <div class="preview">
+    <Component
+      :is="$route.params.character"
+      :isPlaying="isPlaying"
+      class="preview"
+    />
+    <button @click="toggle">
       {{ isPlaying ? 'pause' : 'play' }}
     </button>
   </div>
@@ -16,12 +17,20 @@ const Astronaut = () => import('../components/Characters/Astronaut')
 const CoffeeMug = () => import('../components/Characters/CoffeeMug')
 const Dino = () => import('../components/Characters/Dino')
 const ET = () => import('../components/Characters/ET')
+const HolwsCastle = () => import('../components/Characters/HolwsCastle')
 const Ocean = () => import('../components/Characters/Ocean')
 const Octopus = () => import('../components/Characters/Octopus')
 const Pepe = () => import('../components/Characters/Pepe')
+const Potion = () => import('../components/Characters/Potion')
 const Shapes = () => import('../components/Characters/Shapes')
 const Shrimp = () => import('../components/Characters/Shrimp')
 const Zen = () => import('../components/Characters/Zen')
+const SuperMarioCoin = () =>
+  import('../components/Characters/SuperMario/Coin.vue')
+const SuperMarioBlock = () =>
+  import('../components/Characters/SuperMario/Block.vue')
+const SuperMarioMario = () =>
+  import('../components/Characters/SuperMario/Mario.vue')
 
 export default {
   name: 'PreviewView',
@@ -31,12 +40,17 @@ export default {
     CoffeeMug,
     Dino,
     ET,
+    HolwsCastle,
     Ocean,
     Octopus,
     Pepe,
+    Potion,
     Shapes,
     Shrimp,
     Zen,
+    SuperMarioCoin,
+    SuperMarioBlock,
+    SuperMarioMario,
   },
   data() {
     return {
@@ -51,9 +65,22 @@ export default {
 }
 </script>
 
-<style>
-.character {
-  max-width: 70%;
+<style lang="scss">
+.preview {
+  max-width: calc(100vw - 2rem);
   margin: 6rem auto 2rem;
+
+  button {
+    display: block;
+    background: var(--purple);
+    color: white;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    cursor: pointer;
+  }
+
+  & > button {
+    margin: 0 auto;
+  }
 }
 </style>

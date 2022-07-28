@@ -267,105 +267,111 @@ export default {
     background-size: 200% 100%;
   }
   /*am/pa*/
+  .bg-ampa_foliage_3,
+  .bg-ampa_tree_2,
+  .bg-ampa_foliage_2,
+  .bg-ampa_parrot_wing,
+  .bg-ampa_foliage_1,
+  .bg-ampa_ver_o_peso,
+  .bg-ampa_tree_1,
+  .bg-ampa_oxes {
+    background: url('./assets/am-pa.png') no-repeat;
+    background-size: 1007px 997px;
+  }
   .bg-ampa_foliage_3 {
     top: 178px;
     left: 421px;
     width: 278px;
     height: 267px;
-    background: url('./assets/am-pa.png') -10px -720px no-repeat;
-    background-size: 1007px 997px;
+    background-position: -10px -720px;
   }
   .bg-ampa_tree_2 {
     top: 19px;
     left: 291px;
     width: 385px;
     height: 213px;
-    background: url('./assets/am-pa.png') -10px -487px no-repeat;
-    background-size: 1007px 997px;
+    background-position: -10px -487px;
   }
   .bg-ampa_foliage_2 {
     top: 3px;
     left: 548px;
     width: 581px;
     height: 457px;
-    background: url('./assets/am-pa.png') -10px -10px no-repeat;
-    background-size: 1007px 997px;
+    background-position: -10px -10px;
   }
   .bg-ampa_parrot_wing {
     top: 103px;
     left: 792px;
     width: 162px;
     height: 241px;
-    background: url('./assets/am-pa.png') -604px -720px no-repeat;
-    background-size: 1007px 997px;
+    background-position: -604px -720px;
   }
   .bg-ampa_foliage_1 {
     top: 125px;
     left: 593px;
     width: 276px;
     height: 254px;
-    background: url('./assets/am-pa.png') -308px -720px no-repeat;
-    background-size: 1007px 997px;
+    background-position: -308px -720px;
   }
   .bg-ampa_ver_o_peso {
     top: 221px;
     left: 650px;
     width: 311px;
     height: 206px;
-    background: url('./assets/am-pa.png') -415px -487px no-repeat;
-    background-size: 1007px 997px;
+    background-position: -415px -487px;
   }
   .bg-ampa_tree_1 {
     top: 29px;
     left: 465px;
     width: 386px;
     height: 236px;
-    background: url('./assets/am-pa.png') -611px -10px no-repeat;
-    background-size: 1007px 997px;
+    background-position: -611px -10px;
   }
   .bg-ampa_oxes {
     top: 145px;
     left: 485px;
     width: 176px;
     height: 164px;
-    background: url('./assets/am-pa.png') -611px -266px no-repeat;
-    background-size: 1007px 997px;
+    background-position: -611px -266px;
   }
   /*metals*/
   .metals {
     z-index: 19;
+  }
+  .bg-metals_sax,
+  .bg-metals_trumpet,
+  .bg-metals_trombone_thing,
+  .bg-metals_trombone {
+    background: url('./assets/metals.png') no-repeat;
+    background-size: 516px 385px;
   }
   .bg-metals_sax {
     top: 662px;
     left: 647px;
     width: 219px;
     height: 386px;
-    background: url('./assets/metals.png') 0 0 no-repeat;
-    background-size: 516px 385px;
+    background-position: 0 0;
   }
   .bg-metals_trumpet {
     top: 584px;
     left: 527px;
     width: 297px;
     height: 124px;
-    background: url('./assets/metals.png') -219px 0 no-repeat;
-    background-size: 516px 385px;
+    background-position: -219px 0;
   }
   .bg-metals_trombone_thing {
     top: 95px;
     left: 131px;
     width: 243px;
     height: 25px;
-    background: url('./assets/metals.png') -219px -248px no-repeat;
-    background-size: 516px 385px;
+    background-position: -219px -248px;
   }
   .bg-metals_trombone {
     top: 583px;
     left: 670px;
     width: 270px;
     height: 124px;
-    background: url('./assets/metals.png') -219px -124px no-repeat;
-    background-size: 516px 385px;
+    background-position: -219px -124px;
   }
   /*rio*/
   .vase {

@@ -12,19 +12,7 @@
                 target="_blank"
                 title="LinkedIn"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="ico"
-                  viewBox="0 0 16 16"
-                  role="img"
-                  aria-labelledby="LinkedinIcoTitle"
-                >
-                  <title id="LinkedinIcoTitle">LinkedIn logo</title>
-                  <path
-                    stroke="none"
-                    d="M14.8 0H1.2C.5 0 0 .5 0 1.2v13.7c0 .6.5 1.1 1.2 1.1h13.6c.7 0 1.2-.5 1.2-1.2V1.2c0-.7-.5-1.2-1.2-1.2zM4.7 13.6H2.4V6h2.4v7.6zM3.6 5c-.8 0-1.4-.7-1.4-1.4 0-.8.6-1.4 1.4-1.4.8 0 1.4.6 1.4 1.4-.1.7-.7 1.4-1.4 1.4zm10 8.6h-2.4V9.9c0-.9 0-2-1.2-2s-1.4 1-1.4 2v3.8H6.2V6h2.3v1c.3-.6 1.1-1.2 2.2-1.2 2.4 0 2.8 1.6 2.8 3.6v4.2z"
-                  />
-                </svg>
+                <LinkedInIcon />
               </a>
             </li>
             <li>
@@ -33,21 +21,7 @@
                 target="_blank"
                 title="GitHub"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="ico"
-                  viewBox="0 0 16 16"
-                  role="img"
-                  aria-labelledby="GithubIcoTitle"
-                >
-                  <title id="GithubIcoTitle">GitHub logo</title>
-                  <path
-                    stroke="none"
-                    fill-rule="evenodd"
-                    d="M8 0C3.6 0 0 3.6 0 8c0 3.5 2.3 6.5 5.5 7.6.4.1.5-.2.5-.4v-1.4c-2.2.5-2.7-1.1-2.7-1.1-.4-.9-.9-1.2-.9-1.2-.7-.5.1-.5.1-.5.8.1 1.2.8 1.2.8.7 1.2 1.9.9 2.3.7.1-.5.3-.9.5-1.1-1.8-.2-3.6-.9-3.6-4 0-.9.3-1.6.8-2.1-.1-.2-.4-1 .1-2.1 0 0 .7-.2 2.2.8.6 0 1.3-.1 2-.1s1.4.1 2 .3c1.5-1 2.2-.8 2.2-.8.4 1.1.2 1.9.1 2.1.5.6.8 1.3.8 2.1 0 3.1-1.9 3.7-3.7 3.9.3.3.6.8.6 1.5v2.2c0 .2.1.5.6.4C13.7 14.5 16 11.5 16 8c0-4.4-3.6-8-8-8z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
+                <GithubIcon />
               </a>
             </li>
             <li>
@@ -59,19 +33,7 @@
                 class="bt"
               >
                 CV
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="ico"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-miterlimit="10"
-                    d="M8 11.4l3.3-2.9m-6.6 0L8 11.4V.5M.5 10.8v4.7h15v-4.7"
-                  />
-                </svg>
+                <CVIcon />
               </a>
             </li>
           </ul>
@@ -191,14 +153,16 @@
 </template>
 
 <script>
-import '@/styles/about.scss'
 import { TimelineMax, Power3, Power0 } from 'gsap'
 import * as ScrollMagic from 'scrollmagic'
 import TextBlock from '../components/TextBlock.vue'
+import LinkedInIcon from '../components/LinkedInIcon.vue'
+import GithubIcon from '../components/GithubIcon.vue'
+import CVIcon from '../components/CVIcon.vue'
 
 export default {
   name: 'AboutView',
-  components: { TextBlock },
+  components: { TextBlock, LinkedInIcon, GithubIcon, CVIcon },
   data() {
     return {
       intro: new TimelineMax(),
@@ -262,3 +226,208 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.page-about {
+  .header-bg {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+#about {
+  &:before {
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 40%;
+    height: 100%;
+    background-image: linear-gradient(
+        to left,
+        var(--bg),
+        rgba(var(--bg-rgb), 0) 90%
+      ),
+      linear-gradient(to bottom, var(--bg), rgba(var(--bg-rgb), 0) 60%),
+      url(../assets/iuri-de-paula.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    @media screen and (max-width: 1024px) {
+      position: absolute;
+      width: 100%;
+      height: 60vh;
+      background-image: linear-gradient(
+          to left,
+          var(--bg),
+          rgba(var(--bg-rgb), 0) 80%
+        ),
+        linear-gradient(to top, var(--bg), rgba(var(--bg-rgb), 0) 60%),
+        url(../assets/iuri-de-paula.jpg);
+    }
+
+    @media screen and (max-width: 568px) {
+      height: 80vh;
+      background-image: linear-gradient(
+          to left,
+          var(--bg),
+          rgba(var(--bg-rgb), 0) 50%
+        ),
+        linear-gradient(to top, var(--bg), rgba(var(--bg-rgb), 0) 60%),
+        url(../assets/iuri-de-paula.jpg);
+    }
+  }
+
+  .about-contact {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 2rem 0;
+
+    li {
+      display: flex;
+      align-items: center;
+      flex: 0 0 auto;
+      list-style: none;
+      margin: 0 1rem 0 0;
+      color: var(--gray);
+    }
+    a {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+
+      &.bt {
+        background: var(--purple);
+        color: var(--bg);
+        padding: 0 1rem;
+        height: 2rem;
+        border-radius: 3rem;
+        margin-left: 1rem;
+        line-height: 2rem;
+
+        .ico {
+          margin-left: 0.5rem;
+          height: 14px;
+          width: 14px;
+        }
+
+        &:hover {
+          background: var(--light);
+        }
+      }
+
+      .ico {
+        flex: 0 0 auto;
+        overflow: visible;
+        width: 1.5rem;
+        height: 1.5rem;
+        stroke: var(--bg);
+        fill: var(--purple);
+        stroke-width: 2px;
+        transition: all 400ms ease-out;
+      }
+
+      &:hover {
+        .ico {
+          fill: var(--light);
+        }
+      }
+    }
+
+    @media screen and (max-width: 568px) {
+      flex-flow: row wrap;
+
+      li:last-child {
+        flex: 0 0 100%;
+        margin: 1rem 0 0;
+      }
+    }
+  }
+
+  .about-grid {
+    padding: 3rem 2rem 0 0;
+    margin-right: -25vw;
+    width: 75vw;
+
+    h2 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .columns {
+      margin-bottom: 2rem;
+    }
+
+    ul {
+      display: grid;
+      grid-template: 1fr / repeat(4, 1fr);
+      grid-gap: 2rem;
+      grid-row-gap: 1rem;
+    }
+
+    li {
+      list-style: none;
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.5em;
+      color: var(--gray);
+    }
+
+    .tools {
+      display: grid;
+      grid-template: 1fr / repeat(4, 1fr);
+      grid-gap: 2rem;
+      grid-row-gap: 1rem;
+
+      ul {
+        display: block;
+      }
+    }
+
+    @media screen and (max-width: 1024px) {
+      padding: 3rem 1rem 0 0;
+      margin: 0;
+      width: calc(100vw - 4rem);
+    }
+
+    @media screen and (max-width: 768px) {
+      ul {
+        grid-template: 1fr / repeat(3, 1fr);
+      }
+
+      .tools {
+        grid-template: 1fr / repeat(3, 1fr);
+
+        ul {
+          display: block;
+        }
+      }
+    }
+
+    @media screen and (max-width: 568px) {
+      ul {
+        grid-template: 1fr / 1fr;
+        grid-gap: 1rem;
+      }
+
+      .tools {
+        grid-template: 1fr / 1fr;
+        grid-gap: 1rem;
+
+        ul {
+          display: block;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 568px) {
+    .static-container {
+      padding-top: 65vh;
+    }
+  }
+}
+</style>

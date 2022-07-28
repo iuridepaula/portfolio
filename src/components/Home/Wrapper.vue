@@ -11,3 +11,17 @@ export default {
   components: { Scene },
 }
 </script>
+
+<style lang="scss">
+#wrapperTitle {
+  .title {
+    color: var(--purple);
+  }
+  .std {
+    font-size: 1rem;
+  }
+  .-answer {
+    opacity: 0.6;
+  }
+}
+</style>

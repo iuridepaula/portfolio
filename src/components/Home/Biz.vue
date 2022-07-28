@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bizScene">
     <TitleSection scene="bizTitle">
       <TitleFunction params="2011,2019">biz</TitleFunction>
     </TitleSection>
@@ -24,15 +24,15 @@
         </p>
       </TextBlock>
       <template #container>
-        <ABiz :isPlaying="isPlaying.ABiz" />
-        <Dino :isPlaying="isPlaying.Dino" />
-        <Astronaut :isPlaying="isPlaying.Astronaut" />
-        <CoffeeMug :isPlaying="isPlaying.CoffeeMug" />
-        <Shrimp v-if="$viewport.isDesktop" :isPlaying="isPlaying.Shrimp" />
-        <Octopus v-if="$viewport.isDesktop" :isPlaying="isPlaying.Octopus" />
-        <ET v-if="!$viewport.isMobile" :isPlaying="isPlaying.ET" />
-        <Zen v-if="!$viewport.isMobile" :isPlaying="isPlaying.Zen" />
-        <Shapes :isPlaying="isPlaying.Shapes" />
+        <ABiz :isPlaying="isPlaying" />
+        <Dino :isPlaying="isPlaying" />
+        <Astronaut :isPlaying="isPlaying" />
+        <CoffeeMug :isPlaying="isPlaying" />
+        <Shrimp v-if="$viewport.isDesktop" :isPlaying="isPlaying" />
+        <Octopus v-if="$viewport.isDesktop" :isPlaying="isPlaying" />
+        <ET v-if="!$viewport.isMobile" :isPlaying="isPlaying" />
+        <Zen v-if="!$viewport.isMobile" :isPlaying="isPlaying" />
+        <Shapes :isPlaying="isPlaying" />
       </template>
     </Scene>
     <Scene id="biz2">
@@ -96,140 +96,193 @@ export default {
     Scene,
   },
   props: {
-    isPlaying: {
-      ABiz: false,
-      Dino: false,
-      Astronaut: false,
-      CoffeeMug: false,
-      Shrimp: false,
-      Octopus: false,
-      ET: false,
-      Zen: false,
-      Shapes: false,
-    },
+    isPlaying: Boolean,
   },
 }
 </script>
 
 <style lang="scss">
-#biz1 {
-  .static-container {
-    position: relative;
-    z-index: 2;
-  }
-  .container {
-    z-index: unset;
-  }
-  svg {
-    overflow: visible;
-  }
-}
-#abiz {
-  position: absolute;
-  left: -5vw;
-  top: calc(50% - 15vw);
-  width: 30vw;
-  height: 30vw;
-  z-index: 10;
-  transform: rotateY(180deg);
-}
-#zen {
-  position: absolute;
-  left: calc(100% - 30vw);
-  top: 40vh;
-  z-index: 20;
-  width: 60vw;
-  height: 80vh;
-  transform: scale(2);
-}
-#et {
-  position: absolute;
-  right: 15vw;
-  top: 30vh;
-  z-index: 18;
-  width: 20vw;
-  height: 40vw;
-}
-#dino {
-  position: fixed;
-  right: 0;
-  bottom: -4vh;
-  z-index: 919;
-  width: 50vh;
-  height: 50vh;
-  cursor: pointer;
-
-  .dino-sounds {
-    opacity: 0;
-    stroke-dasharray: 74;
-    stroke-dashoffset: 0;
-    //animation: smoke 1s linear infinite;
-  }
-
-  @keyframes smoke {
-    from {
-      stroke-dasharray: 36;
-      stroke-dashoffset: 72;
+.bizScene {
+  #biz1 {
+    .static-container {
+      position: relative;
+      z-index: 2;
     }
-    to {
-      stroke-dasharray: 36;
+    .container {
+      z-index: unset;
+    }
+    svg {
+      overflow: visible;
+    }
+  }
+  #abiz {
+    position: absolute;
+    left: -5vw;
+    top: calc(50% - 15vw);
+    width: 30vw;
+    height: 30vw;
+    z-index: 10;
+    transform: rotateY(180deg);
+
+    @media screen and (max-width: 1024px){
+      top: auto;
+      bottom: 0;
+    }
+
+    @media screen and (max-width: 768px){
+      width: 50vw;
+      height: 50vh;
+    }
+  }
+  #zen {
+    position: absolute;
+    left: calc(100% - 30vw);
+    top: 40vh;
+    z-index: 20;
+    width: 60vw;
+    height: 80vh;
+    transform: scale(2);
+
+    @media screen and (max-width: 768px){
+      top: 65vh;
+      width: 50vw;
+      height: 60vh;
+    }
+  }
+  #et {
+    position: absolute;
+    right: 15vw;
+    top: 30vh;
+    z-index: 18;
+    width: 20vw;
+    height: 40vw;
+  }
+  #dino {
+    position: fixed;
+    right: 0;
+    bottom: -4vh;
+    z-index: 919;
+    width: 50vh;
+    height: 50vh;
+    cursor: pointer;
+
+    @keyframes smoke {
+      from {
+        stroke-dasharray: 36;
+        stroke-dashoffset: 72;
+      }
+      to {
+        stroke-dasharray: 36;
+        stroke-dashoffset: 0;
+      }
+    }
+
+    &:hover {
+      transition: filter 200ms ease-out;
+      filter: brightness(1.2);
+
+      .dino-sounds {
+        opacity: 1;
+        animation: smoke 1s linear infinite;
+      }
+    }
+
+    @media screen and (max-width: 1024px){
+      right: -5vw;
+      bottom: -20vh;
+      width: 70vh;
+      height: 70vh;
+    }
+
+    @media screen and (max-width: 768px){
+      width: 60vh;
+      height: 60vh;
+    }
+
+    .dino-sounds {
+      opacity: 0;
+      stroke-dasharray: 74;
       stroke-dashoffset: 0;
     }
   }
+  #astro {
+    position: absolute;
+    right: 0;
+    bottom: 35vh;
+    width: 20vw;
+    height: 20vw;
 
-  &:hover {
-    transition: filter 200ms ease-out;
-    filter: brightness(1.2);
-
-    .dino-sounds {
-      opacity: 1;
-      animation: smoke 1s linear infinite;
+    @media screen and (max-width: 568px){
+      right: 0;
+      bottom: 55vh;
+      width: 20vh;
+      height: 20vh;
     }
   }
-}
-#astro {
-  position: absolute;
-  right: 0;
-  bottom: 35vh;
-  width: 20vw;
-  height: 20vw;
-}
-#coffee {
-  position: absolute;
-  right: 15vw;
-  top: 35vh;
-  width: 5vw;
-  height: 5vw;
-}
-#filomena {
-  position: absolute;
-  right: 40vw;
-  bottom: 5vh;
-  width: 10vw;
-  height: 10vw;
-}
-#octo {
-  position: absolute;
-  right: 30vw;
-  top: 60vh;
-  width: 7vw;
-  height: 7vw;
-}
-#open {
-  position: absolute;
-  left: -20vw;
-  top: calc(50% - 20vw);
-  z-index: -1;
-  width: 40vw;
-  height: 40vw;
-}
-#smart {
-  position: absolute;
-  left: 5vw;
-  bottom: -5vw;
-  z-index: -2;
-  width: 20vw;
-  height: 20vw;
-  filter: brightness(0.7);
+  #coffee {
+    position: absolute;
+    right: 15vw;
+    top: 35vh;
+    width: 5vw;
+    height: 5vw;
+
+    @media screen and (max-width: 568px){
+      right: 15vh;
+      top: 20vh;
+      width: 5vh;
+      height: 5vh;
+    }
+  }
+  #filomena {
+    position: absolute;
+    right: 40vw;
+    bottom: 5vh;
+    width: 10vw;
+    height: 10vw;
+  }
+  #octo {
+    position: absolute;
+    right: 30vw;
+    top: 60vh;
+    width: 7vw;
+    height: 7vw;
+  }
+  #open {
+    position: absolute;
+    left: -20vw;
+    top: calc(50% - 20vw);
+    z-index: -1;
+    width: 40vw;
+    height: 40vw;
+
+    @media screen and (max-width: 1024px) {
+      top: auto;
+      bottom: -10vw;
+    }
+
+    @media screen and (max-width: 768px){
+      width: 60vw;
+      height: 60vh;
+    }
+  }
+  #smart {
+    position: absolute;
+    left: 5vw;
+    bottom: -5vw;
+    z-index: -2;
+    width: 20vw;
+    height: 20vw;
+    filter: brightness(0.7);
+
+    @media screen and (max-width: 1024px){
+      left: 10vw;
+    }
+
+    @media screen and (max-width: 768px){
+      width: 30vw;
+      height: 30vw;
+      left: 20vw;
+    }
+  }
 }
 </style>

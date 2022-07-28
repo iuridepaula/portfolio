@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="ghibliScene">
     <Scene id="Ghibli">
       <TextBlock>
         <p>
@@ -17,57 +17,13 @@
           <div class="cloud c2"></div>
         </div>
 
-        <div class="castle-container" role="img" aria-labelledby="castleDesc">
-          <p class="ariaLabel" id="castleDesc">
-            The castle of Howl's movie Moving Castle, flying over a green lawn
-            and a blue sky.
-          </p>
-          <div class="castle">
-            <div class="top">
-              <div class="top-tower"></div>
-              <div class="top-clothes"></div>
-              <div class="top-top"></div>
-            </div>
-            <div class="bucket"></div>
-            <div class="mouth">
-              <div class="back-lip"></div>
-              <div class="front-lip"></div>
-            </div>
-            <div class="l-leg"></div>
-            <div class="r-leg"></div>
-            <div class="l-arm"></div>
-            <div class="body"></div>
-            <div class="fans">
-              <div class="fan2"></div>
-              <div class="fan1"></div>
-              <div class="fix-tail"></div>
-            </div>
-            <div class="r-arm-holder">
-              <div class="r-arm"></div>
-              <div class="fix-shoulder"></div>
-            </div>
-            <div class="ear"></div>
-            <div class="lower-foliage">
-              <div class="foliage2"></div>
-              <div class="foliage1"></div>
-              <div class="fix-balcony"></div>
-            </div>
-            <div class="wing"></div>
-            <div class="higher-foliage">
-              <div class="foliage3"></div>
-              <div class="foliage2"></div>
-              <div class="foliage1"></div>
-              <div class="fix-roof"></div>
-            </div>
-            <div class="flag"></div>
-          </div>
-        </div>
+        <HolwsCastle :isPlaying="isPlaying" />
 
         <div class="grass1"></div>
         <div class="grass2"></div>
       </template>
     </Scene>
-    <Scene />
+    <Scene id="Ghibli2" />
     <Scene id="Ghibli3">
       <TextBlock>
         <p class="-big">
@@ -83,15 +39,100 @@
         </p>
       </TextBlock>
     </Scene>
-    <Scene />
+    <Scene id="Ghibli4" />
   </div>
 </template>
 
 <script>
 import TextBlock from '../TextBlock.vue'
 import Scene from '../Scene.vue'
+import HolwsCastle from '../Characters/HolwsCastle'
 export default {
   name: 'GhibliScene',
-  components: { TextBlock, Scene },
+  props: {
+    isPlaying: Boolean,
+  },
+  components: { TextBlock, Scene, HolwsCastle },
 }
 </script>
+
+<style lang="scss">
+.ghibliScene {
+  .castle-container {
+    position: absolute;
+    top: 70%;
+    left: 100%;
+    transform: scale(0.5);
+
+    @media screen and (max-width: 568px) {
+      transform: scale(0.3);
+    }
+  }
+  .sky {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    .c1 {
+      position: absolute;
+      transform-origin: left bottom;
+      bottom: 0;
+      left: 0;
+      width: 45vw;
+      height: 50vh;
+      background: url('../../components/Characters/HolwsCastle/assets/cloud1.png')
+        no-repeat 0 bottom;
+      background-size: contain;
+    }
+
+    .c2 {
+      position: absolute;
+      transform-origin: right bottom;
+      bottom: 0;
+      right: 0;
+      width: 60vw;
+      height: 60vh;
+      background: url('../../components/Characters/HolwsCastle/assets/cloud2.png')
+        no-repeat right bottom;
+      background-size: contain;
+    }
+
+    @media screen and (max-width: 768px) {
+      .c1,
+      .c2 {
+        width: 100vw;
+        height: 90vh;
+        background-size: 100% auto;
+      }
+    }
+  }
+  .grass1 {
+    transform-origin: left bottom;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50vw;
+    height: 25vh;
+    transform: scale(1.2);
+    background: url('../../components/Characters/HolwsCastle/assets/grass1.png')
+      no-repeat 0 bottom;
+    background-size: contain;
+    filter: blur(2px);
+  }
+  .grass2 {
+    transform-origin: right bottom;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 40vw;
+    height: 20vh;
+    transform: scale(1.2);
+    background: url('../../components/Characters/HolwsCastle/assets/grass2.png')
+      no-repeat right bottom;
+    background-size: contain;
+    filter: blur(2px);
+  }
+}
+</style>

@@ -158,15 +158,10 @@ router.beforeEach((to, _from, next) => {
   NProgress.start()
   // remove classes to avoid styles conflicts
   document.body.classList.remove(
-    '-mario-lock',
-    '-mario-easter-egg',
-    '-bit16',
-    '-mario-played',
-    '-open-nav',
-    '-mario-bg',
-    '-admin-bg',
-    '-confianca-bg',
-    '-desbravando-bg'
+    'is-playing-mario',
+    'has-played-mario',
+    'is-nav-open',
+    'blue-background',
   )
 
   // Update meta tags
@@ -211,15 +206,10 @@ router.afterEach(() => {
 
     document.body.classList.remove(
       'locked',
-      '-mario-lock',
-      '-mario-easter-egg',
-      '-bit16',
-      '-mario-played',
-      '-open-nav',
-      '-mario-bg',
-      '-admin-bg',
-      '-confianca-bg',
-      '-desbravando-bg'
+      'is-playing-mario',
+      'has-played-mario',
+      'is-nav-open',
+      'blue-background',
     )
   }, 1000)
 })

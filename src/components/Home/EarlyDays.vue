@@ -1,7 +1,7 @@
 <template>
   <div class="earlyDays">
     <TitleSection scene="earlyTitle">
-      <TitleFunction params="2008,2011" subtitle="&lt;table&gt;"
+      <TitleFunction params="2008,2011" subtitle="&lt;table&gt;&lt;tr&gt;&lt;td&gt;..."
         >earlyDays</TitleFunction
       >
 
