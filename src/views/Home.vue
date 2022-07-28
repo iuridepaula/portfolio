@@ -248,23 +248,24 @@ export default {
           if (isReverse(e)) {
             this.isPlaying.Ghibli = false
           }
+          removeBodyClass('blue-background')
         })
-      this.scenes.ghibli.on('enter', (e) => {
-        if (isForward(e)) {
+      this.scenes.ghibli
+        .on('enter', () => {
           this.isPlaying.Ghibli = true
           removeBodyClass('is-playing-mario')
-        }
-        addBodyClass('blue-background')
-      })
-      this.scenes.ghibli2.on('enter', () => {
-        addBodyClass('blue-background')
-      })
-      this.scenes.ghibli3.on('enter', () => {
-        addBodyClass('blue-background')
-      })
-      this.scenes.ghibli4.on('enter', () => {
-        addBodyClass('blue-background')
-      })
+          addBodyClass('blue-background')
+        })
+        .on('leave', () => removeBodyClass('blue-background'))
+      this.scenes.ghibli2
+        .on('enter', () => addBodyClass('blue-background'))
+        .on('leave', () => removeBodyClass('blue-background'))
+      this.scenes.ghibli3
+        .on('enter', () => addBodyClass('blue-background'))
+        .on('leave', () => removeBodyClass('blue-background'))
+      this.scenes.ghibli4
+        .on('enter', () => addBodyClass('blue-background'))
+        .on('leave', () => removeBodyClass('blue-background'))
       this.scenes.wrapper.on('enter', () => {
         removeBodyClass('blue-background')
         this.isPlaying.Ghibli = true

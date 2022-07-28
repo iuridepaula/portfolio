@@ -38,18 +38,14 @@ export default {
   }
 
   @media screen and (max-width: 1024px) {
-    .title-container {
-      padding-left: 4rem;
-    }
+    padding-left: 4rem;
   }
 
   @media screen and (max-width: 568px) {
-    .title-container {
-      padding: 0 1rem 0 2rem;
+    padding: 0 1rem 0 2rem;
 
-      .title {
-        margin-bottom: 1rem;
-      }
+    .title {
+      margin-bottom: 1rem;
     }
   }
 }

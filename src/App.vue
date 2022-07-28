@@ -130,6 +130,8 @@ html {
   background: var(--bg);
   font-family: 'Roboto Mono', monospace;
   font-size: 100%;
+  hyphens: auto;
+  word-break: normal;
   color: #888;
 }
 body {

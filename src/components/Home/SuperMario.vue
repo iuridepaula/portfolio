@@ -255,12 +255,6 @@ body.is-playing-mario {
       }
     }
   }
-
-  @media screen and (max-width: 568px) {
-    .mario {
-      transform: scale(0.5);
-    }
-  }
 }
 
 .mario-msg-overlay {
@@ -321,10 +315,12 @@ body.is-playing-mario {
   position: absolute;
   bottom: 100%;
   right: 0;
+  z-index: 99;
   width: 3rem;
   height: 3rem;
   color: #000;
   font-size: 2rem;
   background: none;
+  padding: 0;
 }
 </style>

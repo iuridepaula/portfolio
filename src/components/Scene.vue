@@ -28,15 +28,11 @@ export default {
   perspective-origin: 50% 50vh;
 
   @media screen and (max-width: 1024px) {
-    .static-container {
-      margin: 0 4rem 0 calc(4rem + 1px);
-    }
+    margin: 0 4rem 0 calc(4rem + 1px);
   }
 
   @media screen and (max-width: 568px) {
-    .static-container {
-      margin: 0 2rem 0 calc(2rem + 1px);
-    }
+    margin: 0 2rem 0 calc(2rem + 1px);
   }
 }
 
