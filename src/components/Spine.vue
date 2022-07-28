@@ -1,9 +1,10 @@
 <template>
   <div>
-    <div class="spine"></div>
+    <div class="spine" />
+
     <div class="spine-target">
-      <div class="circle"></div>
-      <div class="pulse"></div>
+      <div class="circle" />
+      <div class="pulse" />
     </div>
   </div>
 </template>
@@ -112,6 +113,7 @@ export default {
 
 <style lang="scss">
 .spine {
+  pointer-events: none;
   position: fixed;
   top: 50vh;
   bottom: 0;
@@ -126,6 +128,7 @@ export default {
   }
 }
 .spine-target {
+  pointer-events: none;
   position: fixed;
   top: calc(50vh - 8px);
   left: calc(25vw - 2rem - 4px);

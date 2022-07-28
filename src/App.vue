@@ -6,6 +6,8 @@
     </transition>
     <Spine :isPlaying="isSpinePlaying" />
     <div class="tweenerElement"></div>
+
+    <FooterSection />
   </div>
 </template>
 
@@ -16,6 +18,7 @@ import { TweenMax, TimelineMax, Power3 } from 'gsap'
 import { ScrollMagicPluginGsap } from 'scrollmagic-plugin-gsap'
 import HeaderSection from '@/components/Header.vue'
 import Spine from '@/components/Spine.vue'
+import FooterSection from './components/Footer.vue'
 
 ScrollMagicPluginGsap(ScrollMagic, TweenMax, TimelineMax)
 
@@ -24,6 +27,7 @@ export default {
   components: {
     HeaderSection,
     Spine,
+    FooterSection,
   },
   data() {
     return {
@@ -116,6 +120,11 @@ export default {
   font-family: inherit;
 }
 
+::selection {
+  background: var(--purple);
+  color: white;
+}
+
 // layout
 html {
   background: var(--bg);
@@ -156,6 +165,9 @@ body {
 }
 
 // general
+li {
+  list-style: none;
+}
 a {
   text-decoration: none;
 }
@@ -246,19 +258,6 @@ body {
   }
 }
 
-/* awwwwards */
-#awwwards {
-  position: fixed;
-  z-index: 999;
-  transform: translateY(-50%);
-  top: 50%;
-  left: 0;
-
-  svg {
-    display: block;
-  }
-}
-
 /* Responsive */
 @media screen and (max-width: 1024px) {
   /* @layout */
@@ -286,18 +285,6 @@ body {
   }
 }
 
-@media screen and (max-width: 768px) {
-  /* awwwards */
-  #awwwards {
-    transform-origin: right bottom;
-    top: auto;
-    left: auto;
-    right: 0;
-    bottom: 0;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
 @media screen and (max-width: 568px) {
   /* @element .title */
   .title {
@@ -313,11 +300,6 @@ body {
       margin-right: -2rem;
       font-size: 2rem;
     }
-  }
-
-  /* awwwards */
-  #awwwards {
-    transform: translate3d(0, 0, 0) scale(0.7);
   }
 }
 

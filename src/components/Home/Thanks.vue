@@ -4,11 +4,11 @@
       <Potion isPlaying />
 
       <div class="madeof">
-        <p class="-comment">// Made in 2018 with</p>
+        <p class="-comment">// Made with</p>
 
         <div class="cols">
           <ul class="col">
-            <li class="ico">&lt;/&gt;</li>
+            <li class="ico">(){&lt;/&gt;}</li>
             <li>Vue 2</li>
             <li>GSAP 2</li>
             <li>ScrollMagic</li>
@@ -36,8 +36,6 @@
           </ul>
         </div>
       </div>
-
-      <p class="-comment">// Thanks for visiting!</p>
     </TextBlock>
   </Scene>
 </template>

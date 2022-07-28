@@ -1,51 +1,42 @@
 <template>
   <div id="about" class="wrapper">
+    <div class="pic"></div>
     <div class="static-container">
       <h1 class="title">about(<span class="params">iuri</span>)</h1>
 
       <TextBlock>
         <div class="first-fold">
           <ul class="about-contact">
-            <li>
-              <a
-                href="https://www.linkedin.com/in/iuridepaula/"
-                target="_blank"
-                title="LinkedIn"
-              >
-                <LinkedInIcon />
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://github.com/iuridepaula"
-                target="_blank"
-                title="GitHub"
-              >
-                <GithubIcon />
+            <li v-for="link in data.links" :key="link.url">
+              <a :href="link.url" :title="link.title" target="_blank">
+                {{ link.label || null }}
+                <Component v-if="link.icon" :is="link.icon" />
               </a>
             </li>
             <li>
               Download my
               <a
-                href="./iuri.depaula.cv.pdf"
+                :href="`./${data.cv.file}`"
+                :title="data.cv.title"
                 target="_blank"
-                title="Download CV"
                 class="bt"
               >
-                CV
-                <CVIcon />
+                {{ data.cv.label }} <CVIcon />
               </a>
             </li>
           </ul>
 
           <p class="-purple">
-            Frontend developer heavily influenced by storytelling, interactions,
-            and UX. Addicted to music, visual arts, and games.<br />
-            From Brazil, based in Barcelona.
+            <span v-for="(line, i) in data.description" :key="i">
+              {{ line }}<br />
+            </span>
           </p>
           <p class="-gray">
-            // he/him<br />
-            // Senior Frontend Engineer @ Activision Blizzard King
+            <span v-for="(line, i) in data.subtitles" :key="i">
+              // {{ line }}<br />
+            </span>
+            // {{ data.experiences[0].position }} @
+            {{ data.experiences[0].company }}
           </p>
         </div>
 
@@ -53,23 +44,8 @@
           <h2>Main skills</h2>
           <div class="columns fluent">
             <ul>
-              <li>
-                Frontend,<br />
-                UX/UI,<br />
-                Web app architecture
-              </li>
-              <li>
-                JavaScript, CSS, HTML,<br />
-                React, Vue, Node,<br />
-                Canvas, SVG, WebGL
-              </li>
-              <li>
-                Photoshop,<br />
-                Illustrator
-              </li>
-              <li>
-                Strategic thinking,<br />
-                Storytelling
+              <li v-for="(skills, i) in data.skills" :key="i">
+                {{ skills.join(', ') }}<br />
               </li>
             </ul>
           </div>
@@ -77,42 +53,11 @@
           <h2>Experience</h2>
           <div class="columns experience">
             <ul>
-              <li>
-                <strong class="-purple">Senior Frontend Engineer</strong>
+              <li v-for="(experience, i) in data.experiences" :key="i">
+                <strong class="-purple">{{ experience.position }}</strong>
                 <br />
-                @ Activision Blizzard King<br />
-                * current
-              </li>
-              <li>
-                <strong class="-purple">Senior Frontend Engineer</strong>
-                <br />
-                @ ON<br />
-                2020-2022
-              </li>
-              <li>
-                <strong class="-purple">Senior Frontend Engineer</strong>
-                <br />
-                @ fromAtoB<br />
-                2019-2020
-              </li>
-              <li>
-                <strong class="-purple">Head of Frontend & UX</strong><br />
-                @ Biz<br />
-                2011 - 2019
-              </li>
-              <li>
-                <strong class="-purple">Senior Frontend Developer</strong><br />
-                @ Tray<br />
-                2008 - 2010
-              </li>
-              <li>
-                <strong class="-purple">Web Designer</strong><br />
-                @ E2W<br />
-                2006 - 2008
-              </li>
-              <li>
-                <strong class="-purple">Freelancer</strong><br />
-                Illustrations & Web development<br />
+                @ {{ experience.company }}<br />
+                {{ experience.time || null }}
               </li>
             </ul>
           </div>
@@ -120,19 +65,12 @@
           <h2>Languages</h2>
           <div class="columns languages">
             <ul>
-              <li>
-                <span class="-comment">// fluent</span><br />
-                <em class="-purple">en-US</em> English,<br />
-                <em class="-purple">pt-BR</em> Português
-              </li>
-              <li>
-                <span class="-comment">// intermediate</span><br />
-                <em class="-purple">es-ES</em> Español<br />
-              </li>
-              <li>
-                <span class="-comment">// basic</span><br />
-                <em class="-purple">de-DE</em> Deutsch,<br />
-                <em class="-purple">ca-ES</em> Català<br />
+              <li v-for="(langs, level) in data.languages" :key="level">
+                <span class="-comment">// {{ level }}</span
+                ><br />
+                <span v-for="[locale, label] in langs" :key="locale"
+                  ><em class="-purple">{{ locale }}</em> {{ label }}<br
+                /></span>
               </li>
             </ul>
           </div>
@@ -140,10 +78,7 @@
           <h2>Also busy with</h2>
           <div class="columns busy">
             <ul>
-              <li>Pet my dog</li>
-              <li>Spanish guitar</li>
-              <li>Video games</li>
-              <li>#eleNÃO</li>
+              <li v-for="busy in data.busy" :key="busy">{{ busy }}</li>
             </ul>
           </div>
         </div>
@@ -159,70 +94,74 @@ import TextBlock from '../components/TextBlock.vue'
 import LinkedInIcon from '../components/LinkedInIcon.vue'
 import GithubIcon from '../components/GithubIcon.vue'
 import CVIcon from '../components/CVIcon.vue'
+import data from '../data/about.json'
 
 export default {
   name: 'AboutView',
   components: { TextBlock, LinkedInIcon, GithubIcon, CVIcon },
   data() {
     return {
-      intro: new TimelineMax(),
+      introTimeline: new TimelineMax(),
+      headerTimeline: new TimelineMax(),
       scroller: new ScrollMagic.Controller(),
+      data,
     }
   },
-  methods: {},
   mounted() {
-    /**
-     * @desc
-     * Intro scene
-     */
-    this.intro
-      .addLabel('enter', 1)
-      .from(
-        '.title',
-        2,
-        {
-          autoAlpha: 0,
-          rotationX: 90,
-          transformOrigin: '50% 50% -100px',
-          ease: Power3.easeOut,
-        },
-        'enter'
-      )
-      .from(
-        '.std',
-        2,
-        {
-          autoAlpha: 0,
-          x: -32,
-          ease: Power3.easeOut,
-        },
-        'enter+=1.5'
-      )
-    /**
-     * @desc
-     * Setup Time lines and Scenes
-     */
-    let duration = window.innerHeight
-    /**
-     * @desc
-     * header background scene
-     */
-    let tlHeader = new TimelineMax()
-    tlHeader.to('.header-bg', 4, {
-      autoAlpha: 1,
-      ease: Power0.easeNone,
-    })
-    new ScrollMagic.Scene({
-      triggerElement: '#about',
-      offset: duration / 4,
-      duration: duration,
-    })
-      .setTween(tlHeader)
-      .addTo(this.scroller)
-      .reverse(true)
+    this.playIntro()
+    this.playHeaderBg()
   },
   beforeUnmount() {
     this.scroller.destroy()
+    this.scroller = null
+    this.introTimeline.kill()
+    this.introTimeline = null
+    this.headerTimeline.kill()
+    this.headerTimeline = null
+  },
+  methods: {
+    playIntro() {
+      this.introTimeline
+        .addLabel('enter', 1)
+        .from(
+          '.title',
+          2,
+          {
+            autoAlpha: 0,
+            rotationX: 90,
+            transformOrigin: '50% 50% -100px',
+            ease: Power3.easeOut,
+          },
+          'enter'
+        )
+        .from(
+          '.std',
+          2,
+          {
+            autoAlpha: 0,
+            x: -32,
+            ease: Power3.easeOut,
+          },
+          'enter+=1.5'
+        )
+    },
+    playHeaderBg() {
+      const duration = window.innerHeight
+
+      this.headerTimeline.to('.header-bg', 4, {
+        autoAlpha: 1,
+        ease: Power0.easeNone,
+      })
+
+      new ScrollMagic.Scene({
+        triggerElement: '#about',
+        offset: duration / 4,
+        duration: duration,
+      })
+        .setTween(this.headerTimeline)
+        .addTo(this.scroller)
+        .reverse(true)
+    },
   },
 }
 </script>
@@ -235,47 +174,37 @@ export default {
   }
 }
 #about {
-  &:before {
-    content: '';
+  .pic {
+    pointer-events: none;
     display: block;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 40%;
-    height: 100%;
-    background-image: linear-gradient(
-        to left,
-        var(--bg),
-        rgba(var(--bg-rgb), 0) 90%
-      ),
-      linear-gradient(to bottom, var(--bg), rgba(var(--bg-rgb), 0) 60%),
-      url(../assets/iuri-de-paula.jpg);
+    z-index: 9999;
+    top: 50%;
+    left: -12vw;
+    transform: translate3d(0, -50%, 0);
+    width: 43vw;
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+    background-image: url(../assets/me.jpg);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: cover;
+    background-size: contain;
+    filter: grayscale(1) brightness(1);
+    mix-blend-mode: difference;
 
     @media screen and (max-width: 1024px) {
-      position: absolute;
-      width: 100%;
-      height: 60vh;
-      background-image: linear-gradient(
-          to left,
-          var(--bg),
-          rgba(var(--bg-rgb), 0) 80%
-        ),
-        linear-gradient(to top, var(--bg), rgba(var(--bg-rgb), 0) 60%),
-        url(../assets/iuri-de-paula.jpg);
+      top: -12vh;
+      left: 50%;
+      transform: translate3d(-50%, 0, 0) rotate(90deg);
+      width: 70vw;
     }
+  }
 
-    @media screen and (max-width: 568px) {
-      height: 80vh;
-      background-image: linear-gradient(
-          to left,
-          var(--bg),
-          rgba(var(--bg-rgb), 0) 50%
-        ),
-        linear-gradient(to top, var(--bg), rgba(var(--bg-rgb), 0) 60%),
-        url(../assets/iuri-de-paula.jpg);
+  .static-container {
+    padding-top: 30vh;
+
+    @media screen and (max-width: 1024px) {
+      padding-top: 50vw;
     }
   }
 
@@ -421,12 +350,6 @@ export default {
           display: block;
         }
       }
-    }
-  }
-
-  @media screen and (max-width: 568px) {
-    .static-container {
-      padding-top: 65vh;
     }
   }
 }

@@ -48,6 +48,7 @@ import {
   isReverse,
   isForward,
 } from '@/utils'
+import AudioMarioStart from '@/components/Characters/SuperMario/assets/smw_princess_help.ogg'
 import Intro from '@/components/Home/Intro.vue'
 import TitleSection from '@/components/Home/TitleSection.vue'
 import TitleFunction from '@/components/Home/TitleFunction.vue'
@@ -75,6 +76,7 @@ export default {
   },
   data() {
     return {
+      audioMarioStart: new Audio(AudioMarioStart),
       scroller: new ScrollMagic.Controller(),
       scenes: {},
       timeLines: {},
@@ -225,8 +227,13 @@ export default {
       this.scenes.early2.on('enter', (e) => {
         if (isReverse(e)) {
           this.isPlaying.EarlyDays = true
-          removeBodyClass('is-playing-mario', 'blue-background')
         }
+      })
+      this.scenes.early3.on('enter', () => {
+        removeBodyClass('is-playing-mario', 'blue-background')
+      })
+      this.scenes.artPhiGamesTitle.on('enter', () => {
+        removeBodyClass('is-playing-mario', 'blue-background')
       })
       this.scenes.mario
         .on('enter', (e) => {
@@ -662,14 +669,19 @@ export default {
           onComplete: () => {
             const marioScene = document.getElementById('Mario')
 
-            if (!marioScene.classList.contains('active')) return false // not this scene
+            if (!marioScene || !marioScene.classList.contains('active'))
+              return false // not this scene
 
             if (document.body.classList.contains('has-played-mario')) {
               addBodyClass('blue-background')
               return false
             }
 
-            addBodyClass('is-playing-mario')
+            const audioContext = new AudioContext()
+            if (audioContext.state === 'running') {
+              this.audioMarioStart.play()
+            }
+            addBodyClass('is-playing-mario') // lock screen
           },
         })
     },

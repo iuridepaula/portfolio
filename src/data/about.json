@@ -1,0 +1,89 @@
+{
+  "email": "depaula.iuri@gmail.com",
+  "links": [
+    {
+      "url": "https://www.linkedin.com/in/iuridepaula/",
+      "title": "LinkedIn",
+      "icon": "LinkedInIcon"
+    },
+    {
+      "url": "https://github.com/iuridepaula",
+      "title": "GitHub",
+      "icon": "GithubIcon"
+    }
+  ],
+  "cv": {
+    "file": "iuri.depaula.cv.pdf",
+    "title": "Download CV",
+    "label": "CV"
+  },
+  "description": [
+    "Frontend developer heavily influenced by storytelling, interactions, and UX. Addicted to music, visual arts, and games.",
+    "From Brazil, based in Barcelona."
+  ],
+  "subtitles": ["he/him"],
+  "skills": [
+    ["Web app architecture", "Strategic thinking", "Storytelling"],
+    ["Frontend", "UX/UI"],
+    [
+      "JavaScript",
+      "CSS",
+      "HTML",
+      "React",
+      "Vue",
+      "Node",
+      "Canvas",
+      "SVG",
+      "WebGL"
+    ],
+    ["Figma", "Photoshop", "Illustrator"]
+  ],
+  "experiences": [
+    {
+      "position": "Senior Frontend Engineer",
+      "company": "Activision Blizzard King",
+      "time": "* current"
+    },
+    {
+      "position": "Senior Frontend Engineer",
+      "company": "ON AG",
+      "time": "2020-2022"
+    },
+    {
+      "position": "Senior Frontend Engineer",
+      "company": "fromAtoB",
+      "time": "2019-2020"
+    },
+    {
+      "position": "Head of Frontend & UX",
+      "company": "Biz",
+      "time": "2011 - 2019"
+    },
+    {
+      "position": "Senior Frontend Developer",
+      "company": "Tray",
+      "time": "2008 - 2010"
+    },
+    {
+      "position": "Web Designer",
+      "company": "E2W",
+      "time": "2006 - 2008"
+    },
+    {
+      "position": "Freelancer",
+      "company": "Illustrations & Web development"
+    }
+  ],
+  "languages": {
+    "fluent": [
+      ["en-US", "English"],
+      ["pt-BR", "Português"]
+    ],
+    "intermediate": [["es-ES", "Español"]],
+    "basic": [
+      ["de-DE", "Deutsch"],
+      ["ca-ES", "Català"]
+    ]
+  },
+  "busy": ["Pet my dog", "Spanish guitar", "Games", "#eleNÃO"]
+}
