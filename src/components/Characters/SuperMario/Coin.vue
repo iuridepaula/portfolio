@@ -17,6 +17,7 @@ export default {
   height: 128px;
   background: url('./assets/bg-mario.png') no-repeat 0 -256px;
   animation: marioCoin 0.6s steps(4) infinite;
+  pointer-events: none;
 
   &.pause {
     animation-play-state: paused;
