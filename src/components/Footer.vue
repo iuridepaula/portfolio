@@ -1,26 +1,11 @@
 <template>
   <footer class="footer">
     <p>Made with 🤍 in 2018</p>
-    <p>
-      awwwards.winner:
-      <a
-        href="https://www.awwwards.com/settings/submission/iuri-is/certificate/hm/"
-        title="Honors"
-        target="_blank"
-        >Honors</a
-      >
-      &
-      <a
-        href="https://www.awwwards.com/settings/submission/iuri-is/certificate/mobile_excellence/"
-        target="_blank"
-        title="Mobile Excellence"
-        >Mobile Excellence</a
-      >
-    </p>
-
+    
+    <p>awwwards.winner:</p>
     <ul class="awwwards">
       <li>
-        <a href="https://www.awwwards.com/" target="_blank"
+        <a href="https://www.awwwards.com/sites/iuri-is" target="_blank"
           ><svg width="53.08" height="171.358">
             <path
               class="js-color-bg"
@@ -36,7 +21,7 @@
         </a>
       </li>
       <li>
-        <a href="https://www.awwwards.com/" target="_blank"
+        <a href="https://www.awwwards.com/sites/iuri-is" target="_blank"
           ><svg width="53.08" height="171.358">
             <path
               class="js-color-bg"
@@ -52,7 +37,7 @@
         </a>
       </li>
       <li>
-        <a href="https://www.awwwards.com/" target="_blank"
+        <a href="https://www.awwwards.com/sites/iuri-is" target="_blank"
           ><svg width="53.08" height="171.358">
             <path
               class="js-color-bg"
@@ -92,7 +77,7 @@ export default {
   a {
     color: var(--purple);
     font-weight: 700;
-    transition: all .2s ease-out;
+    transition: all 0.2s ease-out;
 
     &:hover {
       text-decoration: underline;
