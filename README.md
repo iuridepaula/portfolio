@@ -31,7 +31,7 @@ That's it 🎉
 
 ---
 
-### New version
+### New version 🚧
 
 I'm currently working on a new portfolio to replace this old one, but since many people's still visiting this one today, I decided to refactor it and make this code more re-usable for all of you. So please be patient! 
 
