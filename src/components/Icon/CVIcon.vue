@@ -9,3 +9,9 @@
     />
   </svg>
 </template>
+
+<script>
+export default {
+  name: 'CVIcon',
+}
+</script>

@@ -1,6 +1,6 @@
 <template>
   <div class="preview">
-    <Component
+    <component
       :is="$route.params.character"
       :isPlaying="isPlaying"
       class="preview"

@@ -1,12 +1,9 @@
 <template>
   <div>
-    <div
-      :class="[
-        'mario-box',
-        { '-jumped': hasTouched, '-full': hasCoins, '-off': hasFoundAllCoins },
-      ]"
-      @click="onTouchBlock"
-    >
+    <div :class="[
+      'mario-box',
+      { '-jumped': hasTouched, '-full': hasCoins, '-off': hasFoundAllCoins },
+    ]" @click="onTouchBlock">
       <div class="in"></div>
       <SuperMarioCoin v-for="(item, i) in coinsToBeFound" :key="i" isPlaying />
     </div>
@@ -15,7 +12,7 @@
 
 <script>
 import { TimelineMax, SteppedEase } from 'gsap'
-import { random } from '../../../utils'
+import { random } from '@/utils'
 import AudioStomp from './assets/smw_stomp.ogg'
 import AudioPowerUp from './assets/smw_power-up.ogg'
 import AudioAppears from './assets/smw_power-up_appears.ogg'
@@ -80,7 +77,7 @@ export default {
         this.audioPowerUp.play()
         this.$emit('foundAllCoins')
       }
-      
+
       this.audioAppears.play()
       this.$emit('foundCoin', this.foundCoins)
     },
@@ -123,7 +120,7 @@ export default {
   width: 128px;
   height: 128px;
 
-  .preview > & {
+  .preview>& {
     margin: 30rem auto 10rem;
   }
 
@@ -136,12 +133,15 @@ export default {
       animation: marioBoxEmpty 0.6s steps(4) infinite;
     }
   }
+
   &.-full.-jumped .in {
     animation: none;
     background-position: -512px 0;
   }
+
   &.-off {
     cursor: default;
+
     &:hover {
       filter: none;
     }
@@ -171,14 +171,17 @@ export default {
   from {
     background-position: 0 0;
   }
+
   to {
     background-position: -512px 0;
   }
 }
+
 @keyframes marioBoxEmpty {
   from {
     background-position: 0 -128px;
   }
+
   to {
     background-position: -512px -128px;
   }

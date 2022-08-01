@@ -5,9 +5,8 @@
 </template>
 
 <script>
-import { LOOP_EASE_IN_OUT } from '@/constants'
+import { LOOP_EASE_IN_OUT, LOOP } from '@/constants'
 import { random } from '@/utils'
-import { LOOP } from '../../../constants'
 import { character } from '../character.mixin'
 import ETSVG from './ETSVG.vue'
 

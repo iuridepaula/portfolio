@@ -50,10 +50,9 @@
 
 <script>
 import { RoughEase, Power0 } from 'gsap'
+import { LOOP_EASE_IN_OUT, LOOP } from '@/constants'
 import { getNodes } from '@/utils'
-import { LOOP_EASE_IN_OUT } from '@/constants'
 import { character } from '../character.mixin'
-import { LOOP } from '../../../constants'
 
 export default {
   name: 'HolwsCastleCharacter',
@@ -264,6 +263,7 @@ export default {
     width: 596px;
     height: 420px;
   }
+
   .top-top {
     top: 0;
     left: 0;
@@ -272,6 +272,7 @@ export default {
     @include pieces-img;
     background-position: 0 0;
   }
+
   .top-tower {
     top: -58px;
     left: 102px;
@@ -280,6 +281,7 @@ export default {
     @include pieces-img;
     background-position: -596px 0;
   }
+
   .top-clothes {
     top: 36px;
     left: 500px;
@@ -303,6 +305,7 @@ export default {
     height: 54px;
     background: url('./assets/bucket.png') 0 0;
   }
+
   .mouth {
     .back-lip {
       top: 550px;
@@ -312,6 +315,7 @@ export default {
       @include pieces-img;
       background-position: 0 -563px;
     }
+
     .front-lip {
       top: 551px;
       left: 72px;
@@ -330,6 +334,7 @@ export default {
     @include pieces-img;
     background-position: -727px -140px;
   }
+
   .r-leg {
     top: 668px;
     left: 462px;
@@ -338,6 +343,7 @@ export default {
     @include pieces-img;
     background-position: -300px -563px;
   }
+
   .l-arm {
     top: 697px;
     left: 191px;
@@ -346,6 +352,7 @@ export default {
     @include pieces-img;
     background-position: -388px -420px;
   }
+
   .body {
     top: 0;
     left: 0;
@@ -354,12 +361,14 @@ export default {
     background: url('./assets/body.png') no-repeat 0 0;
     background-size: 100% 100%;
   }
+
   .fans {
     top: 0;
     left: 0;
     z-index: -1;
     width: 100%;
     height: 100%;
+
     .fan2 {
       width: 100%;
       height: 100%;
@@ -367,6 +376,7 @@ export default {
       background-size: 2199px 824px;
       animation: fan1 0.3s steps(3) infinite;
     }
+
     .fan1 {
       width: 100%;
       height: 100%;
@@ -380,6 +390,7 @@ export default {
         }
       }
     }
+
     .fix-tail {
       top: 0;
       left: 0;
@@ -395,6 +406,7 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
+
     .r-arm {
       top: 643px;
       left: 254px;
@@ -403,6 +415,7 @@ export default {
       @include pieces-img;
       background-position: 0 -420px;
     }
+
     .fix-shoulder {
       top: 0;
       left: 0;
@@ -420,11 +433,13 @@ export default {
     height: 53px;
     background: url('./assets/ear.png') 0 0;
   }
+
   .lower-foliage {
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+
     .foliage2 {
       top: 360px;
       left: 244px;
@@ -433,6 +448,7 @@ export default {
       @include pieces-img;
       background-position: -727px -250px;
     }
+
     .foliage1 {
       top: 417px;
       left: 307px;
@@ -441,6 +457,7 @@ export default {
       @include pieces-img;
       background-position: -727px -349px;
     }
+
     .fix-balcony {
       top: 0;
       left: 0;
@@ -466,11 +483,13 @@ export default {
       }
     }
   }
+
   .higher-foliage {
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+
     .foliage3 {
       top: 183px;
       left: 290px;
@@ -479,6 +498,7 @@ export default {
       @include pieces-img;
       background-position: -727px 0;
     }
+
     .foliage2 {
       top: 239px;
       left: 357px;
@@ -487,6 +507,7 @@ export default {
       @include pieces-img;
       background-position: -177px -420px;
     }
+
     .foliage1 {
       top: 320px;
       left: 438px;
@@ -495,6 +516,7 @@ export default {
       @include pieces-img;
       background-position: -727px -411px;
     }
+
     .fix-roof {
       top: 0;
       left: 0;

@@ -14,7 +14,8 @@
 </template>
 
 <script>
-import TextBlock from '../TextBlock.vue'
+import TextBlock from './TextBlock.vue'
+
 export default {
   name: 'TitleFunction',
   props: {

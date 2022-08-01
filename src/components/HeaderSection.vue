@@ -29,7 +29,9 @@
         </button>
 
         <ul>
-          <li><router-link to="/" title="Home">.is()</router-link></li>
+          <li>
+            <router-link to="/" title="Home">.is()</router-link>
+          </li>
           <li>
             <router-link to="/about" title="About me">.about()</router-link>
           </li>
@@ -41,7 +43,7 @@
           <li v-for="link in data.links" :key="link.url" class="social-link">
             <a :href="link.url" :title="link.title" target="_blank">
               {{ link.label || null }}
-              <Component v-if="link.icon" :is="link.icon" />
+              <component v-if="link.icon" :is="link.icon" />
             </a>
           </li>
         </ul>
@@ -51,16 +53,20 @@
 </template>
 
 <script>
-import data from '../data/about.json'
-import LinkedInIcon from './LinkedInIcon.vue'
-import GithubIcon from './GithubIcon.vue'
+import { fetchData } from '@/utils'
+import LinkedInIcon from './Icon/LinkedInIcon.vue'
+import GithubIcon from './Icon/GithubIcon.vue'
+
 export default {
   name: 'HeaderSection',
   components: { LinkedInIcon, GithubIcon },
   data() {
     return {
-      data,
+      data: {},
     }
+  },
+  async mounted() {
+    this.data = await fetchData()
   },
   methods: {
     openMenu() {
@@ -83,6 +89,7 @@ export default {
   height: 8rem;
   padding: 0 1rem 5rem;
 }
+
 .header-container {
   display: flex;
   align-items: center;
@@ -119,6 +126,7 @@ export default {
   .label {
     display: none;
   }
+
   .dots {
     flex: 0 0 auto;
     position: relative;
@@ -275,9 +283,11 @@ export default {
     .wrapper {
       opacity: 0.1 !important;
     }
+
     .header-nav-button {
       opacity: 0;
     }
+
     .header-nav {
       transition: transform 1s cubic-bezier(0.86, 0, 0.07, 1);
       transform: translate3d(0, 0, 0);
@@ -299,6 +309,7 @@ export default {
     rgba(var(--bg-rgb), 0) 100%
   );
 }
+
 body.blue-background {
   .header-bg {
     background: linear-gradient(
@@ -307,12 +318,15 @@ body.blue-background {
       rgba(4, 151, 209, 0) 100%
     );
   }
+
   .header-nav-button .dots {
     background: #000;
   }
+
   .header-nav a {
     color: #000;
   }
+
   .header-nav a svg,
   .header-breadcrumb,
   .header-nav-close-button {

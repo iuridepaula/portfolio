@@ -16,6 +16,7 @@
 
 <script>
 import TextBlock from '../TextBlock.vue'
+
 export default {
   name: 'IntroScene',
   components: { TextBlock },

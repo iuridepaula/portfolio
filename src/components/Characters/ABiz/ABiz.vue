@@ -5,10 +5,9 @@
 </template>
 
 <script>
-import { LOOP_EASE_IN_OUT } from '@/constants'
+import { LOOP_EASE_IN_OUT, LOOP_EASE_OUT } from '@/constants'
 import { character } from '../character.mixin'
 import ABizSVG from './ABizSVG.vue'
-import { LOOP_EASE_OUT } from '../../../constants'
 
 export default {
   name: 'BizCharacter',

@@ -1,7 +1,9 @@
 <template>
   <div class="earlyDays">
     <TitleSection scene="earlyTitle">
-      <TitleFunction params="2008,2011" subtitle="&lt;table&gt;&lt;tr&gt;&lt;td&gt;..."
+      <TitleFunction
+        params="2008,2011"
+        subtitle="&lt;table&gt;&lt;tr&gt;&lt;td&gt;..."
         >earlyDays</TitleFunction
       >
 
@@ -12,7 +14,7 @@
       <Ocean v-bind="{ isPlaying }" />
     </TitleSection>
 
-    <Scene id="early-days">
+    <SceneSection id="early-days">
       <TextBlock>
         <p>Design & illustration.</p>
         <p class="-big">
@@ -20,8 +22,8 @@
           <span class="-purple">with one foothold in arts.</span>
         </p>
       </TextBlock>
-    </Scene>
-    <Scene id="early-days2">
+    </SceneSection>
+    <SceneSection id="early-days2">
       <TextBlock>
         <p class="-big">
           <span class="-purple">Freelancing</span> &
@@ -35,8 +37,8 @@
           web studio.<br />
         </p>
       </TextBlock>
-    </Scene>
-    <Scene id="early-days3">
+    </SceneSection>
+    <SceneSection id="early-days3">
       <TextBlock>
         <p>
           We've proudly fueled the starring<br />
@@ -48,16 +50,17 @@
           among many others...
         </p>
       </TextBlock>
-    </Scene>
+    </SceneSection>
   </div>
 </template>
 
 <script>
-import { Pepe, Ocean } from '../Characters'
-import TitleSection from './TitleSection.vue'
-import TitleFunction from './TitleFunction.vue'
+import Pepe from '../Characters/Pepe/Pepe.vue'
+import Ocean from '../Characters/Ocean/Ocean.vue'
+import TitleSection from '../TitleSection.vue'
+import TitleFunction from '../TitleFunction.vue'
 import TextBlock from '../TextBlock.vue'
-import Scene from '../Scene.vue'
+import SceneSection from '../SceneSection.vue'
 
 export default {
   name: 'EarlyDaysScene',
@@ -67,7 +70,7 @@ export default {
     Ocean,
     TitleFunction,
     TextBlock,
-    Scene,
+    SceneSection,
   },
   props: {
     isPlaying: Boolean,
@@ -105,6 +108,7 @@ export default {
     &.cloud-2 {
       background-image: url('../Characters/Pepe/assets/clouds-2.png');
     }
+
     &.cloud-3 {
       background-image: url('../Characters/Pepe/assets/clouds-3.png');
       width: 100vw;

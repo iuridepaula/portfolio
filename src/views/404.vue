@@ -1,7 +1,9 @@
 <template>
   <div id="err404" class="wrapper">
     <div class="static-container">
-      <h1 class="title"><span class="params">new</span> Error(<span class="params">404</span>)</h1>
+      <h1 class="title">
+        <span class="params">new</span> Error(<span class="params">404</span>)
+      </h1>
 
       <TextBlock>
         <p>The page you requested could not be found.</p>
@@ -20,8 +22,9 @@
 </template>
 
 <script>
-import { Astronaut, CoffeeMug } from '@/components/Characters'
-import TextBlock from '@/components/TextBlock.vue'
+import Astronaut from '../components/Characters/Astronaut/Astronaut.vue'
+import CoffeeMug from '../components/Characters/CoffeeMug/CoffeeMug.vue'
+import TextBlock from '../components/TextBlock.vue'
 
 export default {
   name: 'NotFound',
@@ -43,6 +46,7 @@ export default {
     height: 60vh;
     overflow: visible;
   }
+
   #coffee {
     position: absolute;
     right: 30vw;

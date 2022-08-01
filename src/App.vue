@@ -4,7 +4,7 @@
     <transition appear mode="out-in" :css="false" @leave="leave" @enter="enter">
       <router-view />
     </transition>
-    <Spine :isPlaying="isSpinePlaying" />
+    <SpineLine :isPlaying="isSpinePlaying" />
     <div class="tweenerElement"></div>
 
     <FooterSection />
@@ -12,13 +12,12 @@
 </template>
 
 <script>
-// GSAP + ScrollMagic
 import * as ScrollMagic from 'scrollmagic'
 import { TweenMax, TimelineMax, Power3 } from 'gsap'
 import { ScrollMagicPluginGsap } from 'scrollmagic-plugin-gsap'
-import HeaderSection from '@/components/Header.vue'
-import Spine from '@/components/Spine.vue'
-import FooterSection from './components/Footer.vue'
+import HeaderSection from './components/HeaderSection.vue'
+import FooterSection from './components/FooterSection.vue'
+import SpineLine from './components/SpineLine.vue'
 
 ScrollMagicPluginGsap(ScrollMagic, TweenMax, TimelineMax)
 
@@ -26,7 +25,7 @@ export default {
   name: 'App',
   components: {
     HeaderSection,
-    Spine,
+    SpineLine,
     FooterSection,
   },
   data() {
@@ -134,16 +133,20 @@ html {
   word-break: normal;
   color: #888;
 }
+
 body {
   min-height: 100vh;
+
   &.locked {
     overflow: hidden;
   }
 }
+
 #app {
   overflow: hidden;
   margin: 0 auto;
 }
+
 .wrapper {
   position: relative;
   z-index: 1;
@@ -170,12 +173,15 @@ body {
 li {
   list-style: none;
 }
+
 a {
   text-decoration: none;
 }
+
 button {
   border: 0;
 }
+
 svg {
   title,
   desc {
@@ -194,9 +200,11 @@ body {
     .header-nav-button .dots {
       background: #000;
     }
+
     .header-nav a {
       color: #000;
     }
+
     .header-nav a svg,
     .header-breadcrumb,
     .header-nav-close-button {
@@ -220,10 +228,13 @@ body {
 
   &.-blank {
     vertical-align: middle;
-  } // default
+  }
+
+  // default
   &.-prev {
     transform: rotate(-180deg);
   }
+
   &.-next {
     transform: rotate(90deg);
   }
@@ -253,6 +264,7 @@ body {
   .func {
     color: var(--purple);
   }
+
   .params {
     color: var(--purple);
     font-weight: 400;
@@ -308,6 +320,7 @@ body {
 // NProgress custom CSS
 #nprogress {
   pointer-events: none;
+
   .bar {
     background: var(--purple);
     position: fixed;
@@ -317,6 +330,7 @@ body {
     width: 100%;
     height: 2px;
   }
+
   .peg {
     display: block;
     position: absolute;
@@ -331,6 +345,7 @@ body {
 .nprogress-custom-parent {
   overflow: hidden;
   position: relative;
+
   #nprogress {
     .spinner,
     .bar {

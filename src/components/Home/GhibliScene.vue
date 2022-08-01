@@ -1,6 +1,6 @@
 <template>
   <div class="ghibliScene">
-    <Scene id="Ghibli">
+    <SceneSection id="Ghibli">
       <TextBlock>
         <p>
           Before designing for web, I was creating
@@ -22,9 +22,9 @@
         <div class="grass1"></div>
         <div class="grass2"></div>
       </template>
-    </Scene>
-    <Scene id="Ghibli2" />
-    <Scene id="Ghibli3">
+    </SceneSection>
+    <SceneSection id="Ghibli2" />
+    <SceneSection id="Ghibli3">
       <TextBlock>
         <p class="-big">
           And studying
@@ -38,21 +38,22 @@
           today.
         </p>
       </TextBlock>
-    </Scene>
-    <Scene id="Ghibli4" />
+    </SceneSection>
+    <SceneSection id="Ghibli4" />
   </div>
 </template>
 
 <script>
+import HolwsCastle from '../Characters/HolwsCastle/HolwsCastle.vue'
+import SceneSection from '../SceneSection.vue'
 import TextBlock from '../TextBlock.vue'
-import Scene from '../Scene.vue'
-import HolwsCastle from '../Characters/HolwsCastle'
+
 export default {
   name: 'GhibliScene',
   props: {
     isPlaying: Boolean,
   },
-  components: { TextBlock, Scene, HolwsCastle },
+  components: { TextBlock, SceneSection, HolwsCastle },
 }
 </script>
 
@@ -68,6 +69,7 @@ export default {
       transform: scale(0.3);
     }
   }
+
   .sky {
     position: absolute;
     top: 0;
@@ -108,6 +110,7 @@ export default {
       }
     }
   }
+
   .grass1 {
     transform-origin: left bottom;
     position: absolute;
@@ -121,6 +124,7 @@ export default {
     background-size: contain;
     filter: blur(2px);
   }
+
   .grass2 {
     transform-origin: right bottom;
     position: absolute;

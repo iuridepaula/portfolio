@@ -1,7 +1,7 @@
 <template>
   <div id="home" class="wrapper">
-    <Intro />
-    <Gap />
+    <IntroScene />
+    <GapBlock />
 
     <TitleSection scene="curriculum">
       <TitleFunction params="/^.*$/gi" subtitle="&lt;WorkShowcase&gt;"
@@ -9,11 +9,11 @@
       >
     </TitleSection>
 
-    <Biz :isPlaying="isPlaying.Biz" />
-    <Gap />
+    <BizScene :isPlaying="isPlaying.Biz" />
+    <GapBlock />
 
-    <EarlyDays :isPlaying="isPlaying.EarlyDays" />
-    <Gap />
+    <EarlyDaysScene :isPlaying="isPlaying.EarlyDays" />
+    <GapBlock />
 
     <TitleSection scene="ArtPhiGamesTitle">
       <TitleFunction subtitle="background.bmp">
@@ -27,14 +27,14 @@
       </TitleFunction>
     </TitleSection>
 
-    <SuperMario />
-    <Gap />
+    <SuperMarioScene />
+    <GapBlock />
 
-    <Ghibli :isPlaying="isPlaying.Ghibli" />
+    <GhibliScene :isPlaying="isPlaying.Ghibli" />
 
-    <Wrapper />
+    <WrapperScene />
 
-    <Thanks :isPlayng="isPlaying.Potion" />
+    <ThanksScene :isPlayng="isPlaying.Potion" />
   </div>
 </template>
 
@@ -48,38 +48,38 @@ import {
   isReverse,
   isForward,
 } from '@/utils'
-import AudioMarioStart from '@/components/Characters/SuperMario/assets/smw_princess_help.ogg'
-import Intro from '@/components/Home/Intro.vue'
-import TitleSection from '@/components/Home/TitleSection.vue'
-import TitleFunction from '@/components/Home/TitleFunction.vue'
-import Biz from '@/components/Home/Biz.vue'
-import EarlyDays from '@/components/Home/EarlyDays.vue'
-import SuperMario from '@/components/Home/SuperMario.vue'
-import Ghibli from '@/components/Home/Ghibli.vue'
-import Wrapper from '@/components/Home/Wrapper.vue'
-import Thanks from '@/components/Home/Thanks.vue'
-import Gap from '@/components/Gap.vue'
+import AudioMarioStart from '../components/Characters/SuperMario/assets/smw_princess_help.ogg'
+import IntroScene from '../components/Home/IntroScene.vue'
+import BizScene from '../components/Home/BizScene.vue'
+import EarlyDaysScene from '../components/Home/EarlyDaysScene.vue'
+import SuperMarioScene from '../components/Home/SuperMarioScene.vue'
+import GhibliScene from '../components/Home/GhibliScene.vue'
+import WrapperScene from '../components/Home/WrapperScene.vue'
+import ThanksScene from '../components/Home/ThanksScene.vue'
+import GapBlock from '../components/GapBlock.vue'
+import TitleSection from '../components/TitleSection.vue'
+import TitleFunction from '../components/TitleFunction.vue'
 
 export default {
   name: 'HomeView',
   components: {
-    Intro,
+    IntroScene,
+    BizScene,
+    EarlyDaysScene,
+    SuperMarioScene,
+    GhibliScene,
+    WrapperScene,
+    ThanksScene,
+    GapBlock,
     TitleSection,
     TitleFunction,
-    Biz,
-    EarlyDays,
-    SuperMario,
-    Ghibli,
-    Wrapper,
-    Thanks,
-    Gap,
   },
   data() {
     return {
       audioMarioStart: new Audio(AudioMarioStart),
-      scroller: new ScrollMagic.Controller(),
-      scenes: {},
-      timeLines: {},
+      scrollMagicController: new ScrollMagic.Controller(),
+      scrollMagicScene: {},
+      timelines: {},
       tweeners: {},
       isPlaying: {
         Biz: false,
@@ -123,16 +123,16 @@ export default {
     // to avoid style issues
     removeBodyClass('is-playing-mario', 'blue-background')
     // timelines
-    Object.values(this.timeLines).forEach((timeLine) => timeLine.kill())
-    this.timeLines = {}
+    Object.values(this.timelines).forEach((timeLine) => timeLine.kill())
+    this.timelines = {}
     // tweeners
     Object.values(this.tweeners).forEach((tweener) => tweener.kill())
     this.tweeners = {}
     // scrollMagic
-    this.scroller.destroy(true)
-    this.scroller = null
-    Object.values(this.scenes).forEach((scene) => scene.destroy(true))
-    this.scenes = {}
+    this.scrollMagicController.destroy(true)
+    this.scrollMagicController = null
+    Object.values(this.scrollMagicScene).forEach((scene) => scene.destroy(true))
+    this.scrollMagicScene = {}
   },
   methods: {
     setupScenes() {
@@ -159,16 +159,16 @@ export default {
       Object.entries(scenesElements).forEach(([scene, element]) => {
         // tweeners animate timelines' progress, to add momentum
         this.tweeners[scene] = new TimelineMax()
-        this.timeLines[scene] = new TimelineMax({ paused: true })
+        this.timelines[scene] = new TimelineMax({ paused: true })
 
         // ScrollMagic scenes
-        this.scenes[scene] = new ScrollMagic.Scene({
+        this.scrollMagicScene[scene] = new ScrollMagic.Scene({
           triggerElement: element,
           offset: -this.$viewport.height / 2, // start half screen before
           duration: element.offsetHeight, // lasts for the element height
         })
           .setTween(this.tweeners[scene])
-          .addTo(this.scroller)
+          .addTo(this.scrollMagicController)
           .reverse(true)
           .setClassToggle(element, 'active')
 
@@ -176,7 +176,7 @@ export default {
         this.tweeners[scene]
           .to(element, 1, { autoAlpha: 1 }) // fake, just to have some progress
           .eventCallback('onUpdate', () => {
-            TweenLite.to(this.timeLines[scene], 0.5, {
+            TweenLite.to(this.timelines[scene], 0.5, {
               progress: this.tweeners[scene].progress(),
               ease: Power0.easeNone,
             })
@@ -211,31 +211,34 @@ export default {
     },
     manageLoops() {
       // play & stop loop animations based on each scene
-      this.scenes.myCV.on('enter', () => (this.isPlaying.Biz = false))
-      this.scenes.bizTitle.on('enter', () => (this.isPlaying.Biz = true))
-      this.scenes.biz1.on('enter', () => (this.isPlaying.Biz = true))
-      this.scenes.biz2.on('enter', () => (this.isPlaying.Biz = true))
-      this.scenes.biz3.on('enter', () => (this.isPlaying.Biz = true))
-      this.scenes.earlyTitle.on('enter', () => {
+      this.scrollMagicScene.myCV.on('enter', () => (this.isPlaying.Biz = false))
+      this.scrollMagicScene.bizTitle.on(
+        'enter',
+        () => (this.isPlaying.Biz = true)
+      )
+      this.scrollMagicScene.biz1.on('enter', () => (this.isPlaying.Biz = true))
+      this.scrollMagicScene.biz2.on('enter', () => (this.isPlaying.Biz = true))
+      this.scrollMagicScene.biz3.on('enter', () => (this.isPlaying.Biz = true))
+      this.scrollMagicScene.earlyTitle.on('enter', () => {
         this.isPlaying.Biz = true
         this.isPlaying.EarlyDays = true
       })
-      this.scenes.early1.on('enter', () => {
+      this.scrollMagicScene.early1.on('enter', () => {
         this.isPlaying.Biz = false
         this.isPlaying.EarlyDays = true
       })
-      this.scenes.early2.on('enter', (e) => {
+      this.scrollMagicScene.early2.on('enter', (e) => {
         if (isReverse(e)) {
           this.isPlaying.EarlyDays = true
         }
       })
-      this.scenes.early3.on('enter', () => {
+      this.scrollMagicScene.early3.on('enter', () => {
         removeBodyClass('is-playing-mario', 'blue-background')
       })
-      this.scenes.artPhiGamesTitle.on('enter', () => {
+      this.scrollMagicScene.artPhiGamesTitle.on('enter', () => {
         removeBodyClass('is-playing-mario', 'blue-background')
       })
-      this.scenes.mario
+      this.scrollMagicScene.mario
         .on('enter', (e) => {
           if (isForward(e)) {
             this.isPlaying.EarlyDays = false
@@ -250,34 +253,34 @@ export default {
           }
           removeBodyClass('blue-background')
         })
-      this.scenes.ghibli
+      this.scrollMagicScene.ghibli
         .on('enter', () => {
           this.isPlaying.Ghibli = true
           removeBodyClass('is-playing-mario')
           addBodyClass('blue-background')
         })
         .on('leave', () => removeBodyClass('blue-background'))
-      this.scenes.ghibli2
+      this.scrollMagicScene.ghibli2
         .on('enter', () => addBodyClass('blue-background'))
         .on('leave', () => removeBodyClass('blue-background'))
-      this.scenes.ghibli3
+      this.scrollMagicScene.ghibli3
         .on('enter', () => addBodyClass('blue-background'))
         .on('leave', () => removeBodyClass('blue-background'))
-      this.scenes.ghibli4
+      this.scrollMagicScene.ghibli4
         .on('enter', () => addBodyClass('blue-background'))
         .on('leave', () => removeBodyClass('blue-background'))
-      this.scenes.wrapper.on('enter', () => {
+      this.scrollMagicScene.wrapper.on('enter', () => {
         removeBodyClass('blue-background')
         this.isPlaying.Ghibli = true
         this.isPlaying.Potion = false
       })
-      this.scenes.thanks.on('enter', () => {
+      this.scrollMagicScene.thanks.on('enter', () => {
         this.isPlaying.Ghibli = false
         this.isPlaying.Potion = true
       })
     },
     sceneMyCV() {
-      this.timeLines.myCV
+      this.timelines.myCV
         .set('#curriculum .title-container', { autoAlpha: 1 }) // show animations
         .addLabel('start', 0)
         .from(
@@ -310,7 +313,7 @@ export default {
         })
     },
     sceneBizTitle() {
-      this.timeLines.bizTitle
+      this.timelines.bizTitle
         // next scene characters
         .set('#filomena', {
           autoAlpha: 0,
@@ -369,7 +372,7 @@ export default {
         )
     },
     sceneBizZen() {
-      this.timeLines.biz1
+      this.timelines.biz1
         .addLabel('start', 0)
         .from(
           '#zen',
@@ -403,7 +406,7 @@ export default {
         )
     },
     sceneBizEverybody() {
-      this.timeLines.biz2
+      this.timelines.biz2
         .addLabel('start', 0)
         .to(
           '#zen',
@@ -429,7 +432,7 @@ export default {
         )
     },
     sceneBizEnding() {
-      this.timeLines.biz3
+      this.timelines.biz3
         .addLabel('start', 0)
         .to(
           '#dino',
@@ -545,7 +548,7 @@ export default {
         )
 
       // EarlyDays()
-      this.timeLines.earlyTitle
+      this.timelines.earlyTitle
         .set('.pepe-scenery', { autoAlpha: 0 })
         .set('#biz1 .container', { autoAlpha: 1 })
         .addLabel('start', 0)
@@ -617,20 +620,20 @@ export default {
         'start'
       )
 
-      this.timeLines.early1
+      this.timelines.early1
         .set('#biz1 .container', { autoAlpha: 0 })
         .to('.pepe-scenery', 8, { autoAlpha: 1 })
     },
     sceneFloatingHead() {
-      this.timeLines.early2.addLabel('start', 0)
+      this.timelines.early2.addLabel('start', 0)
     },
     sceneSunset() {
-      this.timeLines.early3
+      this.timelines.early3
         .set('#Mario .container', { autoAlpha: 0 })
         .to('.pepe-scenery', 8, { autoAlpha: 0 })
     },
     sceneArtPhiGames() {
-      this.timeLines.artPhiGamesTitle
+      this.timelines.artPhiGamesTitle
         .set('#Mario .container', { autoAlpha: 0 })
         .addLabel('start', 1)
         .to('#ArtPhiGamesTitle .title-container', 1, { autoAlpha: 1 })
@@ -769,17 +772,17 @@ export default {
         scale: 0.5,
       })
 
-      this.timeLines.ghibli
+      this.timelines.ghibli
         .addLabel('start', 0)
         .to('#Mario .container', 4, { autoAlpha: 0 }, 'start')
         .to('#Ghibli .container', 4, { autoAlpha: 1 }, 'start')
 
-      this.timeLines.ghibli2.addLabel('start', 0)
-      this.timeLines.ghibli3.addLabel('start', 0)
-      this.timeLines.ghibli4.addLabel('start', 0)
+      this.timelines.ghibli2.addLabel('start', 0)
+      this.timelines.ghibli3.addLabel('start', 0)
+      this.timelines.ghibli4.addLabel('start', 0)
     },
     sceneWrapper() {
-      this.timeLines.wrapper
+      this.timelines.wrapper
         .addLabel('start', 0)
         .to('#Ghibli .container', 2, { autoAlpha: 0 }, 'start')
         .from('#wrapperTitle .static-container', 2, { autoAlpha: 1 })
@@ -820,7 +823,7 @@ export default {
         duration,
       })
         .setTween(tweener)
-        .addTo(this.scroller)
+        .addTo(this.scrollMagicController)
 
       return timeline
     },
@@ -837,6 +840,7 @@ export default {
   font-weight: normal;
   font-style: normal;
 }
+
 #home {
   .scene .static-container {
     padding: 0;

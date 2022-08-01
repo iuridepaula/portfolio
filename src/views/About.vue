@@ -10,10 +10,10 @@
             <li v-for="link in data.links" :key="link.url">
               <a :href="link.url" :title="link.title" target="_blank">
                 {{ link.label || null }}
-                <Component v-if="link.icon" :is="link.icon" />
+                <component v-if="link.icon" :is="link.icon" />
               </a>
             </li>
-            <li>
+            <li v-if="data.cv">
               Download my
               <a
                 :href="`./${data.cv.file}`"
@@ -21,7 +21,8 @@
                 target="_blank"
                 class="bt"
               >
-                {{ data.cv.label }} <CVIcon />
+                {{ data.cv.label }}
+                <CVIcon />
               </a>
             </li>
           </ul>
@@ -31,7 +32,7 @@
               {{ line }}<br />
             </span>
           </p>
-          <p class="-gray">
+          <p class="-gray" v-if="data.experiences">
             <span v-for="(line, i) in data.subtitles" :key="i">
               // {{ line }}<br />
             </span>
@@ -91,10 +92,10 @@
 import { TimelineMax, Power3, Power0 } from 'gsap'
 import * as ScrollMagic from 'scrollmagic'
 import TextBlock from '../components/TextBlock.vue'
-import LinkedInIcon from '../components/LinkedInIcon.vue'
-import GithubIcon from '../components/GithubIcon.vue'
-import CVIcon from '../components/CVIcon.vue'
-import data from '../data/about.json'
+import LinkedInIcon from '../components/Icon/LinkedInIcon.vue'
+import GithubIcon from '../components/Icon/GithubIcon.vue'
+import CVIcon from '../components/Icon/CVIcon.vue'
+import { fetchData } from '@/utils'
 
 export default {
   name: 'AboutView',
@@ -103,17 +104,18 @@ export default {
     return {
       introTimeline: new TimelineMax(),
       headerTimeline: new TimelineMax(),
-      scroller: new ScrollMagic.Controller(),
-      data,
+      scrollMagicController: new ScrollMagic.Controller(),
+      data: {},
     }
   },
-  mounted() {
+  async mounted() {
+    this.data = await fetchData()
     this.playIntro()
     this.playHeaderBg()
   },
   beforeUnmount() {
-    this.scroller.destroy()
-    this.scroller = null
+    this.scrollMagicController.destroy()
+    this.scrollMagicController = null
     this.introTimeline.kill()
     this.introTimeline = null
     this.headerTimeline.kill()
@@ -159,7 +161,7 @@ export default {
         duration: duration,
       })
         .setTween(this.headerTimeline)
-        .addTo(this.scroller)
+        .addTo(this.scrollMagicController)
         .reverse(true)
     },
   },
@@ -173,6 +175,7 @@ export default {
     visibility: hidden;
   }
 }
+
 #about {
   .pic {
     pointer-events: none;
@@ -222,6 +225,7 @@ export default {
       margin: 0 1rem 0 0;
       color: var(--gray);
     }
+
     a {
       flex: 0 0 auto;
       display: flex;

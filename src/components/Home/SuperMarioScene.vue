@@ -1,5 +1,5 @@
 <template>
-  <Scene id="Mario" role="img" aria-labelledby="marioDesc">
+  <SceneSection id="Mario" role="img" aria-labelledby="marioDesc">
     <p class="ariaLabel" id="marioDesc">
       Three boxes with a question mark, from the Super Mario Bros game, are
       standing in the center of the screen ... try to find the coin in one of
@@ -45,19 +45,20 @@
         </div>
       </div>
     </template>
-  </Scene>
+  </SceneSection>
 </template>
 
 <script>
 import { TimelineMax, SteppedEase } from 'gsap'
 import { random } from '@/utils'
-import { SuperMarioBlock, SuperMarioMario } from '@/components/Characters'
-import AudioExit from '@/components/Characters/SuperMario/assets/smw_keyhole_exit.ogg'
-import Scene from '../Scene.vue'
+import AudioExit from '../Characters/SuperMario/assets/smw_keyhole_exit.ogg'
+import SuperMarioBlock from '../Characters/SuperMario/Block.vue'
+import SuperMarioMario from '../Characters/SuperMario/Mario.vue'
+import SceneSection from '../SceneSection.vue'
 
 export default {
   name: 'SuperMarioScene',
-  components: { Scene, SuperMarioBlock, SuperMarioMario },
+  components: { SceneSection, SuperMarioBlock, SuperMarioMario },
   data() {
     return {
       foundCoins: 0,
@@ -202,14 +203,17 @@ body.is-playing-mario {
     gap: max(2rem, 6vw);
     margin-top: 35vh;
   }
+
   .mario-box {
     left: calc(50% - 64px);
   }
+
   .mario {
     position: fixed !important;
     top: calc(100% - 248px);
     left: calc(50% - 64px);
   }
+
   .mario-coin-counter {
     position: fixed;
     top: 7rem;
@@ -265,6 +269,7 @@ body.is-playing-mario {
   height: 100%;
   z-index: 9999;
 }
+
 .mario-msg {
   position: fixed;
   top: 50%;
@@ -311,6 +316,7 @@ body.is-playing-mario {
     }
   }
 }
+
 .mario-msg-close {
   position: absolute;
   bottom: 100%;

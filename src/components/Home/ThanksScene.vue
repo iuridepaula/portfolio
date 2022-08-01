@@ -1,5 +1,5 @@
 <template>
-  <Scene id="thanks">
+  <SceneSection id="thanks">
     <TextBlock>
       <Potion isPlaying />
 
@@ -27,7 +27,7 @@
             </li>
             <li v-for="song in SONGS" :key="song.id">
               <a
-                :href="LINK + song.id"
+                :href="SPOTIFY_TRACK + song.id"
                 :title="`Listen to ${song.label}`"
                 target="_blank"
                 >{{ song.label }}</a
@@ -37,16 +37,16 @@
         </div>
       </div>
     </TextBlock>
-  </Scene>
+  </SceneSection>
 </template>
 
 <script>
+import MusicIcon from '../Icon/MusicIcon.vue'
+import Potion from '../Characters/Potion/Potion.vue'
 import TextBlock from '../TextBlock.vue'
-import MusicIcon from '../MusicIcon.vue'
-import Scene from '../Scene.vue'
-import { Potion } from '../Characters'
+import SceneSection from '../SceneSection.vue'
 
-const LINK = 'https://open.spotify.com/track/'
+const SPOTIFY_TRACK = 'https://open.spotify.com/track/'
 const SONGS = [
   {
     id: '1pYBTRBbp3PCcdqoke2QSN',
@@ -86,13 +86,13 @@ const SONGS = [
 
 export default {
   name: 'ThanksScene',
-  components: { TextBlock, Scene, Potion, MusicIcon },
+  components: { TextBlock, SceneSection, Potion, MusicIcon },
   props: {
     isPlaying: Boolean,
   },
   data() {
     return {
-      LINK,
+      SPOTIFY_TRACK,
       SONGS,
     }
   },
@@ -152,6 +152,7 @@ export default {
     display: block;
     min-height: 2rem;
   }
+
   ul,
   li {
     list-style: none;
@@ -175,6 +176,7 @@ export default {
       a {
         color: var(--purple);
       }
+
       a:hover {
         color: var(--light);
       }

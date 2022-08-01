@@ -1,14 +1,15 @@
 <template>
-  <Scene class="scene" id="wrapperTitle">
+  <SceneSection class="scene" id="wrapperTitle">
     <h1 class="title">&lt;/wrapper&gt;</h1>
-  </Scene>
+  </SceneSection>
 </template>
 
 <script>
-import Scene from '../Scene.vue'
+import SceneSection from '../SceneSection.vue'
+
 export default {
   name: 'WrapperBlock',
-  components: { Scene },
+  components: { SceneSection },
 }
 </script>
 
@@ -17,9 +18,11 @@ export default {
   .title {
     color: var(--purple);
   }
+
   .std {
     font-size: 1rem;
   }
+
   .-answer {
     opacity: 0.6;
   }
