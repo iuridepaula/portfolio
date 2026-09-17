@@ -92,11 +92,9 @@ const router = createRouter({
         ],
       },
     },
-    {
-      path: '/preview/:character',
-      name: 'Preview',
-      component: () => import('./views/Preview.vue')
-    },
+    ...(process.env.NODE_ENV === 'development'
+      ? [require('./previewRoute').default]
+      : []),
     {
       path: '/:pathMatch(.*)*',
       name: '/err(404)',
