@@ -80,10 +80,3 @@ export function addBodyClass(...classes) {
   }
 }
 
-export function isReverse(e) {
-  return e.scrollDirection === 'REVERSE'
-}
-
-export function isForward(e) {
-  return e.scrollDirection === 'FORWARD'
-}

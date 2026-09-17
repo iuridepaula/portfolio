@@ -9,9 +9,9 @@
         <div class="cols">
           <ul class="col">
             <li class="ico">(){&lt;/&gt;}</li>
-            <li>Vue 2</li>
-            <li>GSAP 2</li>
-            <li>ScrollMagic</li>
+            <li>Vue 3</li>
+            <li>GSAP 3</li>
+            <li>ScrollTrigger</li>
             <li>Photoshop</li>
             <li>Illustrator</li>
           </ul>

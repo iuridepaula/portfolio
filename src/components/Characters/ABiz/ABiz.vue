@@ -19,8 +19,8 @@ export default {
         .addLabel('start', 0)
         .to(
           '.abiz-head',
-          2,
           {
+            duration: 2,
             transformOrigin: '50% 75%',
             scale: 1.05,
             yPercent: -5,
@@ -30,22 +30,23 @@ export default {
         )
         .to(
           '.abiz-r-arm, .abiz-l-arm',
-          1.5,
           {
+            duration: 1.5,
             rotationZ: 5,
             transformOrigin: '90% 0%',
             ...LOOP_EASE_IN_OUT,
           },
           'start'
         )
-        .to('#magento', 2, {
+        .to('#magento', {
+          duration: 2,
           yPercent: -20,
           ...LOOP_EASE_OUT,
         })
         .to(
           '.abiz-magento-s',
-          2,
           {
+            duration: 2,
             scale: 0.7,
             autoAlpha: 0.5,
             ...LOOP_EASE_OUT,

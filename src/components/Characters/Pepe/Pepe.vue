@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { TimelineMax } from 'gsap'
+import gsap from 'gsap'
 import { random } from '@/utils'
 import { character } from '../character.mixin'
 import {
@@ -59,10 +59,9 @@ import {
 export default {
   name: 'PepeCharacter',
   mixins: [character],
-  data() {
-    return {
-      particlesLoops: [],
-    }
+  created() {
+    // Keep GSAP timelines off Vue's reactive proxy
+    this.particlesLoops = []
   },
   methods: {
     initParticles() {
@@ -78,10 +77,11 @@ export default {
         particle.className = `particle p${i}`
         particles.appendChild(particle)
 
-        this.particlesLoops[i] = new TimelineMax()
+        this.particlesLoops[i] = gsap.timeline()
         this.particlesLoops[i]
           .delay(random(0, 7))
-          .to(`.particle.p${i}`, random(3, 5), {
+          .to(`.particle.p${i}`, {
+            duration: random(3, 5),
             y: random(100, 1000),
             x: random(100, 500),
             rotationY: 360 * random(5, 20),
@@ -112,11 +112,11 @@ export default {
         // pepe
         .fromTo(
           blink,
-          0.2,
           {
             autoAlpha: 1,
           },
           {
+            duration: 0.2,
             autoAlpha: 0,
             repeat: -1,
             repeatDelay: random(1, 2.5),
@@ -129,8 +129,8 @@ export default {
           // metals
           .to(
             metal_sax,
-            rhythm,
             {
+              duration: rhythm,
               transformOrigin: '25% 10%',
               yPercent: random(-10, 0),
               rotation: random(-5, 6),
@@ -140,8 +140,8 @@ export default {
           )
           .to(
             metal_trumpet,
-            rhythm * 2,
             {
+              duration: rhythm * 2,
               transformOrigin: '30% 100%',
               rotation: random(-20, 25),
               yPercent: 10,
@@ -151,8 +151,8 @@ export default {
           )
           .to(
             metal_trombone,
-            rhythm * 4,
             {
+              duration: rhythm * 4,
               transformOrigin: '0% 100%',
               rotation: random(-40, 45),
               yPercent: 10,
@@ -162,8 +162,8 @@ export default {
           )
           .to(
             metal_trombone_thing,
-            rhythm / 2,
             {
+              duration: rhythm / 2,
               transformOrigin: '0% 0%',
               xPercent: random(-25, 15),
               ...LOOP,
@@ -177,8 +177,8 @@ export default {
           // parrot
           .to(
             ampa_parrot,
-            1,
             {
+              duration: 1,
               transformOrigin: '0% 0%',
               rotation: random(-5, 5),
               xPercent: random(-5, 0),
@@ -190,8 +190,8 @@ export default {
           // pepe
           .to(
             ear,
-            rhythm,
             {
+              duration: rhythm,
               transformOrigin: '40% 50%',
               rotationY: random(5, 15),
               ...LOOP,
@@ -200,8 +200,8 @@ export default {
           )
           .to(
             pepe,
-            3,
             {
+              duration: 3,
               yPercent: random(-3, 3),
               ...LOOP_EASE_IN_OUT,
             },
@@ -216,8 +216,8 @@ export default {
         this.particlesLoops.forEach((loop) => loop.play())
       } else {
         this.$el.classList.add('animationStop')
-        this.loop.stop()
-        this.particlesLoops.forEach((loop) => loop.stop())
+        this.loop.pause()
+        this.particlesLoops.forEach((loop) => loop.pause())
       }
     },
   },

@@ -16,7 +16,8 @@ export default {
   mixins: [character],
   methods: {
     init() {
-      this.loop.to('.coffee-coffee', 5, {
+      this.loop.to('.coffee-coffee', {
+        duration: 5,
         yPercent: random(20, 200),
         xPercent: random(-50, 50),
         rotation: random(0, 360),

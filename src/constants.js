@@ -1,5 +1,3 @@
-import { Power2, Elastic } from 'gsap'
-
 export const LOOP = {
   repeat: -1,
   yoyo: true,
@@ -7,20 +5,20 @@ export const LOOP = {
 
 export const LOOP_EASE_OUT = {
   ...LOOP,
-  ease: Power2.easeOut,
+  ease: 'power2.out',
 }
 
 export const LOOP_EASE_IN = {
   ...LOOP,
-  ease: Power2.easeIn,
+  ease: 'power2.in',
 }
 
 export const LOOP_EASE_IN_OUT = {
   ...LOOP,
-  ease: Power2.easeInOut,
+  ease: 'power2.inOut',
 }
 
 export const LOOP_ELASTIC_OUT = {
   ...LOOP,
-  ease: Elastic.easeOut.config(1, 0.1),
+  ease: 'elastic.out(1, 0.1)',
 }

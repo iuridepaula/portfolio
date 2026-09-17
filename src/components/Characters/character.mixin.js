@@ -1,4 +1,4 @@
-import { TimelineMax } from 'gsap'
+import gsap from 'gsap'
 
 export const character = {
   props: {
@@ -6,12 +6,14 @@ export const character = {
   },
   data() {
     return {
-      loop: null,
       svg: null,
     }
   },
+  created() {
+    // Keep GSAP timeline off Vue's reactive proxy
+    this.loop = gsap.timeline()
+  },
   mounted() {
-    this.loop = new TimelineMax()
     this.svg = this.$el.querySelector('svg')
     this.init()
     this.toggleAnimation()
@@ -32,7 +34,7 @@ export const character = {
       console.warn(`${this.$options.name} has no init method`)
     },
     destroy() {
-      this.loop.stop()
+      this.loop.pause()
       this.loop.kill()
       this.loop = null
       this.toggleSVGAnimations(false)
@@ -50,7 +52,7 @@ export const character = {
       if (isPlaying) {
         this.loop.play()
       } else {
-        this.loop.stop()
+        this.loop.pause()
       }
     },
     toggleAnimation() {

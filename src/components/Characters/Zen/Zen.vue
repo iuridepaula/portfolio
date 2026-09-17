@@ -30,8 +30,8 @@ export default {
         .addLabel('start')
         .to(
           head,
-          3,
           {
+            duration: 3,
             rotation: -5,
             ...LOOP_EASE_IN_OUT,
           },
@@ -39,8 +39,8 @@ export default {
         )
         .to(
           [leftArm, leftMustache],
-          2,
           {
+            duration: 2,
             transformOrigin: '90% 50%',
             rotation: -20,
             ...LOOP_EASE_IN_OUT,
@@ -49,8 +49,8 @@ export default {
         )
         .to(
           [rightArm, rightMustache],
-          2,
           {
+            duration: 2,
             transformOrigin: '10% 50%',
             rotation: 20,
             ...LOOP_EASE_IN_OUT,
@@ -59,8 +59,8 @@ export default {
         )
         .to(
           body,
-          2,
           {
+            duration: 2,
             yPercent: -10,
             ...LOOP_EASE_IN_OUT,
           },

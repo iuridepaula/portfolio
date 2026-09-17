@@ -49,12 +49,15 @@
 </template>
 
 <script>
-import { TimelineMax, SteppedEase } from 'gsap'
+import gsap from 'gsap'
+import { MotionPathPlugin } from 'gsap/MotionPathPlugin'
 import { random } from '@/utils'
 import AudioExit from '../Characters/SuperMario/assets/smw_keyhole_exit.ogg'
 import SuperMarioBlock from '../Characters/SuperMario/Block.vue'
 import SuperMarioMario from '../Characters/SuperMario/Mario.vue'
 import SceneSection from '../SceneSection.vue'
+
+gsap.registerPlugin(MotionPathPlugin)
 
 export default {
   name: 'SuperMarioScene',
@@ -81,7 +84,7 @@ export default {
       const marioRect = mario.getBoundingClientRect()
       const isJumpingLeft = marioRect.x > blockCenter
       const marioFloor = window.innerHeight - marioRect.height
-      const marioAnimation = new TimelineMax()
+      const marioAnimation = gsap.timeline()
 
       marioAnimation
         .clear(true)
@@ -90,18 +93,15 @@ export default {
         })
         .fromTo(
           mario,
-          0.3,
           {
             left: marioRect.x,
             top: marioFloor,
-            onStart: () => {
-              this.marioState = 'up'
-            },
           },
           {
-            bezier: {
+            duration: 0.3,
+            motionPath: {
               curviness: 1.25,
-              values: [
+              path: [
                 {
                   left: blockCenter - marioRect.width / 2,
                   top: this.$viewport.isTablet
@@ -111,14 +111,14 @@ export default {
                 {
                   left: isJumpingLeft ? blockCenter - 128 : blockCenter + 128,
                   top: this.$viewport.isTablet ? marioFloor * 0.9 : marioFloor,
-                  onStart: () => {
-                    this.marioState = 'down'
-                  },
                 },
               ],
               autoRotate: false,
             },
-            ease: SteppedEase.config(12),
+            ease: 'steps(12)',
+            onStart: () => {
+              this.marioState = 'up'
+            },
             onComplete: () => {
               this.marioState = this.hasFoundAllCoins ? 'celebrate' : null
             },
@@ -141,26 +141,28 @@ export default {
     },
     onOpenMessage() {
       this.audioExit.play()
-      const timeline = new TimelineMax()
+      const timeline = gsap.timeline()
       timeline
-        .to('#Mario .mario-msg', 1, {
+        .to('#Mario .mario-msg', {
+          duration: 1,
           scale: 1,
-          ease: SteppedEase.config(12),
+          ease: 'steps(12)',
         })
         .to(
           '#Mario .mario-msg .later',
-          0.1,
           {
+            duration: 0.1,
             autoAlpha: 1,
           },
           '+=2'
         )
     },
     onCloseMessage() {
-      const timeline = new TimelineMax()
-      timeline.to('#Mario .mario-msg, #Mario .mario-msg-overlay', 1, {
+      const timeline = gsap.timeline()
+      timeline.to('#Mario .mario-msg, #Mario .mario-msg-overlay', {
+        duration: 1,
         scale: 0,
-        ease: SteppedEase.config(12),
+        ease: 'steps(12)',
       })
     },
   },

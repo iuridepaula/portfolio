@@ -23,8 +23,8 @@ export default {
         .addLabel('start')
         .to(
           smart,
-          8,
           {
+            duration: 8,
             rotation: -360,
             transformOrigin: '50% 50%',
             ...LOOP_EASE_IN_OUT,
@@ -33,8 +33,8 @@ export default {
         )
         .to(
           open,
-          7,
           {
+            duration: 7,
             rotation: 360,
             transformOrigin: '50% 50%',
             ...LOOP_EASE_IN_OUT,

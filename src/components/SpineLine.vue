@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import { Power3, Elastic } from 'gsap'
 import { character } from './Characters/character.mixin'
 
 export default {
@@ -23,54 +22,54 @@ export default {
         .addLabel('enter', 0)
         .fromTo(
           '.spine',
-          1,
           {
             autoAlpha: 0,
             yPercent: 20,
           },
           {
+            duration: 1,
             autoAlpha: 1,
             yPercent: 0,
-            ease: Power3.easeOut,
+            ease: 'power3.out',
           },
           'enter'
         )
         .fromTo(
           '.spine-target .circle',
-          1,
           {
             scale: 0,
             autoAlpha: 0,
           },
           {
+            duration: 1,
             scale: 1,
             autoAlpha: 1,
-            ease: Elastic.easeOut.config(1, 0.5),
+            ease: 'elastic.out(1, 0.5)',
           },
           'enter+=.7'
         )
         .fromTo(
           '.spine-target .circle',
-          2,
           {
             backgroundColor: 'transparent',
           },
           {
+            duration: 2,
             backgroundColor: '#5918df',
           },
           'enter+=1.2'
         )
         .fromTo(
           '.spine-target .pulse',
-          4,
           {
             autoAlpha: 1,
             scale: 0,
           },
           {
+            duration: 4,
             autoAlpha: 0,
             scale: 8,
-            ease: Power3.easeOut,
+            ease: 'power3.out',
           },
           'enter+=1.2'
         )
@@ -81,21 +80,21 @@ export default {
         .addLabel('leave', 0)
         .to(
           '.spine-target .circle, .spine-target .pulse',
-          0.5,
           {
+            duration: 0.5,
             scale: 0,
             autoAlpha: 0,
-            ease: Power3.easeIn,
+            ease: 'power3.in',
           },
           'leave'
         )
         .to(
           '.spine',
-          0.5,
           {
+            duration: 0.5,
             autoAlpha: 0,
             yPercent: 50,
-            ease: Power3.easeIn,
+            ease: 'power3.in',
           },
           'leave+=.25'
         )

@@ -30,13 +30,13 @@ export default {
       this.loop
         .fromTo(
           wave1,
-          16,
           {
             xPercent: 10,
             yPercent: 0,
             zIndex: 9,
           },
           {
+            duration: 16,
             xPercent: 0,
             yPercent: -100,
             zIndex: 1,
@@ -45,13 +45,13 @@ export default {
         )
         .fromTo(
           wave2,
-          16,
           {
             xPercent: 10,
             yPercent: 0,
             zIndex: 9,
           },
           {
+            duration: 16,
             xPercent: 0,
             yPercent: -100,
             zIndex: 1,

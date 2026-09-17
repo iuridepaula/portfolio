@@ -20,20 +20,21 @@ export default {
 
       this.loop
         .addLabel('start')
-        .to(potion, 3, {
+        .to(potion, {
+          duration: 3,
           transformOrigin: '50% 90%',
           rotation: 15,
           ...LOOP_EASE_IN_OUT,
         })
         .fromTo(
           potion.potionDrop,
-          0.5,
           {
             yPercent: 100,
             rotation: 0,
             scale: 1,
           },
           {
+            duration: 0.5,
             transformOrigin: '20% 120%',
             rotation: 360,
             yPercent: -100,
@@ -44,13 +45,13 @@ export default {
         )
         .fromTo(
           potion.potionDrop2,
-          0.7,
           {
             yPercent: 100,
             rotation: 0,
             scale: 1,
           },
           {
+            duration: 0.7,
             transformOrigin: '0% 120%',
             rotation: -360,
             yPercent: -100,

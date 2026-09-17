@@ -5,10 +5,14 @@
 </template>
 
 <script>
+import gsap from 'gsap'
+import { MotionPathPlugin } from 'gsap/MotionPathPlugin'
 import { LOOP_EASE_IN_OUT, LOOP } from '@/constants'
 import { random } from '@/utils'
 import { character } from '../character.mixin'
 import ETSVG from './ETSVG.vue'
+
+gsap.registerPlugin(MotionPathPlugin)
 
 export default {
   name: 'ETCharacter',
@@ -25,8 +29,8 @@ export default {
         .addLabel('start', 0)
         .to(
           ship,
-          0.25,
           {
+            duration: 0.25,
             rotationZ: 5,
             transformOrigin: '50% 75%',
             ...LOOP_EASE_IN_OUT,
@@ -35,12 +39,12 @@ export default {
         )
         .fromTo(
           eye,
-          0.05,
           {
             scaleY: 0.1,
             transformOrigin: '50% 50%',
           },
           {
+            duration: 0.05,
             scaleY: 1,
             repeat: -1,
             repeatDelay: 1.618,
@@ -49,11 +53,11 @@ export default {
         )
         .to(
           body,
-          12,
           {
-            bezier: {
+            duration: 12,
+            motionPath: {
               curviness: 1.25,
-              values: [
+              path: [
                 {
                   xPercent: random(-100, 50),
                   yPercent: random(-40, 40),
@@ -85,7 +89,6 @@ export default {
                   rotationZ: random(-30, -15),
                 },
               ],
-              autoRotate: true,
             },
             transformOrigin: '50% 5%',
             ...LOOP,

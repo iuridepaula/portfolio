@@ -5,10 +5,14 @@
 </template>
 
 <script>
+import gsap from 'gsap'
+import { MotionPathPlugin } from 'gsap/MotionPathPlugin'
 import { LOOP_EASE_IN_OUT } from '@/constants'
 import { random } from '@/utils'
 import { character } from '../character.mixin'
 import ShrimpSVG from './ShrimpSVG.vue'
+
+gsap.registerPlugin(MotionPathPlugin)
 
 export default {
   name: 'ShrimpCharacter',
@@ -26,7 +30,8 @@ export default {
 
       this.loop
         .addLabel('start')
-        .to([skirt, backSkirt], 3, {
+        .to([skirt, backSkirt], {
+          duration: 3,
           skewY: -0.5,
           skewX: 0.5,
           transformOrigin: '50% 0%',
@@ -34,8 +39,8 @@ export default {
         })
         .to(
           leftFoot,
-          2,
           {
+            duration: 2,
             transformOrigin: '1% 99%',
             rotation: 80,
             ...LOOP_EASE_IN_OUT,
@@ -44,8 +49,8 @@ export default {
         )
         .to(
           rightFoot,
-          2,
           {
+            duration: 2,
             transformOrigin: '1% 99%',
             yPercent: -7,
             rotation: 50,
@@ -55,8 +60,8 @@ export default {
         )
         .to(
           leftArm,
-          0.6,
           {
+            duration: 0.6,
             transformOrigin: '20% 50%',
             skewY: 20,
             yPercent: -10,
@@ -66,8 +71,8 @@ export default {
         )
         .to(
           rightArm,
-          0.5,
           {
+            duration: 0.5,
             transformOrigin: '20% 50%',
             skewY: 20,
             yPercent: -20,
@@ -77,11 +82,11 @@ export default {
         )
         .to(
           body,
-          10,
           {
-            bezier: {
+            duration: 10,
+            motionPath: {
               curviness: 1.25,
-              values: [
+              path: [
                 {
                   yPercent: random(-50, -15),
                   xPercent: random(-30, 30),
@@ -93,7 +98,6 @@ export default {
                   rotation: random(40, 20),
                 },
               ],
-              autoRotate: true,
             },
             ...LOOP_EASE_IN_OUT,
           },

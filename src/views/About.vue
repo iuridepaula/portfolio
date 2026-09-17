@@ -89,24 +89,29 @@
 </template>
 
 <script>
-import { TimelineMax, Power3, Power0 } from 'gsap'
-import * as ScrollMagic from 'scrollmagic'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import TextBlock from '../components/TextBlock.vue'
 import LinkedInIcon from '../components/Icon/LinkedInIcon.vue'
 import GithubIcon from '../components/Icon/GithubIcon.vue'
 import CVIcon from '../components/Icon/CVIcon.vue'
 import { fetchData } from '@/utils'
 
+gsap.registerPlugin(ScrollTrigger)
+
 export default {
   name: 'AboutView',
   components: { TextBlock, LinkedInIcon, GithubIcon, CVIcon },
   data() {
     return {
-      introTimeline: new TimelineMax(),
-      headerTimeline: new TimelineMax(),
-      scrollMagicController: new ScrollMagic.Controller(),
       data: {},
     }
+  },
+  created() {
+    // Keep GSAP/ScrollTrigger instances off Vue's reactive proxy
+    this.introTimeline = gsap.timeline()
+    this.headerTimeline = gsap.timeline()
+    this.scrollTriggers = []
   },
   async mounted() {
     this.data = await fetchData()
@@ -114,8 +119,8 @@ export default {
     this.playHeaderBg()
   },
   beforeUnmount() {
-    this.scrollMagicController.destroy()
-    this.scrollMagicController = null
+    this.scrollTriggers.forEach((trigger) => trigger.kill())
+    this.scrollTriggers = []
     this.introTimeline.kill()
     this.introTimeline = null
     this.headerTimeline.kill()
@@ -127,22 +132,22 @@ export default {
         .addLabel('enter', 1)
         .from(
           '.title',
-          2,
           {
+            duration: 2,
             autoAlpha: 0,
             rotationX: 90,
             transformOrigin: '50% 50% -100px',
-            ease: Power3.easeOut,
+            ease: 'power3.out',
           },
           'enter'
         )
         .from(
           '.std',
-          2,
           {
+            duration: 2,
             autoAlpha: 0,
             x: -32,
-            ease: Power3.easeOut,
+            ease: 'power3.out',
           },
           'enter+=1.5'
         )
@@ -150,19 +155,21 @@ export default {
     playHeaderBg() {
       const duration = window.innerHeight
 
-      this.headerTimeline.to('.header-bg', 4, {
+      this.headerTimeline.to('.header-bg', {
+        duration: 4,
         autoAlpha: 1,
-        ease: Power0.easeNone,
+        ease: 'none',
       })
 
-      new ScrollMagic.Scene({
-        triggerElement: '#about',
-        offset: duration / 4,
-        duration: duration,
-      })
-        .setTween(this.headerTimeline)
-        .addTo(this.scrollMagicController)
-        .reverse(true)
+      this.scrollTriggers.push(
+        ScrollTrigger.create({
+          trigger: '#about',
+          start: 'top 25%', // a quarter screen after the viewport centre
+          end: `+=${duration}`,
+          animation: this.headerTimeline,
+          scrub: true,
+        })
+      )
     },
   },
 }

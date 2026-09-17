@@ -49,10 +49,16 @@
 </template>
 
 <script>
-import { RoughEase, Power0 } from 'gsap'
+import gsap from 'gsap'
+import { RoughEase } from 'gsap/EasePack'
 import { LOOP_EASE_IN_OUT, LOOP } from '@/constants'
 import { getNodes } from '@/utils'
 import { character } from '../character.mixin'
+
+gsap.registerPlugin(RoughEase)
+
+const roughEase = (strength, points) =>
+  `rough({template: none, strength: ${strength}, points: ${points}, taper: none, randomize: true, clamp: false})`
 
 export default {
   name: 'HolwsCastleCharacter',
@@ -65,26 +71,19 @@ export default {
         .addLabel('start', 0)
         .to(
           castle.topTower,
-          2,
           {
+            duration: 2,
             rotation: -15,
             transformOrigin: '50% 100%',
-            ease: RoughEase.ease.config({
-              template: Power0.easeNone,
-              strength: 0.5,
-              points: 10,
-              taper: 'none',
-              randomize: true,
-              clamp: false,
-            }),
+            ease: roughEase(0.5, 10),
             ...LOOP,
           },
           'start'
         )
         .to(
           castle.bucket,
-          0.6,
           {
+            duration: 0.6,
             rotationZ: -25,
             rotationX: -45,
             transformOrigin: '50% 0%',
@@ -94,45 +93,31 @@ export default {
         )
         .to(
           [castle.frontLip, castle.backLip],
-          1.6,
           {
+            duration: 1.6,
             rotation: -20,
             xPercent: -5,
             transformOrigin: '100% 0%',
-            ease: RoughEase.ease.config({
-              template: Power0.easeNone,
-              strength: 1,
-              points: 16,
-              taper: 'none',
-              randomize: true,
-              clamp: false,
-            }),
+            ease: roughEase(1, 16),
             ...LOOP,
           },
           'start'
         )
         .to(
           castle.ear,
-          2,
           {
+            duration: 2,
             rotation: -25,
             transformOrigin: '25% 50%',
-            ease: RoughEase.ease.config({
-              template: Power0.easeNone,
-              strength: 1,
-              points: 16,
-              taper: 'none',
-              randomize: true,
-              clamp: false,
-            }),
+            ease: roughEase(1, 16),
             ...LOOP,
           },
           'start'
         )
         .to(
           castle,
-          1.6,
           {
+            duration: 1.6,
             yPercent: -5,
             ...LOOP_EASE_IN_OUT,
           },
@@ -143,26 +128,19 @@ export default {
         this.loop
           .to(
             castle.topTower,
-            2,
             {
+              duration: 2,
               rotation: -15,
               transformOrigin: '50% 100%',
-              ease: RoughEase.ease.config({
-                template: Power0.easeNone,
-                strength: 0.5,
-                points: 10,
-                taper: 'none',
-                randomize: true,
-                clamp: false,
-              }),
+              ease: roughEase(0.5, 10),
               ...LOOP,
             },
             'start'
           )
           .to(
             castle.lLeg,
-            2,
             {
+              duration: 2,
               rotation: -15,
               transformOrigin: '0% 0%',
               ...LOOP_EASE_IN_OUT,
@@ -171,8 +149,8 @@ export default {
           )
           .to(
             castle.rLeg,
-            2.2,
             {
+              duration: 2.2,
               rotation: -15,
               transformOrigin: '0% 0%',
               ...LOOP_EASE_IN_OUT,
@@ -181,8 +159,8 @@ export default {
           )
           .to(
             castle.rArm,
-            1.8,
             {
+              duration: 1.8,
               rotation: 15,
               transformOrigin: '0% 0%',
               ...LOOP_EASE_IN_OUT,
@@ -191,8 +169,8 @@ export default {
           )
           .to(
             castle.lArm,
-            2,
             {
+              duration: 2,
               rotation: 15,
               transformOrigin: '0% 0%',
               ...LOOP_EASE_IN_OUT,
@@ -201,8 +179,8 @@ export default {
           )
           .to(
             castle.foliage1,
-            0.7,
             {
+              duration: 0.7,
               transformOrigin: '50% 100%',
               skewX: 10,
               ...LOOP,
@@ -211,8 +189,8 @@ export default {
           )
           .to(
             castle.foliage2,
-            0.6,
             {
+              duration: 0.6,
               transformOrigin: '50% 100%',
               skewX: -8,
               ...LOOP,
@@ -221,8 +199,8 @@ export default {
           )
           .to(
             castle.foliage3,
-            0.5,
             {
+              duration: 0.5,
               transformOrigin: '50% 100%',
               skewX: 6,
               ...LOOP,

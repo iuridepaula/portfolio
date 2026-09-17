@@ -12,25 +12,46 @@
 </template>
 
 <script>
-const ABiz = () => import('../components/Characters/ABiz')
-const Astronaut = () => import('../components/Characters/Astronaut')
-const CoffeeMug = () => import('../components/Characters/CoffeeMug')
-const Dino = () => import('../components/Characters/Dino')
-const ET = () => import('../components/Characters/ET')
-const HolwsCastle = () => import('../components/Characters/HolwsCastle')
-const Ocean = () => import('../components/Characters/Ocean')
-const Octopus = () => import('../components/Characters/Octopus')
-const Pepe = () => import('../components/Characters/Pepe')
-const Potion = () => import('../components/Characters/Potion')
-const Shapes = () => import('../components/Characters/Shapes')
-const Shrimp = () => import('../components/Characters/Shrimp')
-const Zen = () => import('../components/Characters/Zen')
-const SuperMarioCoin = () =>
+import { defineAsyncComponent } from 'vue'
+
+const ABiz = defineAsyncComponent(() => import('../components/Characters/ABiz'))
+const Astronaut = defineAsyncComponent(() =>
+  import('../components/Characters/Astronaut')
+)
+const CoffeeMug = defineAsyncComponent(() =>
+  import('../components/Characters/CoffeeMug')
+)
+const Dino = defineAsyncComponent(() => import('../components/Characters/Dino'))
+const ET = defineAsyncComponent(() => import('../components/Characters/ET'))
+const HolwsCastle = defineAsyncComponent(() =>
+  import('../components/Characters/HolwsCastle')
+)
+const Ocean = defineAsyncComponent(() =>
+  import('../components/Characters/Ocean')
+)
+const Octopus = defineAsyncComponent(() =>
+  import('../components/Characters/Octopus')
+)
+const Pepe = defineAsyncComponent(() => import('../components/Characters/Pepe'))
+const Potion = defineAsyncComponent(() =>
+  import('../components/Characters/Potion')
+)
+const Shapes = defineAsyncComponent(() =>
+  import('../components/Characters/Shapes')
+)
+const Shrimp = defineAsyncComponent(() =>
+  import('../components/Characters/Shrimp')
+)
+const Zen = defineAsyncComponent(() => import('../components/Characters/Zen'))
+const SuperMarioCoin = defineAsyncComponent(() =>
   import('../components/Characters/SuperMario/Coin.vue')
-const SuperMarioBlock = () =>
+)
+const SuperMarioBlock = defineAsyncComponent(() =>
   import('../components/Characters/SuperMario/Block.vue')
-const SuperMarioMario = () =>
+)
+const SuperMarioMario = defineAsyncComponent(() =>
   import('../components/Characters/SuperMario/Mario.vue')
+)
 
 export default {
   name: 'PreviewView',

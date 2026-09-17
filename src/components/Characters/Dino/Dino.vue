@@ -83,8 +83,8 @@ export default {
         .addLabel('start', 0)
         .to(
           leftLeg,
-          this.rhythm,
           {
+            duration: this.rhythm,
             skewX: -20,
             transformOrigin: '50% 100%',
             ...LOOP,
@@ -93,8 +93,8 @@ export default {
         )
         .to(
           rightLeg,
-          this.rhythm,
           {
+            duration: this.rhythm,
             skewX: 20,
             transformOrigin: '50% 100%',
             ...LOOP,
@@ -103,8 +103,8 @@ export default {
         )
         .to(
           headphone,
-          this.rhythm / 2,
           {
+            duration: this.rhythm / 2,
             scale: 1.1,
             transformOrigin: '20% 20%',
             ...LOOP,
@@ -113,8 +113,8 @@ export default {
         )
         .to(
           [leftArm, rightArm],
-          this.rhythm,
           {
+            duration: this.rhythm,
             yPercent: 20,
             ...LOOP_EASE_IN_OUT,
           },
@@ -122,8 +122,8 @@ export default {
         )
         .to(
           tail,
-          this.rhythm,
           {
+            duration: this.rhythm,
             transformOrigin: '25% 50%',
             rotationZ: 20,
             ...LOOP_EASE_IN_OUT,
@@ -132,8 +132,8 @@ export default {
         )
         .to(
           head,
-          this.rhythm,
           {
+            duration: this.rhythm,
             transformOrigin: '85% 100%',
             rotationZ,
             ...LOOP_EASE_IN_OUT,
@@ -145,12 +145,12 @@ export default {
         this.loop
           .fromTo(
             eye,
-            0.01,
             {
               scaleY: 0.1,
               transformOrigin: '50% 50%',
             },
             {
+              duration: 0.01,
               scaleY: 1,
               transformOrigin: '50% 50%',
               repeatDelay: 3,
@@ -160,11 +160,11 @@ export default {
           )
           .fromTo(
             bright,
-            0.01,
             {
               autoAlpha: 0,
             },
             {
+              duration: 0.01,
               autoAlpha: 1,
               repeatDelay: 3,
               ...LOOP,

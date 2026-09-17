@@ -30,8 +30,8 @@ export default {
         .addLabel('start', 0)
         .to(
           '.astro-head',
-          4,
           {
+            duration: 4,
             rotation: 10,
             yPercent: 5,
             xPercent: 10,
@@ -41,8 +41,8 @@ export default {
         )
         .to(
           '.astro-tube',
-          4,
           {
+            duration: 4,
             rotation: 20,
             yPercent: 10,
             ...LOOP_EASE_IN_OUT,
@@ -51,8 +51,8 @@ export default {
         )
         .to(
           '.astro-l-arm',
-          2,
           {
+            duration: 2,
             rotation: -20,
             transformOrigin: '90% 90%',
             ...LOOP_ELASTIC_OUT,
@@ -61,12 +61,12 @@ export default {
         )
         .fromTo(
           '.astro-l-leg',
-          2,
           {
             rotation: 10,
             transformOrigin: '90% 10%',
           },
           {
+            duration: 2,
             rotation: -10,
             ...LOOP_EASE_IN_OUT,
           },
@@ -74,12 +74,12 @@ export default {
         )
         .fromTo(
           '.astro-r-leg',
-          2,
           {
             rotation: -10,
             transformOrigin: '90% 10%',
           },
           {
+            duration: 2,
             rotation: 10,
             ...LOOP_EASE_IN_OUT,
           },
@@ -87,8 +87,8 @@ export default {
         )
         .to(
           '.astro-body',
-          1,
           {
+            duration: 1,
             scaleX: 1.06,
             transformOrigin: '50% 50%',
             ...LOOP_EASE_IN_OUT,
@@ -97,8 +97,8 @@ export default {
         )
         .to(
           '.astro-astro',
-          5,
           {
+            duration: 5,
             yPercent: random(-40, -20),
             xPercent: random(-10, 10),
             rotation: random(-120, 120),

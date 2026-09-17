@@ -1,25 +1,30 @@
 <template>
   <div id="app" :class="$route.meta.bodyClass">
+    <RouteProgress />
     <HeaderSection />
-    <transition appear mode="out-in" :css="false" @leave="leave" @enter="enter">
-      <router-view />
-    </transition>
+    <router-view v-slot="{ Component, route }">
+      <transition
+        appear
+        mode="out-in"
+        :css="false"
+        @leave="leave"
+        @enter="enter"
+      >
+        <component :is="Component" :key="route.path" />
+      </transition>
+    </router-view>
     <SpineLine :isPlaying="isSpinePlaying" />
-    <div class="tweenerElement"></div>
 
     <FooterSection />
   </div>
 </template>
 
 <script>
-import * as ScrollMagic from 'scrollmagic'
-import { TweenMax, TimelineMax, Power3 } from 'gsap'
-import { ScrollMagicPluginGsap } from 'scrollmagic-plugin-gsap'
+import gsap from 'gsap'
 import HeaderSection from './components/HeaderSection.vue'
 import FooterSection from './components/FooterSection.vue'
 import SpineLine from './components/SpineLine.vue'
-
-ScrollMagicPluginGsap(ScrollMagic, TweenMax, TimelineMax)
+import RouteProgress from './components/RouteProgress.vue'
 
 export default {
   name: 'App',
@@ -27,66 +32,73 @@ export default {
     HeaderSection,
     SpineLine,
     FooterSection,
+    RouteProgress,
   },
   data() {
     return {
       isSpinePlaying: false,
-      introTimeline: new TimelineMax(),
-      leaveTimeline: new TimelineMax(),
     }
+  },
+  created() {
+    // Keep GSAP instances off Vue's reactive proxy — Proxies break the ticker/onComplete
+    this.introTimeline = gsap.timeline()
+    this.leaveTimeline = gsap.timeline()
   },
   methods: {
     enter(el, done) {
-      // intro animations
+      this.isSpinePlaying = true
+
+      if (!el) {
+        done()
+        return
+      }
+
       this.introTimeline
         .clear()
         .addLabel('enter', 0)
         .fromTo(
           '.header-breadcrumb',
-          1,
+          { autoAlpha: 0, x: -32 },
           {
-            autoAlpha: 0,
-            x: -32,
-          },
-          {
+            duration: 1,
             autoAlpha: 1,
             x: 0,
-            ease: Power3.easeOut,
+            ease: 'power3.out',
           },
           'enter'
         )
         .fromTo(
           el,
-          1,
+          { autoAlpha: 0 },
           {
-            autoAlpha: 0,
-          },
-          {
+            duration: 1,
             autoAlpha: 1,
             onComplete: done,
           },
           'enter'
         )
-
-      this.isSpinePlaying = true
     },
     leave(el, done) {
-      // leave animations
+      this.isSpinePlaying = false
+
+      if (!el) {
+        done()
+        return
+      }
+
       this.leaveTimeline
         .clear()
         .addLabel('leave', 0)
         .set('.header-breadcrumb', { autoAlpha: 0 }, 'leave')
         .to(
           el,
-          1,
           {
+            duration: 1,
             autoAlpha: 0,
             onComplete: done,
           },
           'leave'
         )
-
-      this.isSpinePlaying = false
     },
   },
 }
@@ -317,40 +329,4 @@ body {
   }
 }
 
-// NProgress custom CSS
-#nprogress {
-  pointer-events: none;
-
-  .bar {
-    background: var(--purple);
-    position: fixed;
-    z-index: 1031;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-  }
-
-  .peg {
-    display: block;
-    position: absolute;
-    right: 0px;
-    width: 100px;
-    height: 100%;
-    opacity: 1;
-    transform: rotate(3deg) translate(0px, -4px);
-  }
-}
-
-.nprogress-custom-parent {
-  overflow: hidden;
-  position: relative;
-
-  #nprogress {
-    .spinner,
-    .bar {
-      position: absolute;
-    }
-  }
-}
 </style>

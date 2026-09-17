@@ -1,18 +1,14 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import Home from './views/Home.vue'
-import NProgress from 'nprogress'
-
-Vue.use(Router)
+import { startRouteProgress, doneRouteProgress } from './routeProgress'
 
 const TITLE = 'iuri.is'
 const URL = 'https://iuri.is/'
 const ABOUT =
   'Frontend developer heavily influenced by storytelling, interactions, and UX. Addicted to music, visual arts, and games.'
 
-const router = new Router({
-  mode: 'history',
-  base: process.env.BASE_URL,
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
   routes: [
     {
       path: '/',
@@ -102,7 +98,7 @@ const router = new Router({
       component: () => import('./views/Preview.vue')
     },
     {
-      path: '*',
+      path: '/:pathMatch(.*)*',
       name: `.err(404)`,
       component: () => import('./views/404.vue'),
       meta: {
@@ -145,17 +141,9 @@ const router = new Router({
   ],
 })
 
-// progress bar
-NProgress.configure({
-  easing: 'ease-out',
-  speed: 500,
-  trickleSpeed: 100,
-  showSpinner: false,
-})
-
 router.beforeEach((to, _from, next) => {
   document.body.classList.add('locked')
-  NProgress.start()
+  startRouteProgress()
   // remove classes to avoid styles conflicts
   document.body.classList.remove(
     'is-playing-mario',
@@ -202,7 +190,7 @@ router.afterEach(() => {
   // wait for intro transitions
   setTimeout(() => {
     window.scroll(0, 0)
-    NProgress.done()
+    doneRouteProgress()
 
     document.body.classList.remove(
       'locked',

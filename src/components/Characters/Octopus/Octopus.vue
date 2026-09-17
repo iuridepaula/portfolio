@@ -23,12 +23,12 @@ export default {
         .addLabel('start', 0)
         .fromTo(
           eye,
-          0.05,
           {
             scaleY: 0.1,
             transformOrigin: '50% 50%',
           },
           {
+            duration: 0.05,
             scaleY: 1,
             repeat: -1,
             repeatDelay: 1.618,
@@ -37,8 +37,8 @@ export default {
         )
         .to(
           body,
-          5,
           {
+            duration: 5,
             y: random(-200, 400),
             x: random(-100, 100),
             rotation: random(-30, 30),

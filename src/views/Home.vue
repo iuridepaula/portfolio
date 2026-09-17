@@ -39,15 +39,9 @@
 </template>
 
 <script>
-import { TimelineMax, TweenLite, Power0, Power1, Power2, Power3 } from 'gsap'
-import * as ScrollMagic from 'scrollmagic'
-import {
-  DOM,
-  removeBodyClass,
-  addBodyClass,
-  isReverse,
-  isForward,
-} from '@/utils'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { DOM, removeBodyClass, addBodyClass } from '@/utils'
 import AudioMarioStart from '../components/Characters/SuperMario/assets/smw_princess_help.ogg'
 import IntroScene from '../components/Home/IntroScene.vue'
 import BizScene from '../components/Home/BizScene.vue'
@@ -59,6 +53,13 @@ import ThanksScene from '../components/Home/ThanksScene.vue'
 import GapBlock from '../components/GapBlock.vue'
 import TitleSection from '../components/TitleSection.vue'
 import TitleFunction from '../components/TitleFunction.vue'
+
+gsap.registerPlugin(ScrollTrigger)
+
+// scenes are scrubbed with a slight delay to add momentum, except the Mario
+// scene which needs to stay locked to the scroll position for precise timing
+const SCRUB = 0.5
+const SCRUB_OVERRIDES = { mario: true }
 
 export default {
   name: 'HomeView',
@@ -77,10 +78,6 @@ export default {
   data() {
     return {
       audioMarioStart: new Audio(AudioMarioStart),
-      scrollMagicController: new ScrollMagic.Controller(),
-      scrollMagicScene: {},
-      timelines: {},
-      tweeners: {},
       isPlaying: {
         Biz: false,
         EarlyDays: false,
@@ -90,13 +87,15 @@ export default {
     }
   },
   created() {
+    // Keep GSAP/ScrollTrigger collections off Vue's reactive proxy
+    this.scrollTriggers = []
+    this.timelines = {}
     window.addEventListener('beforeunload', () => window.scroll(0, 0))
   },
   mounted() {
     // setup
     this.playIntroScene()
     this.setupScenes()
-    this.manageLoops()
     // scenes animation
     this.sceneMyCV()
     this.sceneBizTitle()
@@ -111,6 +110,9 @@ export default {
     this.sceneMario()
     this.sceneGhibli()
     this.sceneWrapper()
+    // timelines are populated after their triggers are created, so let
+    // ScrollTrigger recalculate start/end positions against the final durations
+    ScrollTrigger.refresh()
   },
   beforeUnmount() {
     // loop animations
@@ -125,14 +127,9 @@ export default {
     // timelines
     Object.values(this.timelines).forEach((timeLine) => timeLine.kill())
     this.timelines = {}
-    // tweeners
-    Object.values(this.tweeners).forEach((tweener) => tweener.kill())
-    this.tweeners = {}
-    // scrollMagic
-    this.scrollMagicController.destroy(true)
-    this.scrollMagicController = null
-    Object.values(this.scrollMagicScene).forEach((scene) => scene.destroy(true))
-    this.scrollMagicScene = {}
+    // scrollTrigger
+    this.scrollTriggers.forEach((trigger) => trigger.kill())
+    this.scrollTriggers = []
   },
   methods: {
     setupScenes() {
@@ -156,128 +153,150 @@ export default {
         thanks: DOM.get('#thanks.scene'),
       }
 
+      const callbacks = this.sceneCallbacks()
+
       Object.entries(scenesElements).forEach(([scene, element]) => {
-        // tweeners animate timelines' progress, to add momentum
-        this.tweeners[scene] = new TimelineMax()
-        this.timelines[scene] = new TimelineMax({ paused: true })
+        this.timelines[scene] = gsap.timeline({ paused: true })
+        if (!element) return
 
-        // ScrollMagic scenes
-        this.scrollMagicScene[scene] = new ScrollMagic.Scene({
-          triggerElement: element,
-          offset: -this.$viewport.height / 2, // start half screen before
-          duration: element.offsetHeight, // lasts for the element height
+      this.scrollTriggers.push(
+        ScrollTrigger.create({
+          trigger: element,
+          start: 'top bottom', // start half screen before the viewport centre
+          end: () => `+=${element.offsetHeight}`, // lasts for the element height
+          animation: this.timelines[scene],
+          scrub: SCRUB_OVERRIDES[scene] ?? SCRUB,
+          toggleClass: { targets: element, className: 'active' },
+          ...callbacks[scene],
         })
-          .setTween(this.tweeners[scene])
-          .addTo(this.scrollMagicController)
-          .reverse(true)
-          .setClassToggle(element, 'active')
-
-        // animate timeline progress from tweeners
-        this.tweeners[scene]
-          .to(element, 1, { autoAlpha: 1 }) // fake, just to have some progress
-          .eventCallback('onUpdate', () => {
-            TweenLite.to(this.timelines[scene], 0.5, {
-              progress: this.tweeners[scene].progress(),
-              ease: Power0.easeNone,
-            })
-          })
-      })
+      )
+    })
     },
     playIntroScene() {
-      const timeline = new TimelineMax()
+      const timeline = gsap.timeline()
       timeline
         .addLabel('enter', 1)
         .from(
           '#intro .title',
-          2,
           {
+            duration: 2,
             autoAlpha: 0,
             rotationX: 90,
             transformOrigin: '50% 50% -100px',
-            ease: Power3.easeOut,
+            ease: 'power3.out',
           },
           'enter'
         )
         .from(
           '#intro .std',
-          2,
           {
+            duration: 2,
             autoAlpha: 0,
             x: -32,
-            ease: Power3.easeOut,
+            ease: 'power3.out',
           },
           'enter+=1.5'
         )
     },
-    manageLoops() {
-      // play & stop loop animations based on each scene
-      this.scrollMagicScene.myCV.on('enter', () => (this.isPlaying.Biz = false))
-      this.scrollMagicScene.bizTitle.on(
-        'enter',
-        () => (this.isPlaying.Biz = true)
-      )
-      this.scrollMagicScene.biz1.on('enter', () => (this.isPlaying.Biz = true))
-      this.scrollMagicScene.biz2.on('enter', () => (this.isPlaying.Biz = true))
-      this.scrollMagicScene.biz3.on('enter', () => (this.isPlaying.Biz = true))
-      this.scrollMagicScene.earlyTitle.on('enter', () => {
-        this.isPlaying.Biz = true
-        this.isPlaying.EarlyDays = true
-      })
-      this.scrollMagicScene.early1.on('enter', () => {
-        this.isPlaying.Biz = false
-        this.isPlaying.EarlyDays = true
-      })
-      this.scrollMagicScene.early2.on('enter', (e) => {
-        if (isReverse(e)) {
+    // play & stop loop animations based on each scene.
+    // ScrollMagic fired 'enter'/'leave' regardless of direction, so each is
+    // mapped onto both of ScrollTrigger's directional callbacks.
+    sceneCallbacks() {
+      const onEnterBoth = (fn) => ({ onEnter: fn, onEnterBack: fn })
+      const onLeaveBoth = (fn) => ({ onLeave: fn, onLeaveBack: fn })
+      const setBlueBackground = {
+        ...onEnterBoth(() => addBodyClass('blue-background')),
+        ...onLeaveBoth(() => removeBodyClass('blue-background')),
+      }
+
+      return {
+        myCV: onEnterBoth(() => {
+          this.isPlaying.Biz = false
+          // Hide fixed biz/earlyDays layers when back on the intro — otherwise
+          // shapes from #biz1 .container linger over the first scene on reverse.
+          gsap.set('#biz1 .container', { autoAlpha: 0 })
+          gsap.set('#earlyTitle .title-container', { autoAlpha: 0 })
+        }),
+        bizTitle: onEnterBoth(() => {
+          this.isPlaying.Biz = true
+          gsap.set('#biz1 .container', { autoAlpha: 1 })
+        }),
+        biz1: onEnterBoth(() => {
+          this.isPlaying.Biz = true
+          gsap.set('#biz1 .container', { autoAlpha: 1 })
+        }),
+        biz2: onEnterBoth(() => (this.isPlaying.Biz = true)),
+        biz3: onEnterBoth(() => (this.isPlaying.Biz = true)),
+        earlyTitle: onEnterBoth(() => {
+          this.isPlaying.Biz = true
           this.isPlaying.EarlyDays = true
-        }
-      })
-      this.scrollMagicScene.early3.on('enter', () => {
-        removeBodyClass('is-playing-mario', 'blue-background')
-      })
-      this.scrollMagicScene.artPhiGamesTitle.on('enter', () => {
-        removeBodyClass('is-playing-mario', 'blue-background')
-      })
-      this.scrollMagicScene.mario
-        .on('enter', (e) => {
-          if (isForward(e)) {
+          gsap.set('#biz1 .container', { autoAlpha: 1 })
+        }),
+        early1: {
+          ...onEnterBoth(() => {
+            this.isPlaying.Biz = false
+            this.isPlaying.EarlyDays = true
+            gsap.set('#biz1 .container', { autoAlpha: 0 })
+          }),
+          onLeaveBack: () => {
+            gsap.set('#biz1 .container', { autoAlpha: 1 })
+          },
+        },
+        early2: {
+          onEnterBack: () => (this.isPlaying.EarlyDays = true),
+        },
+        early3: {
+          ...onEnterBoth(() => {
+            removeBodyClass('is-playing-mario', 'blue-background')
+          }),
+          onEnterBack: () => {
+            removeBodyClass('is-playing-mario', 'blue-background')
+            gsap.set('#earlyTitle .title-container', { autoAlpha: 1 })
+          },
+        },
+        artPhiGamesTitle: {
+          ...onEnterBoth(() => {
+            removeBodyClass('is-playing-mario', 'blue-background')
+            gsap.set('#biz1 .container', { autoAlpha: 0 })
+          }),
+          onLeaveBack: () => {
+            gsap.set('#earlyTitle .title-container', { autoAlpha: 1 })
+          },
+        },
+        mario: {
+          onEnter: () => {
             this.isPlaying.EarlyDays = false
-          }
-          if (isReverse(e)) {
-            addBodyClass('blue-background')
-          }
-        })
-        .on('leave', (e) => {
-          if (isReverse(e)) {
+            gsap.set('#biz1 .container', { autoAlpha: 0 })
+          },
+          onEnterBack: () => addBodyClass('blue-background'),
+          onLeave: () => removeBodyClass('blue-background'),
+          onLeaveBack: () => {
             this.isPlaying.Ghibli = false
-          }
+            removeBodyClass('blue-background')
+            gsap.set('#earlyTitle .title-container', { autoAlpha: 1 })
+          },
+        },
+        ghibli: {
+          ...onEnterBoth(() => {
+            this.isPlaying.Ghibli = true
+            removeBodyClass('is-playing-mario')
+            addBodyClass('blue-background')
+          }),
+          ...onLeaveBoth(() => removeBodyClass('blue-background')),
+        },
+        ghibli2: setBlueBackground,
+        ghibli3: setBlueBackground,
+        ghibli4: setBlueBackground,
+        wrapper: onEnterBoth(() => {
           removeBodyClass('blue-background')
-        })
-      this.scrollMagicScene.ghibli
-        .on('enter', () => {
           this.isPlaying.Ghibli = true
-          removeBodyClass('is-playing-mario')
-          addBodyClass('blue-background')
-        })
-        .on('leave', () => removeBodyClass('blue-background'))
-      this.scrollMagicScene.ghibli2
-        .on('enter', () => addBodyClass('blue-background'))
-        .on('leave', () => removeBodyClass('blue-background'))
-      this.scrollMagicScene.ghibli3
-        .on('enter', () => addBodyClass('blue-background'))
-        .on('leave', () => removeBodyClass('blue-background'))
-      this.scrollMagicScene.ghibli4
-        .on('enter', () => addBodyClass('blue-background'))
-        .on('leave', () => removeBodyClass('blue-background'))
-      this.scrollMagicScene.wrapper.on('enter', () => {
-        removeBodyClass('blue-background')
-        this.isPlaying.Ghibli = true
-        this.isPlaying.Potion = false
-      })
-      this.scrollMagicScene.thanks.on('enter', () => {
-        this.isPlaying.Ghibli = false
-        this.isPlaying.Potion = true
-      })
+          this.isPlaying.Potion = false
+        }),
+        thanks: onEnterBoth(() => {
+          this.isPlaying.Ghibli = false
+          this.isPlaying.Potion = true
+        }),
+      }
     },
     sceneMyCV() {
       this.timelines.myCV
@@ -285,29 +304,30 @@ export default {
         .addLabel('start', 0)
         .from(
           '#curriculum .title',
-          2,
           {
+            duration: 2,
             yPercent: -50,
             autoAlpha: 0,
             rotationX: 90,
             transformOrigin: '50% 50% -100px',
-            ease: Power3.easeOut,
+            ease: 'power3.out',
           },
           'start'
         )
         .from(
           '#curriculum .std',
-          2,
           {
+            duration: 2,
             yPercent: 50,
             autoAlpha: 0,
             rotationX: -90,
             transformOrigin: '50% 50% -100px',
-            ease: Power3.easeOut,
+            ease: 'power3.out',
           },
           'start'
         )
-        .to('#curriculum .title, #curriculum .std', 2, {
+        .to('#curriculum .title, #curriculum .std', {
+          duration: 2,
           autoAlpha: 0,
           yPercent: -100,
         })
@@ -332,40 +352,42 @@ export default {
           xPercent: 400,
           yPercent: 100,
         })
-        // this scene
-        .set('#bizTitle .title-container, #biz1 .container', { autoAlpha: 1 })
+        // this scene — biz1 container visibility is owned by sceneCallbacks so a
+        // scrubbed .set() here cannot leave shapes visible over the intro on reverse
+        .set('#bizTitle .title-container', { autoAlpha: 1 })
         .addLabel('start', 0)
         .from(
           '#bizTitle .title',
-          6,
           {
+            duration: 6,
             yPercent: -50,
             autoAlpha: 0,
             rotationX: 90,
             transformOrigin: '50% 50% -100px',
-            ease: Power3.easeOut,
+            ease: 'power3.out',
           },
           'start'
         )
-        .to('#bizTitle .title', 6, {
+        .to('#bizTitle .title', {
+          duration: 6,
           autoAlpha: 0,
           yPercent: -100,
         })
-        .staggerFrom(
+        .from(
           '#smart, #open',
-          6,
           {
+            duration: 6,
             autoAlpha: 0,
             scale: 0,
-            ease: Power3.easeOut,
+            ease: 'power3.out',
+            stagger: 0.2,
           },
-          0.2,
           'start+=2'
         )
         .from(
           '#abiz',
-          6,
           {
+            duration: 6,
             scale: 0,
           },
           'start+=2'
@@ -376,32 +398,32 @@ export default {
         .addLabel('start', 0)
         .from(
           '#zen',
-          4,
           {
+            duration: 4,
             xPercent: 70,
-            ease: Power3.easeOut,
+            ease: 'power3.out',
           },
           'start'
         )
         .to(
           '#abiz',
-          4,
           {
+            duration: 4,
             autoAlpha: 0,
             xPercent: -100,
-            ease: Power3.easeIn,
+            ease: 'power3.in',
           },
           'start'
         )
-        .staggerTo(
+        .to(
           '#smart, #open',
-          4,
           {
+            duration: 4,
             autoAlpha: 0,
             scale: 0,
-            ease: Power3.easeOut,
+            ease: 'power3.out',
+            stagger: 0.2,
           },
-          0.2,
           'start'
         )
     },
@@ -410,24 +432,24 @@ export default {
         .addLabel('start', 0)
         .to(
           '#zen',
-          4,
           {
+            duration: 4,
             yPercent: 130,
-            ease: Power3.easeIn,
+            ease: 'power3.in',
           },
           'start'
         )
-        .staggerTo(
+        .to(
           '#dino, #astro, #coffee, #et, #filomena, #octo',
-          5,
           {
+            duration: 5,
             autoAlpha: 1,
             scale: 1,
             xPercent: 0,
             yPercent: 0,
-            ease: Power3.easeOut,
+            ease: 'power3.out',
+            stagger: 0.2,
           },
-          0.2,
           'start'
         )
     },
@@ -436,66 +458,66 @@ export default {
         .addLabel('start', 0)
         .to(
           '#dino',
-          6,
           {
+            duration: 6,
             yPercent: 200,
             scale: 1.5,
-            ease: Power3.easeIn,
+            ease: 'power3.in',
           },
           'start'
         )
         .to(
           '#et',
-          6,
           {
+            duration: 6,
             xPercent: -250,
             yPercent: -100,
             autoAlpha: 0,
-            ease: Power3.easeIn,
+            ease: 'power3.in',
           },
           'start'
         )
         .to(
           '#filomena',
-          6,
           {
+            duration: 6,
             xPercent: -300,
             yPercent: 300,
             autoAlpha: 0,
-            ease: Power3.easeIn,
+            ease: 'power3.in',
           },
           'start'
         )
         .to(
           '#octo',
-          6,
           {
+            duration: 6,
             xPercent: -650,
             yPercent: 400,
             autoAlpha: 0,
-            ease: Power3.easeIn,
+            ease: 'power3.in',
           },
           'start'
         )
         .to(
           '#astro',
-          12,
           {
+            duration: 12,
             bottom: '-10vh',
             right: '-10vw',
             scale: 4,
-            ease: Power3.easeInOut,
+            ease: 'power3.inOut',
           },
           'start'
         )
         .to(
           '#coffee',
-          12,
           {
+            duration: 12,
             top: '8rem',
             left: 0,
             scale: 4,
-            ease: Power3.easeInOut,
+            ease: 'power3.inOut',
           },
           'start'
         )
@@ -509,12 +531,12 @@ export default {
         .addLabel('start', 0)
         .fromTo(
           '.cloud-1',
-          10,
           {
             yPercent: 50,
             xPercent: 20,
           },
           {
+            duration: 10,
             yPercent: -85,
             xPercent: -20,
           },
@@ -522,12 +544,12 @@ export default {
         )
         .fromTo(
           '.cloud-2',
-          10,
           {
             yPercent: 40,
             xPercent: -10,
           },
           {
+            duration: 10,
             yPercent: -40,
             xPercent: 85,
           },
@@ -535,12 +557,12 @@ export default {
         )
         .fromTo(
           '.cloud-3',
-          10,
           {
             yPercent: 70,
             xPercent: 40,
           },
           {
+            duration: 10,
             yPercent: -85,
             xPercent: -40,
           },
@@ -548,56 +570,64 @@ export default {
         )
 
       // EarlyDays()
+      // Do not re-set #biz1 .container visible here — that fights early1's hide
+      // when both timelines sit at progress 1 and re-render on reverse scroll.
+      // Hide ocean once outside any scrubbed timeline — a scrubbed .set() on
+      // earlyTitle kept re-applying autoAlpha:0 and fighting early1's fade-in.
+      gsap.set('.pepe-scenery', { autoAlpha: 0 })
       this.timelines.earlyTitle
-        .set('.pepe-scenery', { autoAlpha: 0 })
-        .set('#biz1 .container', { autoAlpha: 1 })
         .addLabel('start', 0)
         .to(
           '#astro',
-          4,
           {
+            duration: 4,
             yPercent: 600,
             xPercent: 200,
-            ease: Power2.easeIn,
+            ease: 'power2.in',
           },
           'start'
         )
         .to(
           '#coffee',
-          4,
           {
+            duration: 4,
             yPercent: -600,
             xPercent: -200,
-            ease: Power2.easeIn,
+            ease: 'power2.in',
           },
           'start'
         )
-        .to('#earlyTitle .title-container', 2, { autoAlpha: 1 }, 'start')
+        .to(
+          '#earlyTitle .title-container',
+          { duration: 2, autoAlpha: 1 },
+          'start'
+        )
         .from(
           '#earlyTitle .title',
-          4,
           {
+            duration: 4,
             yPercent: -50,
             autoAlpha: 0,
             rotationX: 90,
             transformOrigin: '50% 50% -100px',
-            ease: Power3.easeOut,
+            ease: 'power3.out',
           },
           'start'
         )
         .from(
           '#earlyTitle .std',
-          4,
           {
+            duration: 4,
             yPercent: 50,
             autoAlpha: 0,
             rotationX: -90,
             transformOrigin: '50% 50% 100px',
-            ease: Power3.easeOut,
+            ease: 'power3.out',
           },
           'start'
         )
-        .to('#earlyTitle .title, #earlyTitle .std', 4, {
+        .to('#earlyTitle .title, #earlyTitle .std', {
+          duration: 4,
           autoAlpha: 0,
           yPercent: -100,
         })
@@ -612,8 +642,8 @@ export default {
 
       timeline.addLabel('start').to(
         '.pepe',
-        10,
         {
+          duration: 10,
           x: `-${pepeLength}px`,
           scale: 0.5,
         },
@@ -621,8 +651,9 @@ export default {
       )
 
       this.timelines.early1
-        .set('#biz1 .container', { autoAlpha: 0 })
-        .to('.pepe-scenery', 8, { autoAlpha: 1 })
+        // biz1 hide/show is owned by sceneCallbacks (onEnter / onLeaveBack) —
+        // a scrubbed .set(autoAlpha:0) here re-hides biz after reverse leave.
+        .to('.pepe-scenery', { duration: 8, autoAlpha: 1 })
     },
     sceneFloatingHead() {
       this.timelines.early2.addLabel('start', 0)
@@ -630,44 +661,57 @@ export default {
     sceneSunset() {
       this.timelines.early3
         .set('#Mario .container', { autoAlpha: 0 })
-        .to('.pepe-scenery', 8, { autoAlpha: 0 })
+        // Fade ocean + clouds together so parallax leftovers don't stick at the top
+        .to('.pepe-scenery, .earlyDays .clouds', { duration: 8, autoAlpha: 0 })
     },
     sceneArtPhiGames() {
       this.timelines.artPhiGamesTitle
         .set('#Mario .container', { autoAlpha: 0 })
         .addLabel('start', 1)
-        .to('#ArtPhiGamesTitle .title-container', 1, { autoAlpha: 1 })
-        .staggerFrom('#ArtPhiGamesTitle .title .line', 4, {
+        .to('#ArtPhiGamesTitle .title-container', {
+          duration: 1,
+          autoAlpha: 1,
+        })
+        .from('#ArtPhiGamesTitle .title .line', {
+          duration: 4,
           yPercent: -50,
           autoAlpha: 0,
           rotationX: 90,
           transformOrigin: '50% 50% -100px',
-          ease: Power3.easeOut,
+          ease: 'power3.out',
           stagger: 0.5,
         })
         .from(
           '#ArtPhiGamesTitle .std',
-          4,
           {
+            duration: 4,
             yPercent: 50,
             autoAlpha: 0,
             rotationX: -90,
             transformOrigin: '50% 50% 100px',
-            ease: Power3.easeOut,
+            ease: 'power3.out',
           },
           '-=1'
         )
-        .to('#ArtPhiGamesTitle .title, #ArtPhiGamesTitle .std', 3, {
+        .to('#ArtPhiGamesTitle .title, #ArtPhiGamesTitle .std', {
+          duration: 3,
           yPercent: -100,
           autoAlpha: 0,
         })
-        .set('#earlyTitle .title-container', { autoAlpha: 1 })
+      // Do not .set('#earlyTitle .title-container') here — on reverse that set
+      // undoes to autoAlpha 0 and leaves pepe/clouds invisible while earlyTitle
+      // is still at progress 1 (so it never re-applies its own show tween).
     },
     sceneMario() {
-      // using tweener for precise timing
-      this.tweeners.mario
-        .to('#earlyTitle .title-container', 0.5, { autoAlpha: 0 }) // fix reverse scroll and help time the mario trigger
-        .to('#Mario .container', 1, {
+      // locked to the scroll position (see SCRUB_OVERRIDES) for precise timing
+      this.timelines.mario
+        .fromTo(
+          '#earlyTitle .title-container',
+          { autoAlpha: 1 },
+          { duration: 0.5, autoAlpha: 0 }
+        ) // hide earlyDays layer for Mario; fromTo keeps reverse restore explicit
+        .to('#Mario .container', {
+          duration: 1,
           autoAlpha: 1,
           zIndex: 4,
           onComplete: () => {
@@ -701,21 +745,21 @@ export default {
         .addLabel('start', 0)
         .to(
           '#Ghibli .grass1',
-          20,
           {
+            duration: 20,
             yPercent: 10,
             xPercent: -100,
-            ease: Power1.easeIn,
+            ease: 'power1.in',
           },
           'start'
         )
         .to(
           '#Ghibli .grass2',
-          20,
           {
+            duration: 20,
             yPercent: 10,
             xPercent: 100,
-            ease: Power1.easeIn,
+            ease: 'power1.in',
           },
           'start'
         )
@@ -733,22 +777,22 @@ export default {
         .set('#Ghibli .sky .c1, #Ghibli .sky .c2', { yPercent: 50 })
         .to(
           '#Ghibli .sky .c1',
-          20,
           {
+            duration: 20,
             yPercent: 10,
             xPercent: -50,
             scale: 1.5,
-            ease: Power1.easeIn,
+            ease: 'power1.in',
           },
           'start'
         )
         .to(
           '#Ghibli .sky .c2',
-          20,
           {
+            duration: 20,
             yPercent: 0,
             scale: 1.5,
-            ease: Power1.easeIn,
+            ease: 'power1.in',
           },
           'start'
         )
@@ -766,7 +810,8 @@ export default {
           }px`
         : '-120vw'
 
-      castleTimeline.to('.castle-container', 10, {
+      castleTimeline.to('.castle-container', {
+        duration: 10,
         x: castleLength,
         y: '-70vh',
         scale: 0.5,
@@ -774,8 +819,8 @@ export default {
 
       this.timelines.ghibli
         .addLabel('start', 0)
-        .to('#Mario .container', 4, { autoAlpha: 0 }, 'start')
-        .to('#Ghibli .container', 4, { autoAlpha: 1 }, 'start')
+        .to('#Mario .container', { duration: 4, autoAlpha: 0 }, 'start')
+        .to('#Ghibli .container', { duration: 4, autoAlpha: 1 }, 'start')
 
       this.timelines.ghibli2.addLabel('start', 0)
       this.timelines.ghibli3.addLabel('start', 0)
@@ -784,46 +829,36 @@ export default {
     sceneWrapper() {
       this.timelines.wrapper
         .addLabel('start', 0)
-        .to('#Ghibli .container', 2, { autoAlpha: 0 }, 'start')
-        .from('#wrapperTitle .static-container', 2, { autoAlpha: 1 })
+        .to('#Ghibli .container', { duration: 2, autoAlpha: 0 }, 'start')
+        .from('#wrapperTitle .static-container', {
+          duration: 2,
+          autoAlpha: 1,
+        })
     },
     createParallax(options) {
-      const {
-        tweenerElement,
-        tweenerTime,
-        timelineTime,
-        offset,
-        duration,
-        triggerElement,
-      } = {
-        tweenerElement: '.tweenerElement',
-        tweenerTime: 20,
-        timelineTime: 4,
-        offset: -this.$viewport.height / 2,
+      const { duration, triggerElement } = {
         duration: this.$viewport.height * 3.5,
         triggerElement: '',
         ...options,
       }
 
-      const timeline = new TimelineMax({ paused: true })
-      const tweener = new TimelineMax()
+      const timeline = gsap.timeline({ paused: true })
 
-      tweener
-        .to(tweenerElement, tweenerTime, { rotation: 0 })
-        .eventCallback('onUpdate', () => {
-          TweenLite.to(timeline, timelineTime, {
-            progress: tweener.progress(),
-            ease: Power3.easeOut,
-          })
+      // Old system smoothed progress with a short TweenLite catch-up (~0.5–1s feel),
+      // not a multi-second linear scrub. High scrub values left pepe/clouds/castle
+      // mid-flight when reversing. Keep light momentum only.
+      const scrub = 0.5
+
+      this.scrollTriggers.push(
+        ScrollTrigger.create({
+          trigger: triggerElement,
+          start: 'top bottom',
+          end: () => `+=${duration}`,
+          animation: timeline,
+          scrub,
+          fastScrollEnd: true,
         })
-
-      new ScrollMagic.Scene({
-        triggerElement,
-        offset,
-        duration,
-      })
-        .setTween(tweener)
-        .addTo(this.scrollMagicController)
+      )
 
       return timeline
     },

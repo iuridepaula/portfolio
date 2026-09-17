@@ -1,27 +1,13 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
+import VueGtag from 'vue-gtag'
 import App from './App.vue'
 import router from './router'
-import VueAnalytics from 'vue-analytics'
 
-// no tips
-Vue.config.productionTip = false
-
-// Analytics
-Vue.use(VueAnalytics, {
-  id: 'UA-75833214-1',
-  router,
-})
+const app = createApp(App)
 
 // globals
-Vue.prototype.$viewport = {
-  width: window.innerWidth,
-  height: window.innerHeight,
-  isMobile: window.innerWidth <= 768,
-  isTablet: window.innerWidth <= 1024,
-  isDesktop: window.innerWidth > 1024,
-}
-function setViewport() {
-  Vue.prototype.$viewport = {
+function getViewport() {
+  return {
     width: window.innerWidth,
     height: window.innerHeight,
     isMobile: window.innerWidth <= 568,
@@ -29,10 +15,21 @@ function setViewport() {
     isDesktop: window.innerWidth > 1024,
   }
 }
-window.addEventListener('resize', setViewport)
 
-// instance
-new Vue({
-  router,
-  render: (h) => h(App),
-}).$mount('#app')
+app.config.globalProperties.$viewport = getViewport()
+window.addEventListener('resize', () => {
+  app.config.globalProperties.$viewport = getViewport()
+})
+
+app.use(router)
+
+// Analytics
+app.use(
+  VueGtag,
+  {
+    config: { id: 'UA-75833214-1' },
+  },
+  router
+)
+
+app.mount('#app')

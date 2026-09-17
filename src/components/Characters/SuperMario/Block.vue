@@ -11,13 +11,16 @@
 </template>
 
 <script>
-import { TimelineMax, SteppedEase } from 'gsap'
+import gsap from 'gsap'
+import { MotionPathPlugin } from 'gsap/MotionPathPlugin'
 import { random } from '@/utils'
 import AudioStomp from './assets/smw_stomp.ogg'
 import AudioPowerUp from './assets/smw_power-up.ogg'
 import AudioAppears from './assets/smw_power-up_appears.ogg'
 import AudioNoDamage from './assets/smw_stomp_no_damage.ogg'
 import SuperMarioCoin from './Coin.vue'
+
+gsap.registerPlugin(MotionPathPlugin)
 
 export default {
   name: 'SuperMarioBlock',
@@ -32,13 +35,15 @@ export default {
       foundCoins: 0,
       coinsToBeFound: 16,
       hasTouched: false,
-      blockAnimation: new TimelineMax(),
-      coinAnimation: new TimelineMax(),
       audioStomp: new Audio(AudioStomp),
       audioPowerUp: new Audio(AudioPowerUp),
       audioAppears: new Audio(AudioAppears),
       audioNoDamage: new Audio(AudioNoDamage),
     }
+  },
+  created() {
+    this.blockAnimation = gsap.timeline()
+    this.coinAnimation = gsap.timeline()
   },
   computed: {
     hasFoundAllCoins() {
@@ -50,7 +55,7 @@ export default {
       const coin = this.$el.querySelectorAll('.mario-coin')[this.foundCoins]
       const xCoords = random(-150, 150)
 
-      const coinAnimation = new TimelineMax()
+      const coinAnimation = gsap.timeline()
       coinAnimation
         // .clear(true)
         .set(coin, {
@@ -58,17 +63,18 @@ export default {
           xPercent: 0,
           yPercent: 0,
         })
-        .to(coin, 0.1, { yPercent: -100 })
-        .to(coin, 1, {
-          bezier: {
+        .to(coin, { duration: 0.1, yPercent: -100 })
+        .to(coin, {
+          duration: 1,
+          motionPath: {
             curviness: 1.25,
-            values: [
+            path: [
               { xPercent: xCoords, yPercent: random(-150, -100) },
               { xPercent: xCoords * 2, yPercent: 800 },
             ],
             autoRotate: false,
           },
-          ease: SteppedEase.config(24),
+          ease: 'steps(24)',
         })
 
       this.foundCoins++
@@ -89,8 +95,8 @@ export default {
       this.blockAnimation
         .clear(true)
         .set(box, { yPercent: 0 })
-        .to(box, 0.07, { yPercent: -40, ease: SteppedEase.config(2) })
-        .to(box, 0.07, { yPercent: 0, ease: SteppedEase.config(2) })
+        .to(box, { duration: 0.07, yPercent: -40, ease: 'steps(2)' })
+        .to(box, { duration: 0.07, yPercent: 0, ease: 'steps(2)' })
     },
     onTouchBlock() {
       this.hasTouched = true
