@@ -16,38 +16,36 @@
 
     <SceneSection id="early-days">
       <TextBlock>
-        <p>Design & illustration.</p>
+        <p>Design &amp; illustration.</p>
         <p class="-big">
           A frontend developer<br />
-          <span class="-purple">with one foothold in arts.</span>
+          <span class="-purple">with one foot still in the arts.</span>
         </p>
       </TextBlock>
     </SceneSection>
     <SceneSection id="early-days2">
       <TextBlock>
         <p class="-big">
-          <span class="-purple">Freelancing</span> &
-          <span class="-purple">startuping,</span><br />
-          <span class="-purple">Inches</span> &
+          <span class="-purple">Freelance</span> &amp;
+          <span class="-purple">early startups.</span><br />
+          <span class="-purple">Inches</span> &amp;
           <span class="-purple">pixels.</span>
         </p>
         <p>
-          Illustrating album arts, book covers, and billboards as a freelancer.
-          And designing websites, online magazines, and news portals at my first
-          web studio.<br />
+          Album covers, book jackets, billboards, and websites, magazines, and
+          news portals at my first studio.
         </p>
       </TextBlock>
     </SceneSection>
     <SceneSection id="early-days3">
       <TextBlock>
         <p>
-          We've proudly fueled the starring<br />
-          of some big Brazilian names such as
+          We got to work with some big Brazilian names like
           <span class="-big -purple"
             ><em>Porta dos Fundos</em>, <em>Kibe Loco</em>, Fhits.tv,
             <em>Galo Frito</em></span
           >
-          among many others...
+          among others.
         </p>
       </TextBlock>
     </SceneSection>

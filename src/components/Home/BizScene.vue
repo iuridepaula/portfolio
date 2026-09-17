@@ -7,8 +7,8 @@
     <SceneSection id="biz1">
       <TextBlock>
         <p class="-big">
-          From 2011 to 2019 I was
-          <strong class="-purple">Head of Frontend</strong>
+          From 2011 to 2019 I
+          <strong class="-purple">led frontend</strong>
           @
           <a
             href="https://www.bizcommerce.com.br/"
@@ -19,8 +19,8 @@
           >.
         </p>
         <p>
-          A SaaS e-commerce platform focused on simplifying and customizing the
-          use of Magento.
+          A SaaS e-commerce platform built to make Magento feel simpler,
+          and a little more ours.
         </p>
       </TextBlock>
       <template #container>
@@ -38,22 +38,22 @@
     <SceneSection id="biz2">
       <TextBlock>
         <p>
-          Throughout these years we delivered hundreds of
+          Year after year we shipped
           <span class="-big -purple">
-            tools, modules, integrations, and custom projects
+            tools, modules, and custom work
           </span>
-          for online stores and service providers.
+          for stores and partners alike.
         </p>
       </TextBlock>
     </SceneSection>
     <SceneSection id="biz3">
       <TextBlock>
         <p>
-          biz currently runs
+          What began small became a platform
           <span class="-big">
-            <span class="-purple">+1200 stores</span>, payment & shipping
-            integrations with
-            <span class="-purple">thousands of transactions</span> daily.
+            many shops quietly relied on:
+            <span class="-purple">payments, shipping,</span> and the everyday
+            flow of selling online.
           </span>
         </p>
       </TextBlock>

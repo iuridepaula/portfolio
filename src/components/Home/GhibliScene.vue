@@ -3,11 +3,11 @@
     <SceneSection id="Ghibli">
       <TextBlock>
         <p>
-          Before designing for web, I was creating
+          Before the web, I made
           <span class="-big -purple">
-            3D models, matte painting and advertisements
+            3D models, matte paintings, and ads
           </span>
-          for many brands, TV commercials, games...
+          for brands, commercials, and games.
         </p>
       </TextBlock>
 
@@ -27,15 +27,13 @@
     <SceneSection id="Ghibli3">
       <TextBlock>
         <p class="-big">
-          And studying
+          And I studied
           <span class="-purple"
-            >Philosophy, Japanese animation, fine arts and video games.</span
+            >Philosophy, Japanese animation, fine arts, and games.</span
           >
         </p>
         <p>
-          All of these subjects have a major impact on how I start and develop
-          my creative processes, leading the way on how I view web development
-          today.
+          That mix still shapes how I think, and how I build for the web today.
         </p>
       </TextBlock>
     </SceneSection>

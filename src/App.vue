@@ -40,7 +40,7 @@ export default {
     }
   },
   created() {
-    // Keep GSAP instances off Vue's reactive proxy — Proxies break the ticker/onComplete
+    // Keep GSAP instances off Vue's reactive proxy: Proxies break the ticker/onComplete
     this.introTimeline = gsap.timeline()
     this.leaveTimeline = gsap.timeline()
   },

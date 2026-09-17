@@ -2,17 +2,17 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from './views/Home.vue'
 import { startRouteProgress, doneRouteProgress } from './routeProgress'
 
-const TITLE = 'iuri.is'
-const URL = 'https://iuri.is/'
+const TITLE = '/home'
+const URL = 'https://iuridepaula.com/'
 const ABOUT =
-  'Frontend developer heavily influenced by storytelling, interactions, and UX. Addicted to music, visual arts, and games.'
+  'Frontend & design engineer. The web has changed completely. The part I love hasn\'t.'
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: '.is()',
+      name: '/home',
       component: Home,
       meta: {
         title: TITLE,
@@ -53,10 +53,10 @@ const router = createRouter({
     },
     {
       path: '/about',
-      name: '.about()',
+      name: '/about',
       component: () => import('./views/About.vue'),
       meta: {
-        title: 'iuri.about',
+        title: '/about',
         bodyClass: 'page-about',
         metaTags: [
           {
@@ -66,7 +66,7 @@ const router = createRouter({
           // facebook
           {
             name: 'og:title',
-            content: 'iuri.about',
+            content: '/about',
           },
           {
             name: 'og:url',
@@ -79,7 +79,7 @@ const router = createRouter({
           // twitter
           {
             name: 'twitter:title',
-            content: 'iuri.about',
+            content: '/about',
           },
           {
             name: 'twitter:url',
@@ -99,10 +99,10 @@ const router = createRouter({
     },
     {
       path: '/:pathMatch(.*)*',
-      name: `.err(404)`,
+      name: '/err(404)',
       component: () => import('./views/404.vue'),
       meta: {
-        title: `iuri.err(404)`,
+        title: `/err(404)`,
         bodyClass: 'page-err404',
         metaTags: [
           {
@@ -112,7 +112,7 @@ const router = createRouter({
           // facebook
           {
             name: 'og:title',
-            content: `iuri.err(404)`,
+            content: `/err(404)`,
           },
           {
             name: 'og:url',
@@ -125,7 +125,7 @@ const router = createRouter({
           // twitter
           {
             name: 'twitter:title',
-            content: `iuri.err(404)`,
+            content: `/err(404)`,
           },
           {
             name: 'twitter:url',

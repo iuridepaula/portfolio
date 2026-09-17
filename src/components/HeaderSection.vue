@@ -30,15 +30,10 @@
 
         <ul>
           <li>
-            <router-link to="/" title="Home">.is()</router-link>
+            <router-link to="/" title="Home">home</router-link>
           </li>
           <li>
-            <router-link to="/about" title="About me">.about()</router-link>
-          </li>
-          <li>
-            <a :href="`mailto:${data.email}`" title="Send me an email"
-              >.email()</a
-            >
+            <router-link to="/about" title="About me">about</router-link>
           </li>
           <li v-for="link in data.links" :key="link.url" class="social-link">
             <a :href="link.url" :title="link.title" target="_blank">

@@ -1,5 +1,4 @@
 {
-  "email": "depaula.iuri@gmail.com",
   "links": [
     {
       "url": "https://www.linkedin.com/in/iuridepaula/",
@@ -18,31 +17,37 @@
     "label": "CV"
   },
   "description": [
-    "Frontend developer heavily influenced by storytelling, interactions, and UX. Addicted to music, visual arts, and games.",
-    "From Brazil, based in Barcelona."
+    "Frontend & design engineer. The web has changed completely. The part I love hasn't.",
+    "From Brazil, based in Berlin."
   ],
   "subtitles": ["he/him"],
   "skills": [
-    ["Web app architecture", "Strategic thinking", "Storytelling"],
-    ["Frontend", "UX/UI"],
+    ["Architecture", "System design", "Performance", "State management"],
+    ["Design systems", "Motion & interaction", "UX/UI", "AI-native interfaces"],
     [
+      "TypeScript",
       "JavaScript",
-      "CSS",
-      "HTML",
       "React",
+      "Next.js",
       "Vue",
+      "Nuxt",
       "Node",
-      "Canvas",
-      "SVG",
-      "WebGL"
+      "Three.js",
+      "WebGL",
+      "GSAP"
     ],
-    ["Figma", "Photoshop", "Illustrator"]
+    ["HTML", "CSS", "SVG", "Canvas", "Figma", "Photoshop", "Illustrator"]
   ],
   "experiences": [
     {
       "position": "Senior Frontend Engineer",
-      "company": "Activision Blizzard King",
+      "company": "Miro",
       "time": "* current"
+    },
+    {
+      "position": "Senior Frontend Engineer",
+      "company": "Activision Blizzard King",
+      "time": "2022-2023"
     },
     {
       "position": "Senior Frontend Engineer",
@@ -55,7 +60,7 @@
       "time": "2019-2020"
     },
     {
-      "position": "Head of Frontend & UX",
+      "position": "Co-founder & Frontend Lead",
       "company": "Biz",
       "time": "2011 - 2019"
     },
@@ -79,11 +84,8 @@
       ["en-US", "English"],
       ["pt-BR", "Português"]
     ],
-    "intermediate": [["es-ES", "Español"]],
-    "basic": [
-      ["de-DE", "Deutsch"],
-      ["ca-ES", "Català"]
-    ]
+    "professional": [["es-ES", "Español"]],
+    "basic": [["de-DE", "Deutsch"]]
   },
-  "busy": ["Pet my dog", "Spanish guitar", "Games", "#eleNÃO"]
+  "busy": ["Dog walks", "Spanish guitar", "Games"]
 }

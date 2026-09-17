@@ -212,7 +212,7 @@ export default {
       return {
         myCV: onEnterBoth(() => {
           this.isPlaying.Biz = false
-          // Hide fixed biz/earlyDays layers when back on the intro — otherwise
+          // Hide fixed biz/earlyDays layers when back on the intro, otherwise
           // shapes from #biz1 .container linger over the first scene on reverse.
           gsap.set('#biz1 .container', { autoAlpha: 0 })
           gsap.set('#earlyTitle .title-container', { autoAlpha: 0 })
@@ -352,7 +352,7 @@ export default {
           xPercent: 400,
           yPercent: 100,
         })
-        // this scene — biz1 container visibility is owned by sceneCallbacks so a
+        // this scene: biz1 container visibility is owned by sceneCallbacks so a
         // scrubbed .set() here cannot leave shapes visible over the intro on reverse
         .set('#bizTitle .title-container', { autoAlpha: 1 })
         .addLabel('start', 0)
@@ -570,9 +570,9 @@ export default {
         )
 
       // EarlyDays()
-      // Do not re-set #biz1 .container visible here — that fights early1's hide
+      // Do not re-set #biz1 .container visible here: that fights early1's hide
       // when both timelines sit at progress 1 and re-render on reverse scroll.
-      // Hide ocean once outside any scrubbed timeline — a scrubbed .set() on
+      // Hide ocean once outside any scrubbed timeline: a scrubbed .set() on
       // earlyTitle kept re-applying autoAlpha:0 and fighting early1's fade-in.
       gsap.set('.pepe-scenery', { autoAlpha: 0 })
       this.timelines.earlyTitle
@@ -651,7 +651,7 @@ export default {
       )
 
       this.timelines.early1
-        // biz1 hide/show is owned by sceneCallbacks (onEnter / onLeaveBack) —
+        // biz1 hide/show is owned by sceneCallbacks (onEnter / onLeaveBack);
         // a scrubbed .set(autoAlpha:0) here re-hides biz after reverse leave.
         .to('.pepe-scenery', { duration: 8, autoAlpha: 1 })
     },
@@ -698,7 +698,7 @@ export default {
           yPercent: -100,
           autoAlpha: 0,
         })
-      // Do not .set('#earlyTitle .title-container') here — on reverse that set
+      // Do not .set('#earlyTitle .title-container') here: on reverse that set
       // undoes to autoAlpha 0 and leaves pepe/clouds invisible while earlyTitle
       // is still at progress 1 (so it never re-applies its own show tween).
     },
